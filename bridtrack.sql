@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
+<<<<<<< HEAD
 -- Tiempo de generación: 26-06-2025 a las 17:40:57
+=======
+-- Tiempo de generación: 26-06-2025 a las 17:32:27
+>>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +24,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bridtrack`
 --
+<<<<<<< HEAD
 CREATE DATABASE IF NOT EXISTS `bridtrack` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `bridtrack`;
 
@@ -71,6 +76,8 @@ CREATE TABLE `asignacion` (
   `Fecha_asignacion` date DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+>>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
 
 -- --------------------------------------------------------
 
@@ -78,6 +85,7 @@ CREATE TABLE `asignacion` (
 -- Estructura de tabla para la tabla `cargo`
 --
 
+DROP TABLE IF EXISTS `cargo`;
 CREATE TABLE `cargo` (
   `id_cargo` int(11) NOT NULL,
   `Nombre` varchar(100) NOT NULL
@@ -91,6 +99,7 @@ INSERT INTO `cargo` (`id_cargo`, `Nombre`) VALUES
 (1, 'Administrador'),
 (2, 'Empleado');
 
+<<<<<<< HEAD
 -- --------------------------------------------------------
 
 --
@@ -302,11 +311,14 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `usuario_email`, `clave`, `id_tipo_usuario`) VALUES
 (25469224, 'keiberzamudia14@gmail.com', '25469224', 1);
 
+=======
+>>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
 --
 -- Índices para tablas volcadas
 --
 
 --
+<<<<<<< HEAD
 -- Indices de la tabla `activos`
 --
 ALTER TABLE `activos`
@@ -331,114 +343,23 @@ ALTER TABLE `asignacion`
   ADD KEY `cedula_empleado` (`cedula_empleado`);
 
 --
+=======
+>>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
 -- Indices de la tabla `cargo`
 --
 ALTER TABLE `cargo`
   ADD PRIMARY KEY (`id_cargo`);
 
 --
--- Indices de la tabla `compra`
---
-ALTER TABLE `compra`
-  ADD PRIMARY KEY (`id_compra`),
-  ADD KEY `cod_proveedor` (`cod_proveedor`),
-  ADD KEY `cedula_empleado` (`cedula_empleado`);
-
---
--- Indices de la tabla `departamento`
---
-ALTER TABLE `departamento`
-  ADD PRIMARY KEY (`id_departamento`);
-
---
--- Indices de la tabla `empleado`
---
-ALTER TABLE `empleado`
-  ADD PRIMARY KEY (`cedula_empleado`),
-  ADD KEY `id_departamento` (`id_departamento`),
-  ADD KEY `id_cargo` (`id_cargo`);
-
---
--- Indices de la tabla `proveedor`
---
-ALTER TABLE `proveedor`
-  ADD PRIMARY KEY (`cod_proveedor`);
-
---
--- Indices de la tabla `reclamo_activo`
---
-ALTER TABLE `reclamo_activo`
-  ADD PRIMARY KEY (`id_reclamo`),
-  ADD KEY `cedula_empleado` (`cedula_empleado`),
-  ADD KEY `id_activo` (`id_activo`);
-
---
--- Indices de la tabla `solicitud`
---
-ALTER TABLE `solicitud`
-  ADD PRIMARY KEY (`id_solicitud`),
-  ADD KEY `cedula_empleado` (`cedula_empleado`),
-  ADD KEY `id_activo` (`id_activo`),
-  ADD KEY `id_ubicacion` (`id_ubicacion`);
-
---
--- Indices de la tabla `tipo_activos`
---
-ALTER TABLE `tipo_activos`
-  ADD PRIMARY KEY (`id_tipo_activo`);
-
---
--- Indices de la tabla `tipo_mantenimiento`
---
-ALTER TABLE `tipo_mantenimiento`
-  ADD PRIMARY KEY (`id_tipo_mantenimiento`);
-
---
--- Indices de la tabla `tipo_usuario`
---
-ALTER TABLE `tipo_usuario`
-  ADD PRIMARY KEY (`id_tipo_usuario`);
-
---
--- Indices de la tabla `ubicacion_activos`
---
-ALTER TABLE `ubicacion_activos`
-  ADD PRIMARY KEY (`id_Ubicacion`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `id_tipo_usuario` (`id_tipo_usuario`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
-
---
--- AUTO_INCREMENT de la tabla `activos`
---
-ALTER TABLE `activos`
-  MODIFY `id_activo` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `activo_mantenimiento`
---
-ALTER TABLE `activo_mantenimiento`
-  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `asignacion`
---
-ALTER TABLE `asignacion`
-  MODIFY `id_asignacion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo`
 --
 ALTER TABLE `cargo`
   MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+<<<<<<< HEAD
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
@@ -558,6 +479,8 @@ ALTER TABLE `solicitud`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_tipo_usuario`) REFERENCES `tipo_usuario` (`id_tipo_usuario`);
+=======
+>>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
