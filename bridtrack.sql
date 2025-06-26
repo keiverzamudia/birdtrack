@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-06-2025 a las 22:46:52
+-- Tiempo de generación: 26-06-2025 a las 17:08:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -33,7 +33,6 @@ CREATE TABLE `activos` (
   `id_activo` int(11) NOT NULL,
   `id_tipo_activo` int(11) DEFAULT NULL,
   `id_ubicacion` int(11) DEFAULT NULL,
-  `id_mantenimiento` int(11) DEFAULT NULL,
   `Nombre` varchar(100) NOT NULL,
   `Descripcion` text DEFAULT NULL,
   `Estado` varchar(50) DEFAULT NULL,
@@ -313,8 +312,7 @@ INSERT INTO `usuario` (`id_usuario`, `usuario_email`, `clave`, `id_tipo_usuario`
 ALTER TABLE `activos`
   ADD PRIMARY KEY (`id_activo`),
   ADD KEY `id_tipo_activo` (`id_tipo_activo`),
-  ADD KEY `id_ubicacion` (`id_ubicacion`),
-  ADD KEY `id_mantenimiento` (`id_mantenimiento`);
+  ADD KEY `id_ubicacion` (`id_ubicacion`);
 
 --
 -- Indices de la tabla `activo_mantenimiento`
@@ -510,7 +508,6 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `activos`
 --
 ALTER TABLE `activos`
-  ADD CONSTRAINT `activos_ibfk_1` FOREIGN KEY (`id_mantenimiento`) REFERENCES `activo_mantenimiento` (`id_mantenimiento`),
   ADD CONSTRAINT `activos_ibfk_2` FOREIGN KEY (`id_tipo_activo`) REFERENCES `tipo_activos` (`id_tipo_activo`),
   ADD CONSTRAINT `activos_ibfk_3` FOREIGN KEY (`id_ubicacion`) REFERENCES `ubicacion_activos` (`id_Ubicacion`);
 
