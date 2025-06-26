@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-06-2025 a las 22:46:52
+-- Tiempo de generación: 26-06-2025 a las 17:40:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -33,12 +33,11 @@ CREATE TABLE `activos` (
   `id_activo` int(11) NOT NULL,
   `id_tipo_activo` int(11) DEFAULT NULL,
   `id_ubicacion` int(11) DEFAULT NULL,
-  `id_mantenimiento` int(11) DEFAULT NULL,
   `Nombre` varchar(100) NOT NULL,
   `Descripcion` text DEFAULT NULL,
   `Estado` varchar(50) DEFAULT NULL,
   `Fecha_adquisicion` date DEFAULT NULL,
-  `Status` varchar(50) DEFAULT NULL
+  `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -55,7 +54,7 @@ CREATE TABLE `activo_mantenimiento` (
   `Descripción` text DEFAULT NULL,
   `Estado` varchar(50) DEFAULT NULL,
   `Fecha` date DEFAULT NULL,
-  `Status` varchar(50) DEFAULT NULL
+  `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -70,7 +69,7 @@ CREATE TABLE `asignacion` (
   `cedula_empleado` int(11) DEFAULT NULL,
   `Descripcion` text DEFAULT NULL,
   `Fecha_asignacion` date DEFAULT NULL,
-  `Status` varchar(50) DEFAULT NULL
+  `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -106,7 +105,7 @@ CREATE TABLE `compra` (
   `Cantidad` int(11) DEFAULT NULL,
   `Costo` decimal(10,2) DEFAULT NULL,
   `Fecha` date DEFAULT NULL,
-  `Status` varchar(50) DEFAULT NULL
+  `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -142,7 +141,7 @@ CREATE TABLE `empleado` (
   `correo_electronico` varchar(100) DEFAULT NULL,
   `Fecha_creacion` date DEFAULT NULL,
   `id_cargo` int(11) DEFAULT NULL,
-  `Status` varchar(50) DEFAULT NULL
+  `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -150,8 +149,8 @@ CREATE TABLE `empleado` (
 --
 
 INSERT INTO `empleado` (`cedula_empleado`, `id_departamento`, `Nombre`, `correo_electronico`, `Fecha_creacion`, `id_cargo`, `Status`) VALUES
-(7432637, 1, 'Julio Rodriguez', 'jcdomo69@gmail.com', '2025-06-23', 1, '1'),
-(25469224, 2, 'Keiver Zamudia', 'keiberzamudia14@gmail.com', '2025-06-23', 1, '1');
+(7432637, 1, 'Julio Rodriguez', 'jcdomo69@gmail.com', '2025-06-23', 1, 1),
+(25469224, 2, 'Keiver Zamudia', 'keiberzamudia14@gmail.com', '2025-06-23', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -202,7 +201,7 @@ CREATE TABLE `solicitud` (
   `id_ubicacion` int(11) DEFAULT NULL,
   `Descripcion` text DEFAULT NULL,
   `Estado` varchar(50) DEFAULT NULL,
-  `Status` varchar(50) DEFAULT NULL
+  `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -313,8 +312,7 @@ INSERT INTO `usuario` (`id_usuario`, `usuario_email`, `clave`, `id_tipo_usuario`
 ALTER TABLE `activos`
   ADD PRIMARY KEY (`id_activo`),
   ADD KEY `id_tipo_activo` (`id_tipo_activo`),
-  ADD KEY `id_ubicacion` (`id_ubicacion`),
-  ADD KEY `id_mantenimiento` (`id_mantenimiento`);
+  ADD KEY `id_ubicacion` (`id_ubicacion`);
 
 --
 -- Indices de la tabla `activo_mantenimiento`
@@ -510,7 +508,6 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `activos`
 --
 ALTER TABLE `activos`
-  ADD CONSTRAINT `activos_ibfk_1` FOREIGN KEY (`id_mantenimiento`) REFERENCES `activo_mantenimiento` (`id_mantenimiento`),
   ADD CONSTRAINT `activos_ibfk_2` FOREIGN KEY (`id_tipo_activo`) REFERENCES `tipo_activos` (`id_tipo_activo`),
   ADD CONSTRAINT `activos_ibfk_3` FOREIGN KEY (`id_ubicacion`) REFERENCES `ubicacion_activos` (`id_Ubicacion`);
 
