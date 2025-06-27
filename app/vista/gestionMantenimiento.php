@@ -33,30 +33,27 @@ require_once 'componentes/menu.php';
             <div class="modal-body">
               <form method="POST">
                 <div class="mb-4">
-                  <select class="form-select mb-3" name="nombre" id="nombre" aria-label="Default select example">
+                  <label for="id_activo" class="form-label">Seleccione el Activo</label>
+                  <select class="form-select mb-3" name="id_activo" id="id_activo" required>
                     <option selected disabled>Seleccione el Activo</option>
-                    <?php
-                    foreach ($Activo as $activo) {
-                      echo "<option value='" . $activo['id_activo'] . "'>"
-                        . $activo['Nombre'] . "</option>";
+                    <?php foreach ($Activo as $activo) {
+                      echo "<option value='" . $activo['id_activo'] . "'>" . $activo['Nombre_Activo'] . "</option>";
                     } ?>
                   </select>
-                  <label for="id activo" class="form-label">ID De Activo</label>
-                  <input type="text" class="form-control" id="id_activo" name="id_activo" required>
                 </div>
                 <div class="mb-4">
-                  <label for="empleado responsable" class="form-label">Empleado Responsable</label>
-                  <input type="text" class="form-control" id="responsable" name="responsable">
+                  <label for="responsable" class="form-label">Empleado Responsable</label>
+                  <input type="text" class="form-control" id="responsable" name="responsable" required>
                 </div>
-                <select class="form-select mb-3" name="tipo" id="tipo" aria-label="Default select example">
-                  <option selected disabled>Seleccione el Tipo de Mantenimiento</option>
-                  <?php
-                  foreach ($tipo_mantenimiento as $tipo) {
-                    echo "<option value='" . $tipo['id_tipo_mantenimiento'] . "'>"
-                      . $tipo['Nombre'] . "</option>";
-                  } ?>
-                </select>
-                <br><br>
+                <div class="mb-4">
+                  <label for="tipo" class="form-label">Tipo de Mantenimiento</label>
+                  <select class="form-select mb-3" name="tipo" id="tipo" required>
+                    <option selected disabled>Seleccione el Tipo de Mantenimiento</option>
+                    <?php foreach ($tipo_mantenimiento as $tipo) {
+                      echo "<option value='" . $tipo['id_tipo_mantenimiento'] . "'>" . $tipo['Nombre'] . "</option>";
+                    } ?>
+                  </select>
+                </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                   <button type="submit" class="btn btn-success" name="enviar">Enviar a Mantenimiento</button>
@@ -112,7 +109,7 @@ require_once 'componentes/menu.php';
                     <td> <?= $mantenimiento['id_mantenimiento'] ?> </td>
                     <td> <?= $mantenimiento['nombre_activo'] ?> </td>
                     <td> <?= $mantenimiento['id_activo'] ?> </td>
-                    <td> <?= $mantenimiento['Descripción'] ?> </td>
+                    <td> <?= $mantenimiento['Empleado_Responsable'] ?> </td>
                     <td> <?= $mantenimiento['tipo_mtto'] ?> </td>
                     <td> <?= $mantenimiento['Estado'] ?> </td>
                     <td> <?= $mantenimiento['Fecha'] ?> </td>
@@ -164,7 +161,7 @@ require_once 'componentes/menu.php';
                         <div class="mb-4">
                           <label for="InputEmpleado" class="form-label">Empleado Responsable</label>
                           <input type="text" class="form-control" name='responsable' id="InputEmpleado"
-                            aria-describedby="empleadoHelp" value="<?php echo $mantenimiento['empleado_reponsable']; ?>"
+                            aria-describedby="empleadoHelp" value="<?php echo $mantenimiento['Empleado_Responsable']; ?>"
                             required>
                           <div id="empleadolHelp" class="form-text">Ingrese el Nombre del Responable del
                             Activo</div>

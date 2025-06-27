@@ -31,9 +31,10 @@ class tipoMantenimientoModel extends conexion
     function registrar()
     {
 
-        try { //Agg estatu para eliminacion logica
-            $sql = "INSERT INTO tipo_mantenimiento( Nombre, Descripcion, STATUS)
-VALUES (:Nombre, :Descripcion,1)";
+        try {
+
+            $sql = "INSERT INTO tipo_mantenimiento( Nombre, Descripcion)
+VALUES (:Nombre, :Descripcion)";
             $query = $this->conex->prepare($sql);
             $query->bindParam(':Nombre', $this->NOMBRE_TIPO_MTTO);
             $query->bindParam(':Descripcion', $this->DESCRIPCION);
@@ -50,7 +51,7 @@ VALUES (:Nombre, :Descripcion,1)";
     {
 
         try {
-            $sql = "SELECT * FROM tipo_mantenimiento WHERE status = 1";
+            $sql = "SELECT * FROM tipo_mantenimiento";
             $query = $this->conex->prepare($sql);
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -62,8 +63,9 @@ VALUES (:Nombre, :Descripcion,1)";
 
     function eliminar()
     {
-        try {      //cambie DALETE POR UPDATE PARA LA ELIMINACION LOGICA
-            $sql = "UPDATE tipo_mantenimiento SET status = 0 WHERE id_tipo_mantenimiento = :id_tipo_mantenimiento";
+        try {
+            //cambie DALETE POR UPDATE PARA LA ELIMINACION LOGICA
+            $sql = "DELETE FROM tipo_mantenimiento WHERE id_tipo_mantenimiento = :id_tipo_mantenimiento";
             $query = $this->conex->prepare($sql);
             $query->bindParam(':id_tipo_mantenimiento', $this->ID_TIPO_MTTO);
             return $query->execute();

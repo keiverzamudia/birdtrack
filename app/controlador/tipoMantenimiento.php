@@ -18,7 +18,7 @@ if (isset($_POST['enviar'])) {
 
 }
 
-if (isset($_POST['eliminar'])) {
+if (isset($_POST['Eliminar'])) {
     $obj_tipoMantenimiento->set_ID_TIPO_MTTO($_POST['id_tipo_mantenimiento']);
     if ($obj_tipoMantenimiento->eliminar()) {
         $mensaje = "Tipo de mantenimiento eliminado correctamente";

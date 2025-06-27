@@ -99,7 +99,7 @@ include_once 'componentes/menu.php';
                                             <form method="POST">
                                                 <input type="hidden" name="id_tipo_mantenimiento"
                                                     value="<?= $tipo['id_tipo_mantenimiento'] ?>">
-                                                <button id="btnEliminarMantenimiento" name="eliminar" type="submit"
+                                                <button id="btnEliminarMantenimiento" name="Eliminar" type="submit"
                                                     class="btn btn-danger">Eliminar</button>
                                             </form>
                                         </div>

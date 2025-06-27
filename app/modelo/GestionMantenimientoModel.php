@@ -43,15 +43,16 @@ class GestionMantenimientoModel extends conexion
   function registrar()
   {
 
-    try {                                         //Agg estatu para eliminacion logica
-      $sql = "INSERT INTO activo_mantenimiento(Nombre, id_activo, Descripción, id_tipo_mantenimiento,Estado, Fecha, Status)     
-              VALUES (:Nombre_Activo, :Id_Activo, :Empleado_Responable,:Tipo_MTTO, 'PENDIENTE'S, Now(),1)";
-      $query = $this->conex->prepare($sql);
-      $query->bindParam(':Nombre_Activo', $this->Nombre_Activo);
-      $query->bindParam(':Id_Activo', $this->Id_Activo);
-      $query->bindParam(':Empleado_Responable', $this->Empleado_Responable);
-      $query->bindParam(':Tipo_MTTO', $this->Tipo_MTTO);
+    try {
+      //Agg estatu para eliminacion logica
 
+      $sql = "INSERT INTO `activo_mantenimiento` 
+(`id_mantenimiento`, `id_activo`, `id_tipo_mantenimiento`, `Empleado_Responsable`, `Estado`, `Fecha`, `Status`)     
+VALUES (Null, :Id_Activo, :Tipo_MTTO, :Empleado_Responable, 'PENDIENTE', Now(), 1)";
+      $query = $this->conex->prepare($sql);
+      $query->bindParam(':Id_Activo', $this->Id_Activo);
+      $query->bindParam(':Tipo_MTTO', $this->Tipo_MTTO);
+      $query->bindParam(':Empleado_Responable', $this->Empleado_Responable);
       return $query->execute();
 
     } catch (PDOException $e) {
@@ -64,8 +65,8 @@ class GestionMantenimientoModel extends conexion
   {
     try {
       $sql = "SELECT `activo_mantenimiento`.`id_mantenimiento`, 
-      `activos`.`Nombre` AS `nombre_activo`, `activos`.`id_activo`,
-      `activo_mantenimiento`.`Descripción`, `tipo_mantenimiento`.`Nombre` AS `tipo_mtto`,
+      `activos`.`Nombre_Activo` AS `nombre_activo`, `activos`.`id_activo`,
+      `activo_mantenimiento`.`Empleado_Responsable`, `tipo_mantenimiento`.`Nombre` AS `tipo_mtto`,
        `activo_mantenimiento`.`Estado`, `activo_mantenimiento`.`Fecha`
 FROM `activo_mantenimiento` 
 	LEFT JOIN `activos` ON `activo_mantenimiento`.`id_activo` = `activos`.`id_activo` 
@@ -116,7 +117,7 @@ FROM `activo_mantenimiento`
   function eliminar()
   {
     try {      //cambie DALETE POR UPDATE PARA LA ELIMINACION LOGICA
-      $sql = "UPDATE activo_mantenimiento SET status = 0 WHERE id_mantenimiento = :ID_MTTO";
+      $sql = "UPDATE activo_mantenimiento SET Status = 0 WHERE id_mantenimiento = :ID_MTTO";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':ID_MTTO', $this->ID_MTTO);
       return $query->execute();

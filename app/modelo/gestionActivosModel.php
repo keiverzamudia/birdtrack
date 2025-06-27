@@ -6,8 +6,7 @@ use \App\conexion\conexion;
 use PDO;
 use PDOException;
 
-class gestionActivosModel extends conexion
-{
+class gestionActivosModel extends conexion {
 
   private $id_activo;
   private $nombre;
@@ -15,32 +14,26 @@ class gestionActivosModel extends conexion
   private $tipo;
   private $estado;
 
-  function set_id_activo($valor)
-  {
+  function set_id_activo($valor){
     $this->id_activo = $valor;
   }
-  function set_nombre($valor)
-  {
+  function set_Nombre_Activo($valor){
     $this->nombre = $valor;
   }
-  function set_descripcion($valor)
-  {
+  function set_descripcion($valor){
     $this->descripcion = $valor;
   }
-  function set_tipo($valor)
-  {
+  function set_tipo($valor){
     $this->tipo = $valor;
   }
-  function set_estado($valor)
-  {
+  function set_Estado_Activo($valor){
     $this->estado = $valor;
   }
 
-  function registrar()
-  {
+  function registrar(){
 
     try {                                         //Agg estatu para eliminacion logica
-      $sql = "INSERT INTO activos(id_activo, nombre, descripcion, tipo, estado, status) 
+      $sql = "INSERT INTO activo(id_activo, nombre, descripcion, tipo, estado, status) 
               VALUES (null, :nombre, :descripcion, :tipo_activo, :estado_de_activo, 1)";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':nombre', $this->nombre);
@@ -55,10 +48,9 @@ class gestionActivosModel extends conexion
 
   }
 
-  function consultar()
-  {
+  function consultar(){
     try {                                //Agg el WHERE para Eliminacion logica
-      $sql = "SELECT * FROM activos WHERE status = 1";
+      $sql = "SELECT * FROM activos WHERE Status = 1";
       $query = $this->conex->prepare($sql);
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -67,29 +59,27 @@ class gestionActivosModel extends conexion
     }
   }
 
-  function modificar($id)
-  {
-    try {
-      $sql = "UPDATE activos
+function modificar($id){
+  try {
+    $sql = "UPDATE activo
             SET nombre = :nombre,
                 descripcion = :descripcion,
                 tipo = :tipo_activo,
                 estado = :estado_de_activo
             WHERE id_activo = :id";
-      $query = $this->conex->prepare($sql);
-      $query->bindParam(':nombre', $this->nombre);
-      $query->bindParam(':descripcion', $this->descripcion);
-      $query->bindParam(':tipo_activo', $this->tipo);
-      $query->bindParam(':estado_de_activo', $this->estado);
-      $query->bindParam(':id', $id);
-      return $query->execute();
-    } catch (PDOException $e) {
-      return false;
-    }
+    $query = $this->conex->prepare($sql);
+    $query->bindParam(':nombre', $this->nombre);
+    $query->bindParam(':descripcion', $this->descripcion);
+    $query->bindParam(':tipo_activo', $this->tipo);
+    $query->bindParam(':estado_de_activo', $this->estado);
+    $query->bindParam(':id', $id);
+    return $query->execute();
+  } catch (PDOException $e) {
+    return false;
   }
+}
 
-  function buscar()
-  {
+  function buscar(){
     try {
       $sql = "SELECT * FROM activos WHERE id_activo = :id";
       $query = $this->conex->prepare($sql);
@@ -102,10 +92,9 @@ class gestionActivosModel extends conexion
   }
 
 
-  function eliminar()
-  {
+  function eliminar(){
     try {      //cambie DALETE POR UPDATE PARA LA ELIMINACION LOGICA
-      $sql = "UPDATE activos SET status = 0 WHERE id_activo = :id";
+      $sql = "UPDATE activo SET status = 0 WHERE id_activo = :id";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':id', $this->id_activo);
       return $query->execute();

@@ -9,17 +9,14 @@ $obj_Mantenimiento = new GestionMantenimientoModel();
 $obj_TipoMantenimiento = new tipoMantenimientoModel();
 $obj_Activos = new gestionActivosModel();
 
-$mantenimientos = $obj_Mantenimiento->consultar(); // Para la tabla
 $tipo_mantenimiento = $obj_TipoMantenimiento->consultar(); // Para el select
 $Activo = $obj_Activos->consultar();//la consulta de los activos en la tabla y en el select
 
 if (isset($_POST['enviar'])) {
   //print_r($_POST);
-  $obj_Mantenimiento->set_Nombre_Activo($_POST['nombre']);
   $obj_Mantenimiento->set_Id_Activo($_POST['id_activo']);
   $obj_Mantenimiento->set_Empleado_Responable($_POST['responsable']);
-  $obj_Mantenimiento->set_tipo_MTTO($_POST['tipo']);
-  $obj_Mantenimiento->set_Estado_MTTO($_POST['estado']);
+  $obj_Mantenimiento->set_Tipo_MTTO($_POST['tipo']);
 
   if ($obj_Mantenimiento->registrar()) {
     $mensaje = "Solicitud registrada correctamente";
@@ -33,7 +30,7 @@ if (isset($_POST['enviar'])) {
 
 }
 if (isset($_POST['modificar'])) {
-  print_r($_POST);
+  //print_r($_POST);
 
   $obj_Mantenimiento->set_Id_Activo($_POST['id']);
   $obj_Mantenimiento->set_Empleado_Responable($_POST['responsable']);

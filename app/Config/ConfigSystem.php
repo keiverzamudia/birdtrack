@@ -1,6 +1,6 @@
 <?php
 
-define("_URL_","http://localhost/CardeApp/");
+define("_URL_","http://localhost/BirdTrack/");
 
 define("_HOST_","localhost");
 define("_DB_","bridtrack");
