@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
-<<<<<<< HEAD
--- Tiempo de generación: 26-06-2025 a las 17:40:57
-=======
--- Tiempo de generación: 26-06-2025 a las 17:32:27
->>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
+-- Tiempo de generación: 27-06-2025 a las 05:47:41
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,7 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bridtrack`
 --
-<<<<<<< HEAD
 CREATE DATABASE IF NOT EXISTS `bridtrack` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `bridtrack`;
 
@@ -38,12 +33,20 @@ CREATE TABLE `activos` (
   `id_activo` int(11) NOT NULL,
   `id_tipo_activo` int(11) DEFAULT NULL,
   `id_ubicacion` int(11) DEFAULT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Descripcion` text DEFAULT NULL,
-  `Estado` varchar(50) DEFAULT NULL,
+  `Nombre_Activo` varchar(100) NOT NULL,
+  `Descripcion_Activo` text DEFAULT NULL,
+  `Estado_Activo` varchar(50) DEFAULT 'Disponible',
   `Fecha_adquisicion` date DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `activos`
+--
+
+INSERT INTO `activos` (`id_activo`, `id_tipo_activo`, `id_ubicacion`, `Nombre_Activo`, `Descripcion_Activo`, `Estado_Activo`, `Fecha_adquisicion`, `Status`) VALUES
+(1, 1, 1, 'PC Hp 1200', 'PC Hp 1200 8Gb de Ram disco 120GB', 'Sin Asignar', '2025-06-26', 1),
+(2, 2, 1, 'Asus Zen', 'Asus Zen I5 7ma 16GB Ram 1Tb Disco', NULL, '2025-06-26', 1);
 
 -- --------------------------------------------------------
 
@@ -55,9 +58,9 @@ CREATE TABLE `activo_mantenimiento` (
   `id_mantenimiento` int(11) NOT NULL,
   `id_activo` int(11) DEFAULT NULL,
   `id_tipo_mantenimiento` int(11) DEFAULT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Descripción` text DEFAULT NULL,
-  `Estado` varchar(50) DEFAULT NULL,
+  `Nombre_Activo` varchar(100) NOT NULL,
+  `Empleado_Responsable` text DEFAULT NULL,
+  `Estado` varchar(50) DEFAULT 'Pendiente',
   `Fecha` date DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -72,12 +75,25 @@ CREATE TABLE `asignacion` (
   `id_asignacion` int(11) NOT NULL,
   `id_activo` int(11) DEFAULT NULL,
   `cedula_empleado` int(11) DEFAULT NULL,
-  `Descripcion` text DEFAULT NULL,
+  `Descripcion_Asignacion` text DEFAULT NULL,
   `Fecha_asignacion` date DEFAULT NULL,
-  `Status` tinyint(1) DEFAULT NULL
+  `Status` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-=======
->>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
+
+--
+-- Volcado de datos para la tabla `asignacion`
+--
+
+INSERT INTO `asignacion` (`id_asignacion`, `id_activo`, `cedula_empleado`, `Descripcion_Asignacion`, `Fecha_asignacion`, `Status`) VALUES
+(1, 1, 7432637, 'Equipo en excelente estado', '2025-06-26', 1),
+(2, 2, 25469224, 'Equipo en excelente estado', '2025-06-25', 1),
+(3, 2, 7432637, 'En Perfecto Estado', '2025-06-26', 1),
+(4, 2, 25469224, 'hazta que pude', '2025-06-26', 1),
+(5, 1, 7432637, 'por el software sirve', '2025-06-26', 1),
+(6, 1, 25469224, '2da vez', '2025-06-26', 1),
+(7, 1, 25894881, '3era vez', '2025-06-27', 1),
+(8, 1, 25469224, '4era vez', '2025-06-26', 0),
+(9, 1, 25469224, '5era vez', '2025-06-26', 1);
 
 -- --------------------------------------------------------
 
@@ -85,21 +101,20 @@ CREATE TABLE `asignacion` (
 -- Estructura de tabla para la tabla `cargo`
 --
 
-DROP TABLE IF EXISTS `cargo`;
 CREATE TABLE `cargo` (
   `id_cargo` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL
+  `Nombre_Cargo` varchar(100) NOT NULL,
+  `Status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cargo`
 --
 
-INSERT INTO `cargo` (`id_cargo`, `Nombre`) VALUES
-(1, 'Administrador'),
-(2, 'Empleado');
+INSERT INTO `cargo` (`id_cargo`, `Nombre_Cargo`, `Status`) VALUES
+(1, 'Administrador', 1),
+(2, 'Empleado', 1);
 
-<<<<<<< HEAD
 -- --------------------------------------------------------
 
 --
@@ -113,7 +128,7 @@ CREATE TABLE `compra` (
   `Detalle_Compra` text DEFAULT NULL,
   `Cantidad` int(11) DEFAULT NULL,
   `Costo` decimal(10,2) DEFAULT NULL,
-  `Fecha` date DEFAULT NULL,
+  `Fecha_Compra` date DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -125,17 +140,18 @@ CREATE TABLE `compra` (
 
 CREATE TABLE `departamento` (
   `id_departamento` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Descripcion` text DEFAULT NULL
+  `Nombre_Departamento` varchar(100) NOT NULL,
+  `Descripcion_Departamento` text DEFAULT NULL,
+  `Status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `departamento`
 --
 
-INSERT INTO `departamento` (`id_departamento`, `Nombre`, `Descripcion`) VALUES
-(1, 'ITV', 'International TV es pionera en cuanto a producción televisiva especializada en béisbol, permitiéndoles formar un equipo integrado por profesionales, que cuentan con una basta experiencia en el campo de producción de programas televisivos de dicho deporte.'),
-(2, 'Palco de Operaciones Cardenales', 'Palco De Operaciones Cardenales, Encargado de la proyección y sonido del estadio ');
+INSERT INTO `departamento` (`id_departamento`, `Nombre_Departamento`, `Descripcion_Departamento`, `Status`) VALUES
+(1, 'ITV', 'International TV es pionera en cuanto a producción televisiva especializada en béisbol, permitiéndoles formar un equipo integrado por profesionales, que cuentan con una basta experiencia en el campo de producción de programas televisivos de dicho deporte.', 0),
+(2, 'Palco de Operaciones Cardenales', 'Palco De Operaciones Cardenales, Encargado de la proyección y sonido del estadio ', 0);
 
 -- --------------------------------------------------------
 
@@ -146,7 +162,7 @@ INSERT INTO `departamento` (`id_departamento`, `Nombre`, `Descripcion`) VALUES
 CREATE TABLE `empleado` (
   `cedula_empleado` int(11) NOT NULL,
   `id_departamento` int(11) DEFAULT NULL,
-  `Nombre` varchar(100) NOT NULL,
+  `Nombre_Empleado` varchar(100) NOT NULL,
   `correo_electronico` varchar(100) DEFAULT NULL,
   `Fecha_creacion` date DEFAULT NULL,
   `id_cargo` int(11) DEFAULT NULL,
@@ -157,9 +173,10 @@ CREATE TABLE `empleado` (
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`cedula_empleado`, `id_departamento`, `Nombre`, `correo_electronico`, `Fecha_creacion`, `id_cargo`, `Status`) VALUES
+INSERT INTO `empleado` (`cedula_empleado`, `id_departamento`, `Nombre_Empleado`, `correo_electronico`, `Fecha_creacion`, `id_cargo`, `Status`) VALUES
 (7432637, 1, 'Julio Rodriguez', 'jcdomo69@gmail.com', '2025-06-23', 1, 1),
-(25469224, 2, 'Keiver Zamudia', 'keiberzamudia14@gmail.com', '2025-06-23', 1, 1);
+(25469224, 2, 'Keiver Zamudia', 'keiberzamudia14@gmail.com', '2025-06-23', 1, 1),
+(25894881, 1, 'Yolianna Angulo', 'yolianna14@gmail.com', '2025-06-26', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -169,19 +186,20 @@ INSERT INTO `empleado` (`cedula_empleado`, `id_departamento`, `Nombre`, `correo_
 
 CREATE TABLE `proveedor` (
   `cod_proveedor` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
+  `Nombre_Proveedor` varchar(100) NOT NULL,
   `Direccion` varchar(255) DEFAULT NULL,
   `Numero_telefono` varchar(20) DEFAULT NULL,
-  `Correo_elect` varchar(100) DEFAULT NULL
+  `Correo_elect` varchar(100) DEFAULT NULL,
+  `Status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `proveedor`
 --
 
-INSERT INTO `proveedor` (`cod_proveedor`, `Nombre`, `Direccion`, `Numero_telefono`, `Correo_elect`) VALUES
-(1, 'Amazon', '410 Terry Ave. N., Seattle, WA 98109-5210', '', 'cs-reply@amazon.com'),
-(2, 'Ebay', '2025 Hamilton Avenue, San José, California 95125', '866-540-3229', 'customerhelp@ebay.com');
+INSERT INTO `proveedor` (`cod_proveedor`, `Nombre_Proveedor`, `Direccion`, `Numero_telefono`, `Correo_elect`, `Status`) VALUES
+(1, 'Amazon', '410 Terry Ave. N., Seattle, WA 98109-5210', '', 'cs-reply@amazon.com', 1),
+(2, 'Ebay', '2025 Hamilton Avenue, San José, California 95125', '866-540-3229', 'customerhelp@ebay.com', 1);
 
 -- --------------------------------------------------------
 
@@ -208,10 +226,19 @@ CREATE TABLE `solicitud` (
   `cedula_empleado` int(11) DEFAULT NULL,
   `id_activo` int(11) DEFAULT NULL,
   `id_ubicacion` int(11) DEFAULT NULL,
+  `fecha_solicitud` datetime NOT NULL DEFAULT current_timestamp(),
   `Descripcion` text DEFAULT NULL,
   `Estado` varchar(50) DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `solicitud`
+--
+
+INSERT INTO `solicitud` (`id_solicitud`, `cedula_empleado`, `id_activo`, `id_ubicacion`, `fecha_solicitud`, `Descripcion`, `Estado`, `Status`) VALUES
+(1, 7432637, 1, 1, '2025-06-26 13:15:14', 'Se le Entrega en Excelente Estado', 'Asignado', 1),
+(2, 25469224, 1, 2, '2025-06-26 13:42:28', 'Activo en excelente estado', 'Asignado', 1);
 
 -- --------------------------------------------------------
 
@@ -280,16 +307,17 @@ INSERT INTO `tipo_usuario` (`id_tipo_usuario`, `tipo_usuario`) VALUES
 
 CREATE TABLE `ubicacion_activos` (
   `id_Ubicacion` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL
+  `Nombre` varchar(100) NOT NULL,
+  `Status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `ubicacion_activos`
 --
 
-INSERT INTO `ubicacion_activos` (`id_Ubicacion`, `Nombre`) VALUES
-(1, 'ITV'),
-(2, 'Palco de Operaciones');
+INSERT INTO `ubicacion_activos` (`id_Ubicacion`, `Nombre`, `Status`) VALUES
+(1, 'ITV', 1),
+(2, 'Palco de Operaciones', 1);
 
 -- --------------------------------------------------------
 
@@ -311,14 +339,11 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `usuario_email`, `clave`, `id_tipo_usuario`) VALUES
 (25469224, 'keiberzamudia14@gmail.com', '25469224', 1);
 
-=======
->>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
 --
 -- Índices para tablas volcadas
 --
 
 --
-<<<<<<< HEAD
 -- Indices de la tabla `activos`
 --
 ALTER TABLE `activos`
@@ -343,23 +368,114 @@ ALTER TABLE `asignacion`
   ADD KEY `cedula_empleado` (`cedula_empleado`);
 
 --
-=======
->>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
 -- Indices de la tabla `cargo`
 --
 ALTER TABLE `cargo`
   ADD PRIMARY KEY (`id_cargo`);
 
 --
+-- Indices de la tabla `compra`
+--
+ALTER TABLE `compra`
+  ADD PRIMARY KEY (`id_compra`),
+  ADD KEY `cod_proveedor` (`cod_proveedor`),
+  ADD KEY `cedula_empleado` (`cedula_empleado`);
+
+--
+-- Indices de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  ADD PRIMARY KEY (`id_departamento`);
+
+--
+-- Indices de la tabla `empleado`
+--
+ALTER TABLE `empleado`
+  ADD PRIMARY KEY (`cedula_empleado`),
+  ADD KEY `id_departamento` (`id_departamento`),
+  ADD KEY `id_cargo` (`id_cargo`);
+
+--
+-- Indices de la tabla `proveedor`
+--
+ALTER TABLE `proveedor`
+  ADD PRIMARY KEY (`cod_proveedor`);
+
+--
+-- Indices de la tabla `reclamo_activo`
+--
+ALTER TABLE `reclamo_activo`
+  ADD PRIMARY KEY (`id_reclamo`),
+  ADD KEY `cedula_empleado` (`cedula_empleado`),
+  ADD KEY `id_activo` (`id_activo`);
+
+--
+-- Indices de la tabla `solicitud`
+--
+ALTER TABLE `solicitud`
+  ADD PRIMARY KEY (`id_solicitud`),
+  ADD KEY `cedula_empleado` (`cedula_empleado`),
+  ADD KEY `id_activo` (`id_activo`),
+  ADD KEY `id_ubicacion` (`id_ubicacion`);
+
+--
+-- Indices de la tabla `tipo_activos`
+--
+ALTER TABLE `tipo_activos`
+  ADD PRIMARY KEY (`id_tipo_activo`);
+
+--
+-- Indices de la tabla `tipo_mantenimiento`
+--
+ALTER TABLE `tipo_mantenimiento`
+  ADD PRIMARY KEY (`id_tipo_mantenimiento`);
+
+--
+-- Indices de la tabla `tipo_usuario`
+--
+ALTER TABLE `tipo_usuario`
+  ADD PRIMARY KEY (`id_tipo_usuario`);
+
+--
+-- Indices de la tabla `ubicacion_activos`
+--
+ALTER TABLE `ubicacion_activos`
+  ADD PRIMARY KEY (`id_Ubicacion`);
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `id_tipo_usuario` (`id_tipo_usuario`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `activos`
+--
+ALTER TABLE `activos`
+  MODIFY `id_activo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `activo_mantenimiento`
+--
+ALTER TABLE `activo_mantenimiento`
+  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `asignacion`
+--
+ALTER TABLE `asignacion`
+  MODIFY `id_asignacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo`
 --
 ALTER TABLE `cargo`
   MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-<<<<<<< HEAD
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
@@ -389,7 +505,7 @@ ALTER TABLE `reclamo_activo`
 -- AUTO_INCREMENT de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_activos`
@@ -479,8 +595,6 @@ ALTER TABLE `solicitud`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_tipo_usuario`) REFERENCES `tipo_usuario` (`id_tipo_usuario`);
-=======
->>>>>>> a7aa1cf3f58a3362270f56b0862a9a35fecc8a8f
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

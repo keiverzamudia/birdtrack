@@ -17,7 +17,7 @@ class gestionActivosModel extends conexion {
   function set_id_activo($valor){
     $this->id_activo = $valor;
   }
-  function set_nombre($valor){
+  function set_Nombre_Activo($valor){
     $this->nombre = $valor;
   }
   function set_descripcion($valor){
@@ -26,7 +26,7 @@ class gestionActivosModel extends conexion {
   function set_tipo($valor){
     $this->tipo = $valor;
   }
-  function set_estado($valor){
+  function set_Estado_Activo($valor){
     $this->estado = $valor;
   }
 
@@ -50,7 +50,7 @@ class gestionActivosModel extends conexion {
 
   function consultar(){
     try {                                //Agg el WHERE para Eliminacion logica
-      $sql = "SELECT * FROM activo WHERE status = 1";
+      $sql = "SELECT * FROM activos WHERE Status = 1";
       $query = $this->conex->prepare($sql);
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -81,7 +81,7 @@ function modificar($id){
 
   function buscar(){
     try {
-      $sql = "SELECT * FROM activo WHERE id_activo = :id";
+      $sql = "SELECT * FROM activos WHERE id_activo = :id";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':id', $this->id_activo);
       $query->execute();

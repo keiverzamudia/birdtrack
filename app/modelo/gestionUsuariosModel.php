@@ -20,7 +20,7 @@ class gestionUsuariosModel extends conexion {
   function set_cedula($valor){
     $this->cedula = $valor;
   }
-  function set_nombre($valor){
+  function set_Nombre_Usuario($valor){
     $this->nombre = $valor;
   }
   function set_departamento($valor){
@@ -59,7 +59,7 @@ class gestionUsuariosModel extends conexion {
   
   function consultar(){
     try {
-      $sql = "SELECT * FROM empleado WHERE status = 1";
+      $sql = "SELECT * FROM empleado WHERE Status = 1";
       $query = $this->conex->prepare($sql);
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -94,9 +94,9 @@ class gestionUsuariosModel extends conexion {
   
   function buscar(){
     try {
-      $sql = "SELECT * FROM empleado WHERE cedula = :cedula";
+      $sql = "SELECT * FROM empleado WHERE cedula_empleado = :cedula_empleado AND status = 1";
       $query = $this->conex->prepare($sql);
-      $query->bindParam(':cedula', $this->cedula);
+      $query->bindParam(':cedula_empleado', $this->cedula);
       $query->execute();
       return $query->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {

@@ -36,7 +36,7 @@
 
 <!-- Nav Item - Asignacion de Activos Menu -->
 <li class="nav-item">
-    <a class="nav-link" href="?url=solicitudActivo">
+    <a class="nav-link" href="?url=asignacionActivo">
         <i class="fa-solid fa-people-arrows"></i>
         <span>Asignacion de Activos</span></a>
 </li>
