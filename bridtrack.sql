@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2025 a las 05:47:41
+-- Tiempo de generación: 28-06-2025 a las 07:42:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -45,8 +45,10 @@ CREATE TABLE `activos` (
 --
 
 INSERT INTO `activos` (`id_activo`, `id_tipo_activo`, `id_ubicacion`, `Nombre_Activo`, `Descripcion_Activo`, `Estado_Activo`, `Fecha_adquisicion`, `Status`) VALUES
-(1, 1, 1, 'PC Hp 1200', 'PC Hp 1200 8Gb de Ram disco 120GB', 'Sin Asignar', '2025-06-26', 1),
-(2, 2, 1, 'Asus Zen', 'Asus Zen I5 7ma 16GB Ram 1Tb Disco', NULL, '2025-06-26', 1);
+(1, 2, 2, 'PC Hp Super Duty', 'PC Hp 1200 8Gb de Ram disco 120GB', 'Sin Asignar', '2025-06-10', 1),
+(2, 2, 2, 'Asus Zen', 'Asus Zen I5 7ma 16GB Ram 1Tb Disco', NULL, '2025-06-26', 1),
+(3, 2, 1, 'Dell xh2', 'Dell xh2 16Gb de Ram', 'Disponible', '2025-06-27', 1),
+(4, 2, 1, 'La PC Lenta de Maria', 'mas Lenta que una Canaima', 'Disponible', '2025-06-27', 1);
 
 -- --------------------------------------------------------
 
@@ -58,12 +60,18 @@ CREATE TABLE `activo_mantenimiento` (
   `id_mantenimiento` int(11) NOT NULL,
   `id_activo` int(11) DEFAULT NULL,
   `id_tipo_mantenimiento` int(11) DEFAULT NULL,
-  `Nombre_Activo` varchar(100) NOT NULL,
-  `Empleado_Responsable` text DEFAULT NULL,
+  `cedula_empleado` int(11) DEFAULT NULL,
   `Estado` varchar(50) DEFAULT 'Pendiente',
   `Fecha` date DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `activo_mantenimiento`
+--
+
+INSERT INTO `activo_mantenimiento` (`id_mantenimiento`, `id_activo`, `id_tipo_mantenimiento`, `cedula_empleado`, `Estado`, `Fecha`, `Status`) VALUES
+(1, 1, 1, 7432637, 'Consolidado', '2025-06-27', 1);
 
 -- --------------------------------------------------------
 
@@ -85,15 +93,16 @@ CREATE TABLE `asignacion` (
 --
 
 INSERT INTO `asignacion` (`id_asignacion`, `id_activo`, `cedula_empleado`, `Descripcion_Asignacion`, `Fecha_asignacion`, `Status`) VALUES
-(1, 1, 7432637, 'Equipo en excelente estado', '2025-06-26', 1),
-(2, 2, 25469224, 'Equipo en excelente estado', '2025-06-25', 1),
+(1, 4, 25894881, 'Equipo en excelente estado', '2025-06-26', 1),
+(2, 3, 25894881, 'En buen estado probado', '2025-06-01', 1),
 (3, 2, 7432637, 'En Perfecto Estado', '2025-06-26', 1),
-(4, 2, 25469224, 'hazta que pude', '2025-06-26', 1),
+(4, 2, 25469224, 'En buen estado probado', '2025-06-26', 1),
 (5, 1, 7432637, 'por el software sirve', '2025-06-26', 1),
-(6, 1, 25469224, '2da vez', '2025-06-26', 1),
-(7, 1, 25894881, '3era vez', '2025-06-27', 1),
+(6, 1, 25469224, 'No se Probo', '2025-06-26', 1),
+(7, 1, 25894881, 'No se Probo', '2025-06-27', 1),
 (8, 1, 25469224, '4era vez', '2025-06-26', 0),
-(9, 1, 25469224, '5era vez', '2025-06-26', 1);
+(9, 1, 25469224, 'No se Probo', '2025-06-26', 1),
+(10, 3, 25894881, 'Excelente estado y provado', '2025-06-27', 1);
 
 -- --------------------------------------------------------
 
@@ -132,6 +141,13 @@ CREATE TABLE `compra` (
   `Status` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `compra`
+--
+
+INSERT INTO `compra` (`id_compra`, `cod_proveedor`, `cedula_empleado`, `Detalle_Compra`, `Cantidad`, `Costo`, `Fecha_Compra`, `Status`) VALUES
+(1, 1, 7432637, 'Carritos', 10, 100.00, '2025-06-27', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -150,8 +166,9 @@ CREATE TABLE `departamento` (
 --
 
 INSERT INTO `departamento` (`id_departamento`, `Nombre_Departamento`, `Descripcion_Departamento`, `Status`) VALUES
-(1, 'ITV', 'International TV es pionera en cuanto a producción televisiva especializada en béisbol, permitiéndoles formar un equipo integrado por profesionales, que cuentan con una basta experiencia en el campo de producción de programas televisivos de dicho deporte.', 0),
-(2, 'Palco de Operaciones Cardenales', 'Palco De Operaciones Cardenales, Encargado de la proyección y sonido del estadio ', 0);
+(1, '  ITV ', '  International TV', 1),
+(2, 'Palco de Operaciones Cardenales', 'Palco De Operaciones Cardenales, Encargado de la proyección y sonido del estadio ', 1),
+(3, 'Mercadeo Cardenales', 'Mercadeo Trabaja con Toda la logistica y promocion del equipo', 1);
 
 -- --------------------------------------------------------
 
@@ -249,16 +266,17 @@ INSERT INTO `solicitud` (`id_solicitud`, `cedula_empleado`, `id_activo`, `id_ubi
 CREATE TABLE `tipo_activos` (
   `id_tipo_activo` int(11) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
-  `Descripcion` text DEFAULT NULL
+  `Descripcion_tipo` text DEFAULT NULL,
+  `Status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tipo_activos`
 --
 
-INSERT INTO `tipo_activos` (`id_tipo_activo`, `Nombre`, `Descripcion`) VALUES
-(1, 'PC', 'Computadora de Mesa'),
-(2, 'Laptop', 'Computador Portatil');
+INSERT INTO `tipo_activos` (`id_tipo_activo`, `Nombre`, `Descripcion_tipo`, `Status`) VALUES
+(1, 'PC', 'Computadora de Mesa', 1),
+(2, ' Laptop ', ' Computador Portatil Doble', 1);
 
 -- --------------------------------------------------------
 
@@ -278,7 +296,8 @@ CREATE TABLE `tipo_mantenimiento` (
 
 INSERT INTO `tipo_mantenimiento` (`id_tipo_mantenimiento`, `Nombre`, `Descripcion`) VALUES
 (1, 'Mant-Preventivo', 'estrategia proactiva de cuidado y conservación de equipos, maquinaria e instalaciones que se realiza de forma programada y sistemática.'),
-(2, 'Mant-Correctivo', 'Ocurre de forma imprevista cuando un equipo falla repentinamente, interrumpiendo la operación.');
+(2, 'Mant-Correctivo', 'Ocurre de forma imprevista cuando un equipo falla repentinamente, interrumpiendo la operación.'),
+(3, 'Mant-Paulatino', 'Mantenimiento a veces');
 
 -- --------------------------------------------------------
 
@@ -357,7 +376,8 @@ ALTER TABLE `activos`
 ALTER TABLE `activo_mantenimiento`
   ADD PRIMARY KEY (`id_mantenimiento`),
   ADD KEY `id_activo` (`id_activo`),
-  ADD KEY `id_tipo_mantenimiento` (`id_tipo_mantenimiento`);
+  ADD KEY `id_tipo_mantenimiento` (`id_tipo_mantenimiento`),
+  ADD KEY `Empleado_Responsable` (`cedula_empleado`);
 
 --
 -- Indices de la tabla `asignacion`
@@ -457,19 +477,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `activos`
 --
 ALTER TABLE `activos`
-  MODIFY `id_activo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_activo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `activo_mantenimiento`
 --
 ALTER TABLE `activo_mantenimiento`
-  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `asignacion`
 --
 ALTER TABLE `asignacion`
-  MODIFY `id_asignacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_asignacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo`
@@ -481,13 +501,13 @@ ALTER TABLE `cargo`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -517,7 +537,7 @@ ALTER TABLE `tipo_activos`
 -- AUTO_INCREMENT de la tabla `tipo_mantenimiento`
 --
 ALTER TABLE `tipo_mantenimiento`
-  MODIFY `id_tipo_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_tipo_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_usuario`
@@ -553,7 +573,8 @@ ALTER TABLE `activos`
 --
 ALTER TABLE `activo_mantenimiento`
   ADD CONSTRAINT `activo_mantenimiento_ibfk_1` FOREIGN KEY (`id_tipo_mantenimiento`) REFERENCES `tipo_mantenimiento` (`id_tipo_mantenimiento`),
-  ADD CONSTRAINT `activo_mantenimiento_ibfk_2` FOREIGN KEY (`id_activo`) REFERENCES `activos` (`id_activo`);
+  ADD CONSTRAINT `activo_mantenimiento_ibfk_2` FOREIGN KEY (`id_activo`) REFERENCES `activos` (`id_activo`),
+  ADD CONSTRAINT `activo_mantenimiento_ibfk_3` FOREIGN KEY (`cedula_empleado`) REFERENCES `empleado` (`cedula_empleado`);
 
 --
 -- Filtros para la tabla `asignacion`

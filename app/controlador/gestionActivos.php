@@ -1,32 +1,41 @@
 <?php
 
 use App\modelo\gestionActivosModel;
+use App\modelo\TipoActivoModel;
 $obj_model = new gestionActivosModel();
+$obj_tipo = new  TipoActivoModel();
+
 
 if(isset($_POST['enviar'])){
-  $obj_model->set_nombre($_POST['nombre']);
-  $obj_model->set_descripcion($_POST['descripcion']);
-  $obj_model->set_tipo($_POST['tipo']);
-  $obj_model->set_estado($_POST['estado']);
- 
+  $obj_model->set_id_tipo($_POST['id_tipo_activo']);
+  $obj_model->set_id_ubicacion($_POST['id_ubicacion']);
+  $obj_model->set_nombre($_POST['Nombre']);
+  $obj_model->set_descripcion($_POST['Descripcion']);
+  $obj_model->set_fecha_adquisicion($_POST['Fecha_adquisicion']);
  if($obj_model->registrar()) {
     $mensaje = "Activo registrado correctamente";
   } else {
     $mensaje = "Error al registrar el activo";
   }
+
+  header('Location: index.php?url=gestionActivos');
+  exit();
 }
 
 if(isset($_POST['editar'])){
-  $obj_model->set_nombre($_POST['nombre']);
-  $obj_model->set_descripcion($_POST['descripcion']);
-  $obj_model->set_tipo($_POST['tipo']);
-  $obj_model->set_estado($_POST['estado']);
-
+  $obj_model->set_id_tipo($_POST['id_tipo_activo']);
+  $obj_model->set_id_ubicacion($_POST['id_ubicacion']);
+  $obj_model->set_nombre($_POST['Nombre']);
+  $obj_model->set_descripcion($_POST['Descripcion']);
+  $obj_model->set_fecha_adquisicion($_POST['Fecha_adquisicion']);
+ 
   if($obj_model->modificar($_POST['editar'])) {
-    $mensaje = "Solicitud actualizada correctamente";
+    $mensaje = "Activo actualizado correctamente";
   } else {
-    $mensaje = "Error al actualizar la solicitud";
+    $mensaje = "Error al actualizar el activo";
   }
+  header('Location: index.php?url=gestionActivos');
+  exit();
 }
 
 
@@ -37,6 +46,8 @@ if(isset($_POST['eliminar'])){
   } else {
     $mensaje = "Error al eliminar el activo";
   }
+  header('Location: index.php?url=gestionActivos');
+  exit();
 }
 
 if(isset($_POST['seleccion'])){
@@ -45,7 +56,46 @@ if(isset($_POST['seleccion'])){
 }
 
 
+//CRUD Tipo de activo
+
+if(isset($_POST['agregar_tipo_activo'])){
+  $obj_tipo->set_nombre_tipo($_POST['nombre_tipo_activo']);
+  $obj_tipo->set_descripcion_tipo($_POST['descripcion_tipo_activo']);
+  if($obj_tipo->registrarTipoActivo()){
+ $mensaje = "Tipo de activo registrado correctamente";
+  } else {
+    $mensaje = "Error al registrar el tipo de activo";
+  }
+ header('Location: index.php?url=gestionActivos');
+ exit();
+}
+
+if(isset($_POST['eliminar_tipo_activo'])){
+  $obj_tipo->set_id_tipo($_POST['eliminar_tipo_activo']);
+  $obj_tipo->eliminarTipoActivo();
+
+ header('Location: index.php?url=gestionActivos');
+ exit();
+}
+
+if(isset($_POST['editar_tipo_activo'])){
+  $obj_tipo->set_id_tipo($_POST['editar_tipo_activo']);
+  $obj_tipo->set_nombre_tipo($_POST['nombre_tipo_activo']);
+  $obj_tipo->set_descripcion_tipo($_POST['descripcion_tipo_activo']);
+  $obj_tipo->editarTipoActivo();
+  
+  header('Location: index.php?url=gestionActivos');
+  exit();
+}
+
+
+
 $activos = $obj_model->consultar();
+$tipos_activos = $obj_model->cargarTiposActivos();
+$id_ubicacion = $obj_model->cargarUbicaciones();
+
+
+
 
 require_once 'componentes/llamado_vistas.php';
 

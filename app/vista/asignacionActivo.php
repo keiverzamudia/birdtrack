@@ -41,18 +41,15 @@ require_once 'componentes/menu.php';
                     <td> <?php echo $asignacion['Descripcion_Asignacion'] ?> </td>
                     <td> <?php echo $asignacion['Fecha_asignacion'] ?> </td>
 
-
-
                     <td>
-                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editar_asignacion">
+                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editar<?php echo $asignacion['id_asignacion'] ?>" name="editar">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                           <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                         </svg>
                       </button>
-                      <!--BOTON DE MODAL DE ELIMINACION DE ALERTA  -->
                       <button class="btn btn-danger btnEliminar" title="Eliminar" type="button"
-                        value="<?php echo $item['id_solicitud'] ?>" data-bs-toggle="modal" data-bs-target="#eliminar">
+                        value="<?php echo $asignacion['id_asignacion'] ?>" data-bs-toggle="modal" data-bs-target="#eliminar">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                           viewBox="0 0 16 16">
                           <path
@@ -63,11 +60,55 @@ require_once 'componentes/menu.php';
                       </button>
                     </td>
                   </tr>
-                <?php }
+
+                  <!-- Modal para editar asignación -->
+                  <div class="modal fade" id="editar<?php echo $asignacion['id_asignacion'] ?>" tabindex="-1" aria-labelledby="editModalLabel<?php echo $asignacion['id_asignacion'] ?>" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="editModalLabel<?php echo $asignacion['id_asignacion'] ?>">Editar Activo Asignado N°-<?php echo $asignacion['id_asignacion'] ?></h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="POST">
+                          <div class="modal-body d-flex flex-column gap-4">
+                            <select class="form-select mb-3" name="id_activo" id="id_activo_edit<?php echo $asignacion['id_asignacion'] ?>" aria-label="Default select example">
+                              <option disabled>Seleccione el Activo</option>
+                              <?php
+                              foreach ($activos as $activo_option) {
+                                $selected = ($activo_option['id_activo'] == $asignacion['id_activo']) ? 'selected' : '';
+                                echo "<option value='" . $activo_option['id_activo'] . "' " . $selected . ">"
+                                  . $activo_option['id_activo'] . " - " . $activo_option['Nombre_Activo'] . "</option>";
+                              } ?>
+                            </select>
+
+                            <select class="form-select mb-3" name="cedula_empleado" id="cedula_empleado_edit<?php echo $asignacion['id_asignacion'] ?>" aria-label="Default select example">
+                              <option disabled>Seleccione el Empleado</option>
+                              <?php
+                              foreach ($usuarios as $usuario_option) {
+                                $selected = ($usuario_option['cedula_empleado'] == $asignacion['cedula_empleado']) ? 'selected' : '';
+                                echo "<option value='" . $usuario_option['cedula_empleado'] . "' " . $selected . ">"
+                                  . $usuario_option['cedula_empleado'] . " - " . $usuario_option['Nombre_Empleado'] . "</option>";
+                              } ?>
+                            </select>
+
+                            <input class="form-control" type="text" name="Descripcion_Asignacion"
+                              value="<?php echo htmlspecialchars($asignacion['Descripcion_Asignacion']) ?>" required>
+                            <input class="form-control" type="date" name="Fecha_asignacion"
+                              value="<?php echo $asignacion['Fecha_asignacion'] ?>" required>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary" value="<?php echo $asignacion['id_asignacion'] ?>" name="editar">Editar Activo</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                <?php } // Cierre del foreach
               } else { ?>
                 <tr>
                   <td colspan="6">
-                    <h2>No se registro correctamente el activo :</h2>
+                    <h2>No se registró correctamente el activo:</h2>
                   </td>
                 </tr>
               <?php } ?>
@@ -78,125 +119,79 @@ require_once 'componentes/menu.php';
     </div>
   </div>
 
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="enviar_solicitud" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Asignacion de Activos</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form method="POST">
-        <div class="modal-body d-flex flex-column gap-4">
-          <select class="form-select mb-3" name="id_activo" id="id_activo" aria-label="Default select example">
-            <option selected disabled>Seleccione el Activo</option>
-            <?php
-            foreach ($activos as $activo) {
-              echo "<option value='" . $activo['id_activo'] . "'>"
-                . $activo['id_activo'] . " - " . $activo['Nombre_Activo'] . "</option>";
-            } ?>
-          </select>
-          <select class="form-select mb-3" name="cedula_empleado" id="cedula_empleado" aria-label="Default select example">
-            <option selected disabled>Seleccione el Empleado</option>
-            <?php
-            foreach ($usuarios as $usuario) {
-              echo "<option value='" . $usuario['cedula_empleado'] . "'>"
-                . $usuario['cedula_empleado'] . " - " . $usuario['Nombre_Empleado'] . "</option>";
-            } ?>
-          </select>
-          <input class="form-control" type="text" name="Descripcion_Asignacion" placeholder="Describe El estado del Activo" required>
-          <input class="form-control" type="date" name="Fecha_asignacion" placeholder="Fecha_asignacion" required>
+  <div class="modal fade" id="enviar_solicitud" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Asignacion de Activos</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" name="enviar">Enviar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- Nuevo Modal de eliminacion 'ALERTA' -->
-<div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-danger">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar eliminación</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <span class="fs-5">
-          ¿Esta seguro que desea eliminar El Activo Asignado N° <strong id="nombreEliminacion"></strong>?
-        </span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <form method="POST">
-          <button id="btnEliminarSolicitud" name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
+          <div class="modal-body d-flex flex-column gap-4">
+            <select class="form-select mb-3" name="id_activo" id="id_activo_create" aria-label="Default select example">
+              <option selected disabled>Seleccione el Activo</option>
+              <?php
+              foreach ($activos as $activo) {
+                echo "<option value='" . $activo['id_activo'] . "'>"
+                  . $activo['id_activo'] . " - " . $activo['Nombre_Activo'] . "</option>";
+              } ?>
+            </select>
+            <select class="form-select mb-3" name="cedula_empleado" id="cedula_empleado_create" aria-label="Default select example">
+              <option selected disabled>Seleccione el Empleado</option>
+              <?php
+              foreach ($usuarios as $usuario) {
+                echo "<option value='" . $usuario['cedula_empleado'] . "'>"
+                  . $usuario['cedula_empleado'] . " - " . $usuario['Nombre_Empleado'] . "</option>";
+              } ?>
+            </select>
+            <input class="form-control" type="text" name="Descripcion_Asignacion" placeholder="Describe El estado del Activo" required>
+            <input class="form-control" type="date" name="Fecha_asignacion" placeholder="Fecha_asignacion" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary" name="enviar">Enviar</button>
+          </div>
         </form>
       </div>
     </div>
   </div>
-</div>
-<!-- Modal Editar Asignacion -->
 
-<div class="modal fade" id="editar_asignacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Activo Asignado</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form method="POST">
-        <div class="modal-body d-flex flex-column gap-4">
-          <select class="form-select mb-3" name="nombre" id="nombre" aria-label="Default select example">
-            <option selected disabled><?php echo $activo['id_activo'] . " - " . $activo['Nombre_Activo']; ?></option>
-            <?php
-            foreach ($activos as $activo) {
-              echo "<option value='" . $activo['id_activo'] . "'>"
-                . $activo['id_activo'] . " - " . $activo['Nombre_Activo'] . "</option>";
-            } ?>
-          </select>
-          <select class="form-select mb-3" name="nombre" id="Empleado" aria-label="Default select example">
-            <option selected disabled><?php echo $usuario['cedula_empleado'] . " - " . $usuario['Nombre_Empleado'] ?></option>
-            <?php
-            foreach ($usuarios as $usuario) {
-              echo "<option value='" . $usuario['cedula_empleado'] . "'>"
-                . $usuario['cedula_empleado'] . " - " . $usuario['Nombre_Empleado'] . "</option>";
-            } ?>
-          </select>
-          <input class="form-control" type="text" name="Descripcion_Asignacion"
-            value="<?php echo $asignacion['Descripcion_Asignacion'] ?>" required>
-          <input class="form-control" type="date" name="Fecha_asignacion"
-            value="<?php echo $asignacion['Fecha_asignacion'] ?>" required>
+  <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar eliminación</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <span class="fs-5">
+            ¿Está seguro que desea eliminar El Activo Asignado N° <strong id="nombreEliminacion"></strong>?
+          </span>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" name="editar">Editar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <form method="POST">
+            <button id="btnEliminarSolicitud" name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
-</div>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
+  <?php
+  require_once 'componentes/footer.php';
+  ?>
 
-
-<?php
-require_once 'componentes/footer.php';
-?>
-
-<script>
-  $(document).ready(() => {
-    $(".btnEliminar").each((index, element) => {
-      $(element).on('click', (e) => {
-        $('#btnEliminarSolicitud').val($(e.target).closest('tr').find('td:eq(0)').text()) //encuentra la fila de la tabla donde se hizo clic.
-        $('#nombreEliminacion').text($(e.target).closest('tr').find('td:eq(0)').text()) //Dentro de esa fila, busca la segunda celda (<td>) (índice 1).
+  <script>
+    $(document).ready(() => {
+      $(".btnEliminar").each((index, element) => {
+        $(element).on('click', (e) => {
+          $('#btnEliminarSolicitud').val($(e.target).closest('tr').find('td:eq(0)').text()) //encuentra la fila de la tabla donde se hizo clic.
+          $('#nombreEliminacion').text($(e.target).closest('tr').find('td:eq(0)').text()) //Dentro de esa fila, busca la primera celda (<td>) (índice 0) para el número de asignación.
+        })
       })
-    })
-  });
-</script>
+    });
+  </script>

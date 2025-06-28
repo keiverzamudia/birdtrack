@@ -5,65 +5,77 @@ use App\conexion\Conexion;
 use PDO;
 use PDOException;
 
-class comprasModelo extends conexion{
+class comprasModelo extends conexion
+{
 
-  private $Id_compra;
-  private $Nro_Factura;
-  private $Fecha;
+  private $id_compra;
+  private $cod_proveedor ;
+  private $cedula_empleado ;
+  private $Detalle_Compra;
   private $Cantidad;
-  private $Nombre_activo;
-  private $proveedor;
+  private $Costo;
+  private $Fecha_Compra;
 
-  function set_Id_compra($valor){
-    $this->Id_compra  = $valor;
+  function set_Id_compra($valor)
+  {
+    $this->id_compra = $valor;
   }
-  function set_Nro_Factura($valor){
-    $this->Nro_Factura = $valor;
+  function set_cod_proveedor($valor)
+  {
+    $this->cod_proveedor = $valor;
   }
-  function set_Fecha($valor){
-    $this->Fecha = $valor;
+  function set_cedula_empleado($valor)
+  {
+    $this->cedula_empleado = $valor;
   }
-  function set_Cantidad($valor){
+  function set_Detalle_Compra($valor)
+  {
+    $this->Detalle_Compra = $valor;
+  }
+  function set_Costo($valor)
+  {
+    $this->Costo = $valor;
+  }
+  function set_Cantidad($valor)
+  {
     $this->Cantidad = $valor;
   }
-  function set_Nombre_activo($valor){
-    $this->Nombre_activo = $valor;
+  function set_Fecha_Compra($valor)
+  {
+    $this->Fecha_Compra = $valor;
   }
 
-  function set_proveedor ($valor){
-    $this->proveedor = $valor;
-  }
 
-  function __construct(){
-    parent::__construct();
-  }
 
-  //$proveedor['proveedor']
 
-  function registrar(){
+
+  function registrar()
+  {
     try {
-    $sql = "INSERT INTO compra(Id_compra ,Nro_Factura, Fecha, cantidad, Nombre_activo, proveedor,status)
-     VALUES(null,:Nro_Factura, :Fecha, :cantidad, :Nombre_activo, :proveedor,1)";
-    $query = $this->conex->prepare($sql);
+      $sql = "INSERT INTO compra(id_compra  ,cod_proveedor , cedula_empleado , Detalle_Compra, Cantidad, Costo,Fecha_Compra,status)
+     VALUES(null,:id_compra, :cod_proveedor, :cedula_empleado, :Detalle_Compra,:Cantidad,:Costo,:Fecha_Compra,1)";
+      $query = $this->conex->prepare($sql);
 
-    $query->bindParam('Nro_Factura', $this->Nro_Factura);
-    $query->bindParam('Fecha', $this->Fecha);
-    $query->bindParam('cantidad', $this->Cantidad);
-    $query->bindParam('Nombre_activo', $this->Nombre_activo);
-    $query->bindParam('proveedor', $this->proveedor); 
+      $query->bindParam(':id_compra', $this->id_compra);
+      $query->bindParam(':cod_proveedor', $this->cod_proveedor);
+      $query->bindParam(':cedula_empleado', $this->cedula_empleado);
+      $query->bindParam(':Detalle_Compra', $this->Detalle_Compra);
+      $query->bindParam(':Cantidad', $this->Cantidad);
+      $query->bindParam(':Costo', $this->Costo);
+      $query->bindParam(':Fecha_Compra', $this->Fecha_Compra);
 
-    return $query->execute();
-    }
-    catch (PDOException $e) {
+      return $query->execute();
+    } catch (PDOException $e) {
       return false;
     }
   }
-  
 
-  
-  function consultar(){
+
+
+  function consultar()
+  {
     try {                                //Agg el WHERE para Eliminacion logica
-      $sql = "SELECT * FROM compra WHERE status = 1";
+      $sql = "SELECT `compra`.* FROM `compra`;";
       $query = $this->conex->prepare($sql);
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -72,37 +84,43 @@ class comprasModelo extends conexion{
     }
   }
 
-  
-  function modificar($Id_compra ){
+
+  function modificar($Id_compra)
+  {
     try {
-       $sql = "UPDATE compra
-              SET  Nro_Factura = :Nro_Factura,
-                         Fecha = :Fecha, 
-                      Cantidad = :cantidad, 
-                 Nombre_activo = :Nombre_activo,
-                     proveedor = :proveedor
+      $sql = "UPDATE compra
+              SET  id_compra  = :id_compra ,
+                         cod_proveedor  = :cod_proveedor , 
+                      cedula_empleado  = :cedula_empleado , 
+                 Detalle_Compra = :Detalle_Compra,
+                     Cantidad = :Cantidad,
+                 Costo = :Costo,
+                     Fecha_Compra = :Fecha_Compra
           
-                WHERE Id_compra = '$Id_compra '";
-   $query = $this->conex->prepare($sql);
-    $query->bindParam('Nro_Factura', $this->Nro_Factura);
-    $query->bindParam('Fecha', $this->Fecha);
-    $query->bindParam('cantidad', $this->Cantidad);
-    $query->bindParam('Nombre_activo', $this->Nombre_activo);
-      $query->bindParam('proveedor', $this->proveedor);
-    $query->execute();  
+                WHERE id_compra  = '$Id_compra '";
+      $query = $this->conex->prepare($sql);
+      $query->bindParam(':id_compra', $this->id_compra);
+      $query->bindParam(':cod_proveedor', $this->cod_proveedor);
+      $query->bindParam(':cedula_empleado', $this->cedula_empleado);
+      $query->bindParam(':Cantidad', $this->Cantidad);
+      $query->bindParam(':Costo', $this->Costo);
+      $query->bindParam(':Fecha_Compra', $this->Fecha_Compra);
+
+      $query->execute();
 
     } catch (PDOException $e) {
-      return false;
+      return null;
     }
-   
+
   }
-  
-  
-  function buscar(){
+
+
+  function buscar()
+  {
     try {
-      $sql = "SELECT * FROM compra WHERE Id_compra = :Id_compra";
+      $sql = "SELECT * FROM compra WHERE id_compra = :id_compra";
       $query = $this->conex->prepare($sql);
-      $query->bindParam(':Id_compra', $this->Id_compra);
+      $query->bindParam(':id_compra', $this->id_compra);
       $query->execute();
       return $query->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -110,13 +128,14 @@ class comprasModelo extends conexion{
     }
   }
 
-  
 
-    function eliminar(){
+
+  function eliminar()
+  {
     try {      //cambie DALETE POR UPDATE PARA LA ELIMINACION LOGICA
-      $sql = "UPDATE compra SET status = 0 WHERE Id_compra = :Id_compra ";
+      $sql = "UPDATE compra SET status = 0 WHERE id_compra = :id_compra ";
       $query = $this->conex->prepare($sql);
-      $query->bindParam(':Id_compra', $this->Id_compra );
+      $query->bindParam(':id_compra', $this->id_compra);
       return $query->execute();
     } catch (PDOException $e) {
       return false;

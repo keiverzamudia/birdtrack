@@ -23,6 +23,11 @@ class asignacionActivoModel extends conexion
     $this->id_asignacion = $valor;
   }
 
+  function get_id_asignacion()
+  {
+    return $this->id_asignacion;
+  }
+
   function set_id_activo($valor)
   {
     $this->id_activo = $valor;
@@ -40,25 +45,7 @@ class asignacionActivoModel extends conexion
     $this->Fecha_asignacion = $valor;
   }
 
- 
 
-  function __construct()
-  {
-    parent::__construct();
-  }
-
-
-  // function obtenerActivo(){
-
-  //     try {
-  //       $sql = "SELECT id_activo,Nombre FROM activo WHERE Status = 1";
-  //       $query = $this->conex->prepare($sql);
-  //       $query->execute();
-  //       return $query->fetchAll(PDO::FETCH_ASSOC);
-  //     } catch (PDOException $e) {
-  //       return null;
-  //     }
-  //   }
 
   function registrar()
   {
@@ -97,19 +84,18 @@ FROM asignacion AS ASI
   function modificar($id)
   {
     try {
-      $sql = "UPDATE solicitud 
-              SET ID_Activo = :id_activo,
-                  Nombre_Activo = :nombre_activo,
-                  Estado = :estado,
-                  Nombre_Usuario = :nombre_usuario,
-                  Cedula = :cedula
-              WHERE id_solicitud = :id";
+      $sql = "UPDATE asignacion 
+              SET id_activo  = :id_activo,
+                  cedula_empleado  = :cedula_empleado,
+                  Descripcion_Asignacion = :Descripcion_Asignacion,
+                  Fecha_asignacion = :Fecha_asignacion
+              WHERE id_asignacion  = :id";
       $query = $this->conex->prepare($sql);
-      $query->bindParam(':id_asignacion', $this->id_asignacion);
       $query->bindParam(':id_activo', $this->id_activo);
       $query->bindParam(':cedula_empleado', $this->cedula_empleado);
-      $query->bindParam(':Descripcion', $this->Descripcion_Asignacion);
+      $query->bindParam(':Descripcion_Asignacion', $this->Descripcion_Asignacion);
       $query->bindParam(':Fecha_asignacion', $this->Fecha_asignacion);
+      $query->bindParam(':id', $id);
       return $query->execute();
     } catch (PDOException $e) {
       return false;
