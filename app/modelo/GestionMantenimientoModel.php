@@ -64,14 +64,18 @@ VALUES (Null, :Id_Activo, :Tipo_MTTO, :Empleado_Responable, 'PENDIENTE', Now(), 
   function consultar()
   {
     try {
-      $sql = "SELECT `activo_mantenimiento`.`id_mantenimiento`, 
-      `activos`.`Nombre_Activo` AS `nombre_activo`, `activos`.`id_activo`,
-      `activo_mantenimiento`.`Empleado_Responsable`, `tipo_mantenimiento`.`Nombre` AS `tipo_mtto`,
-       `activo_mantenimiento`.`Estado`, `activo_mantenimiento`.`Fecha`
-FROM `activo_mantenimiento` 
-	LEFT JOIN `activos` ON `activo_mantenimiento`.`id_activo` = `activos`.`id_activo` 
-	LEFT JOIN `tipo_mantenimiento` ON `activo_mantenimiento`.`id_tipo_mantenimiento` = `tipo_mantenimiento`.`id_tipo_mantenimiento`;
-  WHERE Status = 1";
+      $sql = "SELECT 
+      activo_mantenimiento.id_mantenimiento, 
+      activos.Nombre_Activo AS nombre_activo, 
+      activos.id_activo,
+      activo_mantenimiento.Empleado_Responsable, 
+      tipo_mantenimiento.Nombre AS tipo_mtto,
+      activo_mantenimiento.Estado, 
+      activo_mantenimiento.Fecha
+    FROM activo_mantenimiento
+      LEFT JOIN activos ON activo_mantenimiento.id_activo = activos.id_activo
+      LEFT JOIN tipo_mantenimiento ON activo_mantenimiento.id_tipo_mantenimiento = tipo_mantenimiento.id_tipo_mantenimiento
+    WHERE activo_mantenimiento.Status = 1";
       $query = $this->conex->prepare($sql);
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -84,7 +88,7 @@ FROM `activo_mantenimiento`
   {
     try {
       $sql = "UPDATE activo_mantenimiento
-            SET empleado_responsable = :Empleado_Responable,
+            SET Empleado_Responsable = :Empleado_Responable,
                 id_tipo_mantenimiento = :Tipo_MTTO,
                 Estado = :Estado_MTTO
             WHERE id_mantenimiento = :ID_MTTO";
