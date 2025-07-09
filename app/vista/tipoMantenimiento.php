@@ -5,7 +5,7 @@ include_once 'componentes/menu.php';
 
 <div class="container">
     <!--boton de regresar a la vista gestion mantenimiento-->
-    <button class="btn btn-outline-info" onclick="window.location.href='?url=Gestion_Mantenimiento'">
+    <button class="btn btn-outline-info" onclick="window.location.href='?url=gestionMantenimiento'">
         <i class="fa-solid fa-arrow-left"></i>
 </div>
 </button>
@@ -72,8 +72,8 @@ include_once 'componentes/menu.php';
                                             </button>
                                             <!--BOTON DE MODAL DE ELIMINACION DE ALERTA  -->
                                             <button class="btn btn-danger btnEliminar" title="Eliminar" type="button"
-                                                value="<?php $tipo['id_tipo_mantenimiento'] ?>" data-bs-toggle="modal"
-                                                data-bs-target="#eliminar">
+                                                value="<?= $tipo['id_tipo_mantenimiento'] ?>" data-bs-toggle="modal"
+                                                data-bs-target="#eliminar<?= $tipo['id_tipo_mantenimiento'] ?>">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                     <path
@@ -85,9 +85,9 @@ include_once 'componentes/menu.php';
 
                                         </td>
                                     </tr>
-                                    <!-- Nuevo Modal de eliminacion 'ALERTA' -->
-                                    <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
+                                    <!-- Modal de eliminación -->
+                                    <div class="modal fade" id="eliminar<?= $tipo['id_tipo_mantenimiento'] ?>" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header bg-danger">
@@ -98,17 +98,16 @@ include_once 'componentes/menu.php';
                                                 </div>
                                                 <div class="modal-body">
                                                     <span class="fs-5">
-                                                        ¿Esta seguro que desea eliminar <strong
-                                                            id="nombreEliminacion"></strong>?
+                                                        ¿Esta seguro que desea eliminar <strong><?= $tipo['Nombre'] ?></strong>?
                                                     </span>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Cancelar</button>
-                                                    <form method="POST">
+                                                    <form method="POST" style="display:inline;">
                                                         <input type="hidden" name="id_tipo_mantenimiento"
                                                             value="<?= $tipo['id_tipo_mantenimiento'] ?>">
-                                                        <button id="btnEliminarMantenimiento" name="Eliminar" type="submit"
+                                                        <button name="Eliminar" type="submit"
                                                             class="btn btn-danger">Eliminar</button>
                                                     </form>
                                                 </div>
