@@ -130,5 +130,3 @@ FROM `activo_mantenimiento`
 
 }
 ?>
-
-?>
