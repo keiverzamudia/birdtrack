@@ -1,16 +1,24 @@
-<?php 
+<?php
 require_once 'componentes/head.php';
 require_once 'componentes/menu.php';
 ?>
 <div class="container-fluid">
 
-  <?php if (isset($mensaje)) { ?>
-      <?php echo $mensaje; ?>
-<script>
-      alert(" <?php echo $mensaje; ?>")
-    </script>
-  <?php } ?>
-  
+
+  <?php
+
+
+  if (isset($_SESSION['mensaje_exito'])) {
+    echo '<div class="alert alert-success">' . $_SESSION['mensaje_exito'] . '</div>';
+    unset($_SESSION['mensaje_exito']);
+  }
+
+  if (isset($_SESSION['mensaje_error'])) {
+    echo '<div class="alert alert-danger">' . $_SESSION['mensaje_error'] . '</div>';
+    unset($_SESSION['mensaje_error']);
+  }
+  ?>
+
   <?php if (isset($editar_activo)) { ?>
     <div class="row text-center d-flex justify-content-center">
       <div class="col-md-6 card">
@@ -18,33 +26,33 @@ require_once 'componentes/menu.php';
           <h1>Editar Activo</h1>
         </div>
         <div class="card-body">
-          <form method="POST">
+          <form method="POST" onsubmit=" return EditarActivo()">
             <div class="modal-body d-flex flex-column gap-4">
-             
-                <select class="form-control" name="id_tipo_activo" required>
-              <option value="" selected hidden>Seleccionar Tipo de Activo</option>
-              <?php foreach($tipos_activos as $tipo){ ?>
-                <option value="<?php echo $tipo['id_tipo_activo'] ?>" ><?php echo $tipo['Nombre'] ?></option>
-              <?php } ?>
-          </select>
-               
-          <select class="form-control" name="id_ubicacion" required>
+
+              <select class="form-control" name="id_tipo_activo" required>
+                <option value="" selected hidden>Seleccionar Tipo de Activo</option>
+                <?php foreach ($tipos_activos as $tipo) { ?>
+                  <option value="<?php echo $tipo['id_tipo_activo'] ?>"><?php echo $tipo['Nombre'] ?></option>
+                <?php } ?>
+              </select>
+
+              <select class="form-control" name="id_ubicacion" required>
                 <option value="" selected hidden>Seleccionar ubicacion</option>
-              <?php foreach($id_ubicacion as $ubicacion){ ?>
-                <option value="<?php echo $ubicacion['id_ubicacion'] ?>" ><?php echo $ubicacion['nombre'] ?></option>
-              <?php } ?>
-            </select>
-             
-               
-                <input class="form-control" type="text" name="Nombre" placeholder="Nombre del Activo "
+                <?php foreach ($id_ubicacion as $ubicacion) { ?>
+                  <option value="<?php echo $ubicacion['id_ubicacion'] ?>"><?php echo $ubicacion['nombre'] ?></option>
+                <?php } ?>
+              </select>
+
+
+              <input class="form-control" type="text" name="Nombre" placeholder="Nombre del Activo "
                 value="<?php echo $editar_activo['Nombre_Activo'] ?>">
-                 <input class="form-control" type="text" name="Descripcion"
+              <input class="form-control" type="text" name="Descripcion"
                 placeholder="Descripcion del Activo con Caracteristica" value="<?php echo $editar_activo['Descripcion_Activo'] ?>">
               <input class="form-control" type="date" name="Fecha_adquisicion" placeholder="Fecha de registro"
                 value="<?php echo $editar_activo['Fecha_adquisicion'] ?>">
-  
+
               <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-secondary">Cancelar</button>
+                <button type="button" class="btn btn-secondary">Cancelar</button>
                 <button type="submit" class="btn btn-success" name="editar"
                   value="<?php echo $editar_activo['id_activo'] ?>">Editar</button>
               </div>
@@ -53,10 +61,10 @@ require_once 'componentes/menu.php';
         </div>
       </div>
     </div>
-  
+
   <?php } else { ?>
 
-  
+
     <div class="card mt-5">
       <div class="card-head">
         <h3 class="text-center">GESTION DE ACTIVOS</h3>
@@ -81,8 +89,8 @@ require_once 'componentes/menu.php';
                 <th>Fecha adquisición</th>
                 <th>Acciones</th>
               </tr>
-  
-  
+
+
             </thead>
             <tbody>
               <form method="POST">
@@ -96,7 +104,7 @@ require_once 'componentes/menu.php';
                       <td> <?php echo $item['Descripcion_Activo'] ?> </td>
                       <td> <?php echo $item['Estado_Activo'] ?> </td>
                       <td> <?php echo $item['Fecha_adquisicion'] ?></td>
-  
+
                       <td>
                         <button class="btn btn-success" title="editar" type="submit" name="seleccion"
                           value="<?php echo $item['id_activo'] ?>">
@@ -107,7 +115,7 @@ require_once 'componentes/menu.php';
                             <path fill-rule="evenodd"
                               d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                           </svg>
-  
+
                         </button>
                         <!--BOTON DE MODAL DE ELIMINACION DE ALERTA  -->
                         <button class="btn btn-danger btnEliminar" title="Eliminar" type="button"
@@ -136,9 +144,9 @@ require_once 'componentes/menu.php';
         </div>
       </div>
     </div>
-  
+
   <?php } ?>
-  
+
   <!-- Modal Registrar activo -->
   <div class="modal fade" id="formulario_activo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -147,21 +155,21 @@ require_once 'componentes/menu.php';
           <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Registro</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-  
 
-        <form method="POST">
+
+        <form method="POST" onsubmit="return RegistarActivo()">
           <div class="modal-body d-flex flex-column gap-4">
-            
+
             <select class="form-control" name="id_tipo_activo" required>
               <option value="" selected hidden>Seleccionar Tipo de Activo</option>
-              <?php foreach($tipos_activos as $tipo){ ?>
-                <option value="<?php echo $tipo['id_tipo_activo'] ?>" ><?php echo $tipo['Nombre'] ?></option>
+              <?php foreach ($tipos_activos as $tipo) { ?>
+                <option value="<?php echo $tipo['id_tipo_activo'] ?>"><?php echo $tipo['Nombre'] ?></option>
               <?php } ?>
-          </select>
+            </select>
             <select class="form-control" name="id_ubicacion" required>
-                <option value="" selected hidden>Selecciona ubicacion</option>
-              <?php foreach($id_ubicacion as $ubicacion){ ?>
-                <option value="<?php echo $ubicacion['id_ubicacion'] ?>" ><?php echo $ubicacion['nombre'] ?></option>
+              <option value="" selected hidden>Selecciona ubicacion</option>
+              <?php foreach ($id_ubicacion as $ubicacion) { ?>
+                <option value="<?php echo $ubicacion['id_ubicacion'] ?>"><?php echo $ubicacion['nombre'] ?></option>
               <?php } ?>
             </select>
             <input class="form-control" type="text" name="Nombre" placeholder="Nombre" required>
@@ -178,83 +186,83 @@ require_once 'componentes/menu.php';
   </div>
 
   <!-- Modal Tipo de Activo -->
-  <div class="modal fade" id="formulario_tipo_activo"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="formulario_tipo_activo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Tipos de Activos</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-  
+
         <div class="modal-body d-flex flex-column gap-4">
-        <div class="row">
-          <form method="POST">
-            <hr>
+          <div class="row">
+            <form method="POST" onsubmit="return RegistarTipoActivo()">
+              <hr>
               <h3 class="text-center">Registrar nuevo tipo de activo</h3>
               <div class="input-group">
                 <input class="form-control" id="nombre_tipo_activo" type="text" name="nombre_tipo_activo" placeholder="Nombre del tipo de activo" required>
                 <input class="form-control" id="descripcion_tipo_activo" type="text" name="descripcion_tipo_activo" placeholder="Descripcion del tipo de activo" required>
                 <button type="submit" id="btnTipoActivo" name="agregar_tipo_activo" class="btn btn-primary">Registrar</button>
               </div>
-            <hr>
-          </form>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-striped text-center table-bordered">
-            <thead class="table-primary">
-              <tr>
-                <th>Id tipo activo</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Acciones</th>
-              </tr>  
-            </thead>
-            <tbody>
-               
-              <form method="POST">
-                <?php if (isset($tipos_activos)) {
-                  foreach($tipos_activos as $tipo){ ?>
-                    <tr>
-                      <td> <?php echo $tipo['id_tipo_activo'] ?> </td>
-                      <td> <?php echo $tipo['Nombre'] ?> </td>
-                      <td> <?php echo $tipo['Descripcion_tipo'] ?> </td>
-                      <td>
-                        <button type="button" class="btn btn-success btnEditarTipoActivo" title="Editar" type="button"
-                          value="<?php echo $tipo['id_tipo_activo'] ?>">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path
-                              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                            <path fill-rule="evenodd"
-                              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                          </svg>
-        
-                        </button>
-                        <button class="btn btn-danger" title="Eliminar" name="eliminar_tipo_activo" type="submit" onclick="return confirm('Eliminar tipo de activo?') "
-                          value="<?php echo $tipo['id_tipo_activo'] ?>">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
-                            viewBox="0 0 16 16">
-                            <path
-                              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                            <path
-                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                          </svg>
-                        </button>
-                      </td>
-    
-                    </tr>
-                  <?php }
-                    } else  { ?>
+              <hr>
+            </form>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped text-center table-bordered">
+              <thead class="table-primary">
+                <tr>
+                  <th>Id tipo activo</th>
+                  <th>Nombre</th>
+                  <th>Descripcion</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <form method="POST">
+                  <?php if (isset($tipos_activos)) {
+                    foreach ($tipos_activos as $tipo) { ?>
                       <tr>
-                        <td colspan="6">
-                          <h2>No se registro correctamente el activo :</h2>
+                        <td> <?php echo $tipo['id_tipo_activo'] ?> </td>
+                        <td> <?php echo $tipo['Nombre'] ?> </td>
+                        <td> <?php echo $tipo['Descripcion_tipo'] ?> </td>
+                        <td>
+                          <button type="button" class="btn btn-success btnEditarTipoActivo" title="Editar" name="editar_tipo_activo" type="submit" onsubmit="return EditarTipoActivo()"
+                            value="<?php echo $tipo['id_tipo_activo'] ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                              class="bi bi-pencil-square" viewBox="0 0 16 16">
+                              <path
+                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                              <path fill-rule="evenodd"
+                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                            </svg>
+
+                          </button>
+                          <button class="btn btn-danger" title="Eliminar" name="eliminar_tipo_activo" type="submit" onclick="return confirm('Eliminar tipo de activo?') "
+                            value="<?php echo $tipo['id_tipo_activo'] ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                              viewBox="0 0 16 16">
+                              <path
+                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                              <path
+                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                            </svg>
+                          </button>
                         </td>
+
                       </tr>
-                    <?php } ?>
-                  </form>
-                </tbody>
-              </table>
-            </div>
+                    <?php }
+                  } else { ?>
+                    <tr>
+                      <td colspan="6">
+                        <h2>No se registro correctamente el activo :</h2>
+                      </td>
+                    </tr>
+                  <?php } ?>
+                </form>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
@@ -263,7 +271,7 @@ require_once 'componentes/menu.php';
     </div>
   </div>
 
-      <!-- FINAL -->
+  <!-- FINAL -->
 </div>
 
 
@@ -276,7 +284,7 @@ require_once 'componentes/menu.php';
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <span class="fs-5">          
+        <span class="fs-5">
           ¿Esta seguro que desea eliminar <strong id="nombreEliminacion"></strong>?
         </span>
       </div>
@@ -296,37 +304,51 @@ require_once 'componentes/menu.php';
 
 
 
-<?php 
+
+<?php
 require_once 'componentes/footer.php';
 ?>
 
 <script>
-  $(document).ready(()=>{
-    $(".btnEliminar").each((index, element)=>{
-      $(element).on('click',(e)=>{
+  $(document).ready(() => {
+    $(".btnEliminar").each((index, element) => {
+      $(element).on('click', (e) => {
         $('#btnEliminarRegistro').val($(e.target).closest('tr').find('td:eq(0)').text()) //encuentra la fila de la tabla donde se hizo clic.
         $('#nombreEliminacion').text($(e.target).closest('tr').find('td:eq(1)').text()) //Dentro de esa fila, busca la segunda celda (<td>) (índice 1).
       })
     })
 
 
-    $(".btnEditarTipoActivo").each((index, element)=>{
-      $(element).on('click',(e)=>{
+    $(".btnEditarTipoActivo").each((index, element) => {
+      $(element).on('click', (e) => {
         $('#nombre_tipo_activo').val($(e.target).closest('tr').find('td:eq(1)').text())
-         $('#descripcion_tipo_activo').val($(e.target).closest('tr').find('td:eq(2)').text())
-        
+        $('#descripcion_tipo_activo').val($(e.target).closest('tr').find('td:eq(2)').text())
+
         $('#btnTipoActivo').val($(e.target).closest('tr').find('td:eq(0)').text().trim())
-        $('#btnTipoActivo').text('Editar') 
-        $('#btnTipoActivo').prop('name','editar_tipo_activo')
+        $('#btnTipoActivo').text('Editar')
+        $('#btnTipoActivo').prop('name', 'editar_tipo_activo')
       })
     })
-    
-    $('#btnformularioTipoActivo').on('click',(e)=>{
+
+    $('#btnformularioTipoActivo').on('click', (e) => {
       $('#nombre_tipo_activo').val('')
       $('#btnTipoActivo').val('')
-      $('#btnTipoActivo').text('Registrar') 
-      $('#btnTipoActivo').prop('name','agregar_tipo_activo')
+      $('#btnTipoActivo').text('Registrar')
+      $('#btnTipoActivo').prop('name', 'agregar_tipo_activo')
     })
-    
+
   });
+
+  function RegistarActivo() {
+    return confirm("Seguro que Quieres Registrar un Nuevo Activo?");
+  }
+
+  function EditarActivo() {
+    return confirm("Seguro que Quieres Editar el Activo?");
+  }
+
+  function RegistarTipoActivo(){
+    return confirm("Seguro que Quieres Registar un Nuevo Tipo de Activo?");
+
+  }
 </script>

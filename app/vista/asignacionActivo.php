@@ -3,12 +3,19 @@ require_once 'componentes/head.php';
 require_once 'componentes/menu.php';
 ?>
 <div class="container-fluid">
-  <?php if (isset($mensaje)) { ?>
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-      <?php echo $mensaje; ?>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <?php } ?>
+<?php
+
+
+if (isset($_SESSION['mensaje_exito'])) {
+  echo '<div class="alert alert-success">' . $_SESSION['mensaje_exito'] . '</div>';
+  unset($_SESSION['mensaje_exito']);
+}
+
+if (isset($_SESSION['mensaje_error'])) {
+  echo '<div class="alert alert-danger">' . $_SESSION['mensaje_error'] . '</div>';
+  unset($_SESSION['mensaje_error']);
+}
+?>
 
   <div class="card">
     <div class="card-head">

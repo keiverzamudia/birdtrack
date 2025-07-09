@@ -111,7 +111,7 @@ class gestionUsuariosModel extends conexion {
   function eliminar(){
     try {
 
-      $sql = "UPDATE empleado SET status = 0 WHERE cedula_empleado = :cedula";
+      $sql = "UPDATE empleado SET Status = 0 WHERE cedula_empleado = :cedula";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':cedula', $this->cedula);
       $query->execute();

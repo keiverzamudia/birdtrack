@@ -9,6 +9,8 @@ use App\modelo\DepartamentoModel;
  $obj_cargo = new CargoModel();
  $obj_departamento = new DepartamentoModel();
 
+ session_start();
+
 if(isset($_POST['enviar'])){
  
   $obj_model->set_cedula($_POST['cedula']);
@@ -19,9 +21,9 @@ if(isset($_POST['enviar'])){
  
 
   if($obj_model->registrar()) {
-    $mensaje = " empleado registrado correctamente";
+    $_SESSION['mensaje_exito'] = "Nuevo Usuario Registardo correctamente";
   } else {
-    $mensaje = "Error al registrar empleado";
+     $_SESSION['mensaje_error'] = "Error al Crear el Nuevo Usuario";
   }
   header('Location: index.php?url=gestionUsuarios');
  exit();
@@ -37,23 +39,20 @@ if(isset($_POST['editar'])){
  
 
   if($obj_model->modificar($_POST['editar'])) {
-    $mensaje = "Actualizacion realizada correctamente";
+    $_SESSION['mensaje_exito'] = "Usuario Modificado correctamente";
   } else {
-    $mensaje = "Error al actualizar registro del empleado";
+     $_SESSION['mensaje_error'] = "Error al Modificar el Usuario";
   }
-  header('Location: index.php?url=gestionUsuarios');
- exit();
+  
 }
 
 if(isset($_POST['eliminar'])){
   $obj_model->set_cedula($_POST['eliminar']);
   if($obj_model->eliminar()) {
-    $mensaje = "error al eliminar";
+    $_SESSION['mensaje_exito'] = "Usuario Eliminado correctamente";
   } else {
-    $mensaje = "empleado eliminado correctament";
+     $_SESSION['mensaje_error'] = "Error al Eliminar el Usuario";
   }
-  header('Location: index.php?url=gestionUsuarios');
- exit();
 }
 
 if(isset($_POST['seleccion'])){
@@ -65,25 +64,33 @@ if(isset($_POST['seleccion'])){
 
 if(isset($_POST['agregar_cargo'])){
   $obj_cargo->set_nombre_cargo($_POST['nombre_cargo']);
-  $obj_cargo->registrarcargo();
+  if($obj_cargo->registrarcargo()){
+    $_SESSION['mensaje_exito'] = "Nuevo Cargo Creado correctamente";
+  } else {
+     $_SESSION['mensaje_error'] = "Error al Crear el Nuevo Cargo";
+  }
   header('Location: index.php?url=gestionUsuarios');
  exit();
 }
 
  if(isset($_POST['eliminar_cargo'])){
   $obj_cargo->set_id_cargo($_POST['eliminar_cargo']);
-  $obj_cargo->eliminarcargo();
-  header('Location: index.php?url=gestionUsuarios');
- exit();
+  if($obj_cargo->eliminarcargo()){
+    $_SESSION['mensaje_exito'] = "Cargo Eliminado correctamente";
+  } else {
+     $_SESSION['mensaje_error'] = "Error al Eliminar el Cargo";
+  }
  }
 
 if(isset($_POST['editar_cargo'])){
   
   $obj_cargo->set_id_cargo($_POST['editar_cargo']);
   $obj_cargo->set_nombre_cargo($_POST['nombre_cargo']);
-  $obj_cargo->modificarCargo();
-  header('Location: index.php?url=gestionUsuarios');
- exit();
+  if($obj_cargo->modificarCargo()){
+    $_SESSION['mensaje_exito'] = "Cargo Modificado correctamente";
+  } else {
+     $_SESSION['mensaje_error'] = "Error al Modificar el Cargo";
+  }
 }
 
 
@@ -93,26 +100,34 @@ if(isset($_POST['agregar_departamento'])){
 
   $obj_departamento->set_nombre_departamento($_POST['nombre_departamento']);
   $obj_departamento->set_descripcion_departamento($_POST['descripcion_departamento']);
-  $obj_departamento->registrarDep();
-  header('Location: index.php?url=gestionUsuarios');
- exit();
+  if($obj_departamento->registrarDep()){
+    $_SESSION['mensaje_exito'] = "Nuevo Departamento Agregado correctamente";
+  } else {
+     $_SESSION['mensaje_error'] = "Error al Agregar el Nuevo Departamento";
+  }
   
 }
 
  if(isset($_POST['eliminar_departamento'])){
   $obj_departamento->set_id_departamento($_POST['eliminar_departamento']);
-  $obj_departamento->eliminarDep();
-  header('Location: index.php?url=gestionUsuarios');
- exit();
+  if($obj_departamento->eliminarDep()){
+    $_SESSION['mensaje_exito'] = "Departamento Eliminado correctamente";
+  } else {
+     $_SESSION['mensaje_error'] = "Error al Eliminar el Departamento";
+  } 
+
  }
 
 if(isset($_POST['editar_departamento'])){
   $obj_departamento->set_id_departamento($_POST['editar_departamento']);
   $obj_departamento->set_nombre_departamento($_POST['nombre_departamento']);
    $obj_departamento->set_descripcion_departamento($_POST['descripcion_departamento']);
-  $obj_departamento-> modificarDep();
-  header('Location: index.php?url=gestionUsuarios');
- exit();
+  if($obj_departamento-> modificarDep()){
+    $_SESSION['mensaje_exito'] = "Departamento Editado correctamente";
+  } else {
+     $_SESSION['mensaje_error'] = "Error al Editar el Departamento";
+  }
+
 }
 
 $usuarios = $obj_model->consultar();

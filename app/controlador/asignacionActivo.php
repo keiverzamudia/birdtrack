@@ -7,7 +7,7 @@ $obj_Asignacion = new asignacionActivoModel();
 $obj_Activo = new gestionActivosModel();
 $obj_Usuario = new gestionUsuariosModel();
 
-
+session_start(); // 
 
 
 if(isset($_POST['enviar'])){
@@ -18,10 +18,10 @@ if(isset($_POST['enviar'])){
 
 
   if($obj_Asignacion->registrar()) {
-    $mensaje = "Solicitud registrada correctamente";
-  } else {
-    $mensaje = "Error al registrar la solicitud";
-  }
+    $_SESSION['mensaje_exito'] = "Se ha asignado el Activo correctamente";
+    } else {
+        $_SESSION['mensaje_error'] = "Error al Asignar el activo";
+    }
       header("Location: index.php?url=asignacionActivo");
   exit();
 }
@@ -38,13 +38,11 @@ if(isset($_POST['editar'])){
     $obj_Asignacion->set_Fecha_asignacion($_POST['Fecha_asignacion']);
 
     if($obj_Asignacion->modificar($_POST['editar'])) {
-      $mensaje = "Solicitud actualizada correctamente";
+      $_SESSION['mensaje_exito'] = "Asignacion de Activo Cambiada Correctamente";
     } else {
-      $mensaje = "Error al actualizar la solicitud";
+        $_SESSION['mensaje_error'] = "Error al Cambiar la Asignacion del Activo";
     }
   }
-      header("Location: index.php?url=asignacionActivo");
-  exit();
 }
 
 
@@ -55,8 +53,6 @@ if(isset($_POST['eliminar'])){
   } else {
     $mensaje = "Error al eliminar la solicitud";
   }
-      header("Location: index.php?url=asignacionActivo");
-  exit();
 }
 
 if(isset($_POST['seleccion'])){

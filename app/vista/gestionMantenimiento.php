@@ -140,12 +140,12 @@ require_once 'componentes/menu.php';
                             d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
                         </svg>
                       </button>
-
+</form>
                     </td>
                   </tr>
           </tbody>
 
- <div class="modal fade" id="editar<?= $mantenimiento['id_mantenimiento'] ?>" data-bs-backdrop="static"
+ <div class="modal fade" id="editar<?php $mantenimiento['id_mantenimiento'] ?>" data-bs-backdrop="static"
                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -158,7 +158,7 @@ require_once 'componentes/menu.php';
                     <!-- formulario de edicion a mantenimiento -->
                     <div class="modal-body">
                       <form method="POST">
-                        <input type="hidden" name="id" value="<?= $mantenimiento['id_mantenimiento'] ?>">
+                        <input type="hidden" name="id" value="<?php $mantenimiento['id_mantenimiento'] ?>">
                         <div class="mb-4">
 
                           <label for="InputEmpleado" class="form-label">Empleado Responsable</label>

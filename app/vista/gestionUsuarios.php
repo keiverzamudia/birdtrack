@@ -5,12 +5,24 @@ require_once 'componentes/menu.php';
 <div class="container-fluid">
 
 
- <?php if(isset($mensaje)) { ?>
-      <?php echo $mensaje; ?>
-    <script>
-      alert(" <?php echo $mensaje; ?>")
-    </script>
-  <?php } ?> 
+
+
+<?php
+
+
+if (isset($_SESSION['mensaje_exito'])) {
+  echo '<div class="alert alert-success">' . $_SESSION['mensaje_exito'] . '</div>';
+  unset($_SESSION['mensaje_exito']);
+}
+
+if (isset($_SESSION['mensaje_error'])) {
+  echo '<div class="alert alert-danger">' . $_SESSION['mensaje_error'] . '</div>';
+  unset($_SESSION['mensaje_error']);
+}
+?>
+
+
+
  
 
 
@@ -21,11 +33,11 @@ require_once 'componentes/menu.php';
           <h1>Editar usuario</h1>
         </div>
         <div class="card-body">
-          <form method="POST">
+          <form method="POST" onsubmit="EditarUsuario()">
             <div class="modal-body d-flex flex-column gap-4">
               <input class="form-control" type="text" name="cedula" placeholder="cedula" value="<?php echo $editar_usuario['cedula_empleado']?>">
               <input class="form-control" type="text" name="nombre" placeholder="Nombre y apellido" value="<?php echo $editar_usuario['Nombre_Empleado']?>">
-                  <select class="form-control" name="cargo" id="">
+                  <select class="form-control" name="departamento" id="">
               <option value=""selected hidden>seleccione el Departamento</option>
               <?php foreach($departamentos as $departamento){?>
                  <option value="<?php echo $departamento['id_departamento'] ?>"> <?php echo $departamento['Nombre_Departamento'] ?></option>
@@ -141,7 +153,7 @@ require_once 'componentes/menu.php';
           <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo usuario</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form method="POST">
+        <form method="POST" onsubmit="return NuevoUsuario()">
          
           <div class="modal-body d-flex flex-column gap-4">
             <input class="form-control" type="text" name="cedula" placeholder="cedula" required>
@@ -183,7 +195,7 @@ require_once 'componentes/menu.php';
   
         <div class="modal-body d-flex flex-column gap-4">
         <div class="row">
-          <form method="POST">
+          <form method="POST" onsubmit="return NuevoCargo()">
             <hr>
               <h3 class="text-center">Agregar un nuevo cargo</h3>
               <div class="input-group">
@@ -267,7 +279,7 @@ require_once 'componentes/menu.php';
   
         <div class="modal-body d-flex flex-column gap-4">
         <div class="row">
-          <form method="POST">
+          <form method="POST" onsubmit="return NuevoDepartamento()">
             <hr>
               <h3 class="text-center">Agregar un nuevo departamento</h3>
               <div class="input-group">
@@ -309,7 +321,7 @@ require_once 'componentes/menu.php';
                           </svg>
         
                         </button>
-                        <button class="btn btn-danger" title="Eliminar" name="eliminar_departamento" type="submit" onclick="return confirm('Eliminar departamento?') "
+                        <button class="btn btn-danger" title="Eliminar" name="eliminar_departamento" type="submit"
                           value="<?php echo $departamento['id_departamento'] ?>">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                             viewBox="0 0 16 16">
@@ -425,4 +437,22 @@ require_once 'componentes/footer.php';
       $('#btndepartamento').prop('name','agregar_departamento')
     })
   });
+
+  function EditarUsuario(){
+    return confirm("Seguro que Quieres Modificar Este Usuario?");
+
+  }
+
+function NuevoUsuario(){
+  return confirm("Seguro que Quieres Registrar Este Nuevo Usuario?");
+}
+
+function NuevoCargo(){
+  return confirm("Seguro que Quieres Registrar Este Nuevo Cargo?");
+}
+
+function NuevoDepartamento(){
+  return confirm("Seguro que Quieres Registrar Este Nuevo Departamento?");
+
+}
 </script>

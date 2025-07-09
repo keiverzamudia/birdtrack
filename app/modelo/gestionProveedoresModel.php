@@ -8,7 +8,6 @@ use PDOException;
 class gestionProveedoresModel extends conexion
 {
 
-
   private $cod_proveedor;
   private $Nombre_Proveedor;
   private $Direccion;
@@ -36,7 +35,7 @@ class gestionProveedoresModel extends conexion
     $this->Correo_elect = $valor;
   }
 
-  function consultar()
+  function consultarProveedor()
   {
     try {
       $sql = "SELECT * FROM proveedor WHERE status = 1";
@@ -78,19 +77,21 @@ class gestionProveedoresModel extends conexion
     }
   }
 
+
+
   function modificar()
   {
     try {
       $sql = "UPDATE proveedor
-              SET  Nombre_Proveedor = :Nombre_Proveedor,
-                Direccion = :Direccion, 
-          Numero_telefono = :Numero_telefono, 
-             Correo_elect = :Correo_elect
+        SET  Nombre_Proveedor = :Nombre_Proveedor,
+                    Direccion = :Direccion, 
+              Numero_telefono = :Numero_telefono, 
+                Correo_elect = :Correo_elect
             
-              WHERE cod_proveedor = ':cod_proveedor'";
+              WHERE cod_proveedor = :cod_proveedor";
 
       $query = $this->conex->prepare($sql);
-
+      
       $query->bindParam(':Nombre_Proveedor', $this->Nombre_Proveedor);
       $query->bindParam(':Direccion', $this->Direccion);
       $query->bindParam(':Numero_telefono', $this->Numero_telefono);
@@ -102,6 +103,7 @@ class gestionProveedoresModel extends conexion
       return false;
     }
   }
+
 
 
   function buscar()
@@ -121,8 +123,6 @@ class gestionProveedoresModel extends conexion
 
 
 }
-
-
 
 
 
