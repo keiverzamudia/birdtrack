@@ -45,14 +45,13 @@ class GestionMantenimientoModel extends conexion
 
     try {
       //Agg estatu para eliminacion logica
-
       $sql = "INSERT INTO `activo_mantenimiento` 
-(`id_mantenimiento`, `id_activo`, `id_tipo_mantenimiento`, `Empleado_Responsable`, `Estado`, `Fecha`, `Status`)     
+(`id_mantenimiento`, `id_activo`, `id_tipo_mantenimiento`, `cedula_empleado`, `Estado`, `Fecha`, `Status`)     
 VALUES (Null, :Id_Activo, :Tipo_MTTO, :Empleado_Responable, 'PENDIENTE', Now(), 1)";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':Id_Activo', $this->Id_Activo);
-      $query->bindParam(':Tipo_MTTO', $this->Tipo_MTTO);
       $query->bindParam(':Empleado_Responable', $this->Empleado_Responable);
+      $query->bindParam(':Tipo_MTTO', $this->Tipo_MTTO);
       return $query->execute();
 
     } catch (PDOException $e) {
@@ -68,13 +67,14 @@ VALUES (Null, :Id_Activo, :Tipo_MTTO, :Empleado_Responable, 'PENDIENTE', Now(), 
       activo_mantenimiento.id_mantenimiento, 
       activos.Nombre_Activo AS nombre_activo, 
       activos.id_activo,
-      activo_mantenimiento.Empleado_Responsable, 
+      empleado.Nombre_Empleado AS nombre_empleado, 
       tipo_mantenimiento.Nombre AS tipo_mtto,
       activo_mantenimiento.Estado, 
       activo_mantenimiento.Fecha
     FROM activo_mantenimiento
       LEFT JOIN activos ON activo_mantenimiento.id_activo = activos.id_activo
       LEFT JOIN tipo_mantenimiento ON activo_mantenimiento.id_tipo_mantenimiento = tipo_mantenimiento.id_tipo_mantenimiento
+      LEFT JOIN empleado ON activo_mantenimiento.cedula_empleado = empleado.cedula_empleado
     WHERE activo_mantenimiento.Status = 1";
       $query = $this->conex->prepare($sql);
       $query->execute();
@@ -88,7 +88,7 @@ VALUES (Null, :Id_Activo, :Tipo_MTTO, :Empleado_Responable, 'PENDIENTE', Now(), 
   {
     try {
       $sql = "UPDATE activo_mantenimiento
-            SET Empleado_Responsable = :Empleado_Responable,
+            SET cedula_empleado = :Empleado_Responable,
                 id_tipo_mantenimiento = :Tipo_MTTO,
                 Estado = :Estado_MTTO
             WHERE id_mantenimiento = :ID_MTTO";
