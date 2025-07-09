@@ -1,56 +1,98 @@
 <?php
 use App\modelo\comprasModelo;
+use App\modelo\gestionProveedoresModel;
+use App\modelo\EncagadoModel;
+
 $obj_model = new comprasModelo();
+$obj_Proveedormodel = new gestionProveedoresModel();
 
 
-if(isset($_POST['enviar'])){
+
+if (isset($_POST['enviar_compra'])) {
+
+  $mensaje = "Formulario incompleto, por favor complete todos los campos";
   
-  $obj_model->set_Nro_Factura($_POST['Nro_Factura']);
-  $obj_model->set_Fecha($_POST['Fecha']);
+  if (
+    !empty($_POST['cod_proveedor']) &&
+    !empty($_POST['cedula_empleado']) &&
+    !empty($_POST['Detalle_Compra']) &&
+    !empty($_POST['Cantidad']) &&
+    !empty($_POST['Costo']) &&
+    !empty($_POST['Fecha_Compra'])
+  ) {
+
+    $obj_model->set_cod_proveedor($_POST['cod_proveedor']);
+    $obj_model->set_cedula_empleado($_POST['cedula_empleado']);
+    $obj_model->set_Detalle_Compra($_POST['Detalle_Compra']);
+    $obj_model->set_Cantidad($_POST['Cantidad']);
+    $obj_model->set_Costo($_POST['Costo']);
+    $obj_model->set_Fecha_Compra($_POST['Fecha_Compra']);
+      
+  
+    if ($obj_model->registrar()) {
+      $_SESSION['mensaje_exito'] = "Nueva Compra Registrada correctamente";
+    } else {
+        $_SESSION['mensaje_error'] = "Error al Registrar Compra";
+  }
+  } else {
+    echo "<script>alert('Por favor, complete todos los campos al formulario');</script>";
+    // No redirigir aún
+  }
+  header('Location: index.php?url=compras');
+  exit();
+}
+
+
+
+
+
+
+if (isset($_POST['editar_compra'])) {
+  $obj_model->set_id_compra( $id_compra = $_POST['id_compra']);
+  $obj_model->set_cod_proveedor($_POST['cod_proveedor']);
+  $obj_model->set_cedula_empleado($_POST['cedula_empleado']);
+  $obj_model->set_Detalle_Compra($_POST['Detalle_Compra']);
+  $obj_model->set_Costo($_POST['Costo']);
   $obj_model->set_Cantidad($_POST['Cantidad']);
-  $obj_model->set_nombre_activo($_POST['Nombre_activo']);
-   $obj_model->set_proveedor($_POST['proveedor']);
-  $obj_model->registrar();
+  $obj_model->set_Fecha_Compra($_POST['Fecha_Compra']);
 
-  if($obj_model->registrar()) {
-    $mensaje = "Activo registrado correctamente";
+  if ($obj_model->modificar($_POST['id_compra'])) {
+    $_SESSION['mensaje_error'] = "Error al Editar la Compra";
   } else {
-    $mensaje = "Error al registrar el activo";
-  }
+    $_SESSION['mensaje_exito'] = "Compra Editada correctamente";
+
+}
+
 }
 
 
-if(isset($_POST['editar'])){
+
+
+
+
+if (isset($_POST['eliminar'])) {
+  $obj_model->set_id_compra($_POST['eliminar']);
+   
+  if ($obj_model->eliminar()) {
+    $_SESSION['mensaje_exito'] = "Compra Eliminada correctamente";
+  } else {
+      $_SESSION['mensaje_error'] = "Error al Eliminar Compra";
+}
+   $compras = $obj_model->consultar();
+
+}
+
+
   
-  $obj_model->set_Nro_Factura($_POST['Nro_Factura']);
-  $obj_model->set_Fecha($_POST['Fecha']);
-  $obj_model->set_Cantidad($_POST['Cantidad']);
-  $obj_model->set_nombre_activo($_POST['Nombre_activo']);
-  $obj_model->set_proveedor($_POST['proveedor']);
-  
-  if($obj_model->modificar($_POST['editar'])) {
-    $mensaje = "Solicitud actualizada correctamente";
-  } else {
-    $mensaje = "Error al actualizar la solicitud";
-  }
-
-}
-
-if(isset($_POST['eliminar'])){
-  $obj_model->set_Id_compra($_POST['eliminar']);
-  if($obj_model->eliminar()) {
-    $mensaje = "Activo eliminado correctamente";
-  } else {
-    $mensaje = "Error al eliminar el activo";
-  }
-}
-
-if(isset($_POST['seleccion'])){
-  $obj_model->set_Id_compra($_POST['seleccion']);
+if (isset($_POST['seleccion'])) {
+  $obj_model->set_id_compra($_POST['seleccion']);
   $editar_compra = $obj_model->buscar();
 }
 
 
 $compras = $obj_model->consultar();
+$Proveedor = $obj_Proveedormodel->consultarProveedor();
 
-require_once 'componentes/llamado_vistas.php';?>
+
+
+require_once 'componentes/llamado_vistas.php'; ?>
