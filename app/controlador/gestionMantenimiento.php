@@ -4,13 +4,17 @@
 use App\Modelo\GestionMantenimientoModel;
 use App\Modelo\tipoMantenimientoModel;
 use App\modelo\gestionActivosModel;
+use App\modelo\gestionUsuariosModel;
 
 $obj_Mantenimiento = new GestionMantenimientoModel();
 $obj_TipoMantenimiento = new tipoMantenimientoModel();
 $obj_Activos = new gestionActivosModel();
+$obj_Usuarios = new gestionUsuariosModel();
 
 $tipo_mantenimiento = $obj_TipoMantenimiento->consultar(); // Para el select
 $Activo = $obj_Activos->consultar();//la consulta de los activos en la tabla y en el select
+$mantenimientos = $obj_Mantenimiento->consultar();
+$usuarios = $obj_Usuarios->consultar();
 
 if (isset($_POST['enviar'])) {
   //print_r($_POST);
@@ -29,6 +33,7 @@ if (isset($_POST['enviar'])) {
   exit();
 
 }
+
 if (isset($_POST['modificar'])) {
   //print_r($_POST);
 
@@ -36,6 +41,7 @@ if (isset($_POST['modificar'])) {
   $obj_Mantenimiento->set_Empleado_Responable($_POST['responsable']);
   $obj_Mantenimiento->set_tipo_MTTO($_POST['tipo']);
   $obj_Mantenimiento->set_Estado_MTTO($_POST['estado']);
+
 
   if ($obj_Mantenimiento->modificar($_POST['modificar'])) {
     $mensaje = "Solicitud actualizada correctamente";
@@ -47,7 +53,6 @@ if (isset($_POST['modificar'])) {
   header("Location: index.php?url=gestionMantenimiento");
   exit();
 }
-
 if (isset($_POST['eliminar'])) {
   $obj_Mantenimiento->set_ID_MTTO($_POST['eliminar']);
   if ($obj_Mantenimiento->eliminar()) {
@@ -65,9 +70,6 @@ if (isset($_POST['seleccion'])) {
   // print_r($_POST);
   $obj_Mantenimiento->set_ID_MTTO($_POST['seleccion']);
   $modificar_Mantenimiento = $obj_Mantenimiento->buscar();
+
 }
-
-
-$mantenimientos = $obj_Mantenimiento->consultar();
-
 require_once 'componentes/llamado_vistas.php';
