@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 28-06-2025 a las 07:42:55
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Servidor: localhost
+-- Tiempo de generación: 09-07-2025 a las 04:59:29
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,10 +45,20 @@ CREATE TABLE `activos` (
 --
 
 INSERT INTO `activos` (`id_activo`, `id_tipo_activo`, `id_ubicacion`, `Nombre_Activo`, `Descripcion_Activo`, `Estado_Activo`, `Fecha_adquisicion`, `Status`) VALUES
-(1, 2, 2, 'PC Hp Super Duty', 'PC Hp 1200 8Gb de Ram disco 120GB', 'Sin Asignar', '2025-06-10', 1),
-(2, 2, 2, 'Asus Zen', 'Asus Zen I5 7ma 16GB Ram 1Tb Disco', NULL, '2025-06-26', 1),
-(3, 2, 1, 'Dell xh2', 'Dell xh2 16Gb de Ram', 'Disponible', '2025-06-27', 1),
-(4, 2, 1, 'La PC Lenta de Maria', 'mas Lenta que una Canaima', 'Disponible', '2025-06-27', 1);
+(1, 1, 2, 'PC Hp Super Duty', 'PC Hp 1200 8Gb de Ram disco 120GB', 'Disponible', '2025-06-10', 1),
+(2, 1, 2, 'Asus Zen', 'Asus Zen I5 7ma 16GB Ram 1Tb Disco', 'Disponible', '2025-06-26', 1),
+(3, 4, 2, 'Dell xh2', 'Dell xh2 16Gb de Ram', 'Disponible', '2025-06-27', 1),
+(4, 2, 2, 'La PC Rapida de Maria', 'mas Lenta que una Canaima', 'Disponible', '2025-06-27', 1),
+(5, 2, 2, 'Asus SonicMaster', 'Asus SonicMaster i7 920mx', 'Disponible', '2025-06-28', 1),
+(6, 1, 2, 'Macbook 2000', 'Macbook Pro 2019', 'Disponible', '2025-07-07', 1),
+(7, 2, 1, 'Macbook M3', 'Macbook M3', 'Disponible', '2025-07-07', 1),
+(8, 2, 1, 'Macbook M4', 'Macbook M4', 'Disponible', '2025-07-07', 1),
+(9, 2, 1, 'Macbook 2019', 'Macbook 2019 16GB Ram', 'Disponible', '2025-07-07', 1),
+(10, 2, 1, 'Dell xh2 confirmada', 'PC Hp 1200 8Gb de Ram disco 120GB', 'Disponible', '2025-07-07', 1),
+(11, 3, 1, 'Camara Sony', 'Camara Sony 48MP', 'Disponible', '2025-07-07', 1),
+(12, 4, 2, 'Mouse', 'Zenchen', 'Disponible', '2025-07-08', 1),
+(13, 4, 1, 'Tablado HB14', 'Teclado hb14', 'Disponible', '2025-07-08', 1),
+(14, 4, 2, 'Monitores', 'monitor', 'Disponible', '2025-07-08', 1);
 
 -- --------------------------------------------------------
 
@@ -71,7 +81,9 @@ CREATE TABLE `activo_mantenimiento` (
 --
 
 INSERT INTO `activo_mantenimiento` (`id_mantenimiento`, `id_activo`, `id_tipo_mantenimiento`, `cedula_empleado`, `Estado`, `Fecha`, `Status`) VALUES
-(1, 1, 1, 7432637, 'Consolidado', '2025-06-27', 1);
+(1, 1, 1, 2147483647, 'Pendiente', '2025-06-27', 1),
+(2, 8, 1, 7432637, 'PENDIENTE', '2025-07-07', 1),
+(3, 7, 3, 2147483647, 'PENDIENTE', '2025-07-07', 1);
 
 -- --------------------------------------------------------
 
@@ -93,16 +105,20 @@ CREATE TABLE `asignacion` (
 --
 
 INSERT INTO `asignacion` (`id_asignacion`, `id_activo`, `cedula_empleado`, `Descripcion_Asignacion`, `Fecha_asignacion`, `Status`) VALUES
-(1, 4, 25894881, 'Equipo en excelente estado', '2025-06-26', 1),
-(2, 3, 25894881, 'En buen estado probado', '2025-06-01', 1),
+(1, 2, 25894881, 'Equipo en excelente estado', '2025-06-26', 1),
+(2, 3, 25894881, 'En buen estado probado', '2025-06-01', 0),
 (3, 2, 7432637, 'En Perfecto Estado', '2025-06-26', 1),
 (4, 2, 25469224, 'En buen estado probado', '2025-06-26', 1),
 (5, 1, 7432637, 'por el software sirve', '2025-06-26', 1),
-(6, 1, 25469224, 'No se Probo', '2025-06-26', 1),
+(6, 1, 25469224, 'No se Probó', '2025-06-26', 1),
 (7, 1, 25894881, 'No se Probo', '2025-06-27', 1),
-(8, 1, 25469224, '4era vez', '2025-06-26', 0),
+(8, 1, 25469224, '4era vez', '2025-06-26', 1),
 (9, 1, 25469224, 'No se Probo', '2025-06-26', 1),
-(10, 3, 25894881, 'Excelente estado y provado', '2025-06-27', 1);
+(10, 3, 25894881, 'Excelente estado y provado', '2025-06-27', 1),
+(11, 5, 25894881, 'En excelente Estado', '2025-06-28', 1),
+(12, 8, 7432637, 'Equipo en excelente estado', '2025-07-07', 1),
+(13, 9, 7432637, 'Equipo en excelente estado', '2025-07-07', 1),
+(14, 12, 2147483647, 'Equipo en excelente estado', '2025-07-08', 1);
 
 -- --------------------------------------------------------
 
@@ -122,7 +138,12 @@ CREATE TABLE `cargo` (
 
 INSERT INTO `cargo` (`id_cargo`, `Nombre_Cargo`, `Status`) VALUES
 (1, 'Administrador', 1),
-(2, 'Empleado', 1);
+(2, '  Empleado', 1),
+(3, ' Secretaria', 1),
+(4, '   Empleado Secundario', 1),
+(5, '  Empleado3 ', 1),
+(6, '  Empleado5', 1),
+(7, ' Cargo', 1);
 
 -- --------------------------------------------------------
 
@@ -146,7 +167,12 @@ CREATE TABLE `compra` (
 --
 
 INSERT INTO `compra` (`id_compra`, `cod_proveedor`, `cedula_empleado`, `Detalle_Compra`, `Cantidad`, `Costo`, `Fecha_Compra`, `Status`) VALUES
-(1, 1, 7432637, 'Carritos', 10, 100.00, '2025-06-27', 1);
+(1, 1, 7432637, 'Ca', 1000, 100.00, '2025-06-27', 1),
+(2, 2, 25469224, 'Carros', 10, 50.00, '2025-07-08', 1),
+(3, 1, 7432637, 'jbwdibwdiuwbdw', 100, 100.00, '2025-07-11', 1),
+(4, 1, 25469224, 'wdwdwdwd', 33, 3434.00, '2025-07-08', 1),
+(5, 1, 7432637, 'wdwdw', 222, 2323.00, '2025-07-08', 1),
+(6, 1, 7432637, 'dwd3d', 100, 100.00, '2025-07-08', 1);
 
 -- --------------------------------------------------------
 
@@ -166,9 +192,11 @@ CREATE TABLE `departamento` (
 --
 
 INSERT INTO `departamento` (`id_departamento`, `Nombre_Departamento`, `Descripcion_Departamento`, `Status`) VALUES
-(1, '  ITV ', '  International TV', 1),
+(1, 'ITV', 'International TV', 1),
 (2, 'Palco de Operaciones Cardenales', 'Palco De Operaciones Cardenales, Encargado de la proyección y sonido del estadio ', 1),
-(3, 'Mercadeo Cardenales', 'Mercadeo Trabaja con Toda la logistica y promocion del equipo', 1);
+(3, 'Mercadeo Cardenales', 'Mercadeo Trabaja con Toda la logistica y promocion del equipo', 1),
+(4, 'Casa', 'Casa Pruebas', 1),
+(5, ' ICASA 2', ' Control de Entradas del Estadio ', 1);
 
 -- --------------------------------------------------------
 
@@ -191,9 +219,13 @@ CREATE TABLE `empleado` (
 --
 
 INSERT INTO `empleado` (`cedula_empleado`, `id_departamento`, `Nombre_Empleado`, `correo_electronico`, `Fecha_creacion`, `id_cargo`, `Status`) VALUES
-(7432637, 1, 'Julio Rodriguez', 'jcdomo69@gmail.com', '2025-06-23', 1, 1),
+(1223333, 2, 'Usuario 2', 'prueba2@gmail.com', '2025-07-08', 3, 1),
+(7371741, 2, 'Eloina Zamudia2', 'eloina@gmail.com', '2025-07-08', 3, 1),
+(7432637, 1, 'Julio Rodriguez', 'jcdomo69@gmail.com', '2025-06-23', 1, 0),
+(12121212, 3, 'Usuario Prueba', 'prueba1@gmail.com', '2025-07-08', 2, 1),
 (25469224, 2, 'Keiver Zamudia', 'keiberzamudia14@gmail.com', '2025-06-23', 1, 1),
-(25894881, 1, 'Yolianna Angulo', 'yolianna14@gmail.com', '2025-06-26', 2, 1);
+(25894881, 1, 'Yolianna Angulo', 'yolianna14@gmail.com', '2025-06-26', 2, 1),
+(2147483647, 3, 'Edgardo Torrealba', 'edgardo@gmail.com', '2025-07-07', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -275,8 +307,11 @@ CREATE TABLE `tipo_activos` (
 --
 
 INSERT INTO `tipo_activos` (`id_tipo_activo`, `Nombre`, `Descripcion_tipo`, `Status`) VALUES
-(1, 'PC', 'Computadora de Mesa', 1),
-(2, ' Laptop ', ' Computador Portatil Doble', 1);
+(1, ' PC ', ' Computadora de Grandes ', 1),
+(2, ' Laptop ', ' Computador Portatil Doble', 1),
+(3, 'Camara', 'Camaras Digitales', 1),
+(4, ' Perifericos ', ' perifericos ', 1),
+(5, 'Monitores', 'Monitores', 1);
 
 -- --------------------------------------------------------
 
@@ -295,9 +330,10 @@ CREATE TABLE `tipo_mantenimiento` (
 --
 
 INSERT INTO `tipo_mantenimiento` (`id_tipo_mantenimiento`, `Nombre`, `Descripcion`) VALUES
-(1, 'Mant-Preventivo', 'estrategia proactiva de cuidado y conservación de equipos, maquinaria e instalaciones que se realiza de forma programada y sistemática.'),
+(1, 'Mant-Preventivo', ''),
 (2, 'Mant-Correctivo', 'Ocurre de forma imprevista cuando un equipo falla repentinamente, interrumpiendo la operación.'),
-(3, 'Mant-Paulatino', 'Mantenimiento a veces');
+(3, 'Mant-Paulatino', 'Mantenimiento a veces'),
+(4, 'Mant-Preventivo3', 'dqwdqw');
 
 -- --------------------------------------------------------
 
@@ -477,37 +513,37 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `activos`
 --
 ALTER TABLE `activos`
-  MODIFY `id_activo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_activo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `activo_mantenimiento`
 --
 ALTER TABLE `activo_mantenimiento`
-  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `asignacion`
 --
 ALTER TABLE `asignacion`
-  MODIFY `id_asignacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_asignacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo`
 --
 ALTER TABLE `cargo`
-  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
@@ -531,13 +567,13 @@ ALTER TABLE `solicitud`
 -- AUTO_INCREMENT de la tabla `tipo_activos`
 --
 ALTER TABLE `tipo_activos`
-  MODIFY `id_tipo_activo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_tipo_activo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_mantenimiento`
 --
 ALTER TABLE `tipo_mantenimiento`
-  MODIFY `id_tipo_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_tipo_mantenimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_usuario`
