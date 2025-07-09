@@ -17,7 +17,7 @@ $Activo = $obj_Activos->consultar();//la consulta de los activos en la tabla y e
 if (isset($_POST['enviar'])) {
   //print_r($_POST);
   $obj_Mantenimiento->set_Id_Activo($_POST['id_activo']);
-  $obj_Mantenimiento->set_Empleado_Responsable($_POST['responsable']);
+  $obj_Mantenimiento->set_Empleado_Responable($_POST['responsable']);
   $obj_Mantenimiento->set_Tipo_MTTO($_POST['tipo']);
 
   if ($obj_Mantenimiento->registrar()) {
@@ -35,7 +35,7 @@ if (isset($_POST['enviar'])) {
 if (isset($_POST['modificar'])) {
   print_r($_POST);
 
-  $obj_Mantenimiento->set_Empleado_Responsable($_POST['responsable']);
+  $obj_Mantenimiento->set_Empleado_Responable($_POST['responsable']);
   $obj_Mantenimiento->set_tipo_MTTO($_POST['tipo']);
   $obj_Mantenimiento->set_Estado_MTTO($_POST['estado']);
   $obj_Mantenimiento->set_Id_Activo($_POST['id']);

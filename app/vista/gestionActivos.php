@@ -13,6 +13,7 @@ require_once 'componentes/menu.php';
     unset($_SESSION['mensaje_exito']);
   }
 
+  //modificado hoy 07/07
   if (isset($_SESSION['mensaje_error'])) {
     echo '<div class="alert alert-danger">' . $_SESSION['mensaje_error'] . '</div>';
     unset($_SESSION['mensaje_error']);

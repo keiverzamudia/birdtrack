@@ -2,6 +2,7 @@
 
 namespace App\Modelo;
 use App\conexion\conexion;
+use App\Modelo\tipoMantenimientoModel;
 use PDO;
 use PDOException;
 
@@ -10,7 +11,7 @@ class GestionMantenimientoModel extends conexion
   private $ID_MTTO;
   private $Nombre_Activo;
   private $Id_Activo;
-  private $Empleado_Responsable;
+  private $Empleado_Responable;
   private $Tipo_MTTO;
   private $Estado_MTTO;
 
@@ -26,9 +27,9 @@ class GestionMantenimientoModel extends conexion
   {
     $this->Nombre_Activo = $valor;
   }
-  function set_Empleado_Responsable($valor)
+  function set_Empleado_Responable($valor)
   {
-    $this->Empleado_Responsable = $valor;
+    $this->Empleado_Responable = $valor;
   }
   function set_Tipo_MTTO($valor)
   {
@@ -46,12 +47,12 @@ class GestionMantenimientoModel extends conexion
       //Agg estatu para eliminacion logica
 
       $sql = "INSERT INTO `activo_mantenimiento` 
-(`id_mantenimiento`, `id_activo`, `id_tipo_mantenimiento`, `cedula_empleado`, `Estado`, `Fecha`, `Status`)     
-VALUES (Null, :Id_Activo, :Tipo_MTTO, :cedula_empleado, 'PENDIENTE', Now(), 1)";
+(`id_mantenimiento`, `id_activo`, `id_tipo_mantenimiento`, `Empleado_Responsable`, `Estado`, `Fecha`, `Status`)     
+VALUES (Null, :Id_Activo, :Tipo_MTTO, :Empleado_Responable, 'PENDIENTE', Now(), 1)";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':Id_Activo', $this->Id_Activo);
       $query->bindParam(':Tipo_MTTO', $this->Tipo_MTTO);
-      $query->bindParam(':cedula_empleado', $this->Empleado_Responsable);
+      $query->bindParam(':Empleado_Responable', $this->Empleado_Responable);
       return $query->execute();
 
     } catch (PDOException $e) {
@@ -60,14 +61,14 @@ VALUES (Null, :Id_Activo, :Tipo_MTTO, :cedula_empleado, 'PENDIENTE', Now(), 1)";
 
   }
 
-   function consultar()
+  function consultar()
   {
     try {
       $sql = "SELECT 
       activo_mantenimiento.id_mantenimiento, 
       activos.Nombre_Activo AS nombre_activo, 
       activos.id_activo,
-      activo_mantenimiento.cedula_empleado, 
+      activo_mantenimiento.Empleado_Responsable, 
       tipo_mantenimiento.Nombre AS tipo_mtto,
       activo_mantenimiento.Estado, 
       activo_mantenimiento.Fecha
@@ -83,16 +84,16 @@ VALUES (Null, :Id_Activo, :Tipo_MTTO, :cedula_empleado, 'PENDIENTE', Now(), 1)";
     }
   }
 
-function modificar($ID_MTTO)
+  function modificar($ID_MTTO)
   {
     try {
       $sql = "UPDATE activo_mantenimiento
-            SET cedula_empleado = :Empleado_Responable,
+            SET Empleado_Responsable = :Empleado_Responable,
                 id_tipo_mantenimiento = :Tipo_MTTO,
                 Estado = :Estado_MTTO
             WHERE id_mantenimiento = :ID_MTTO";
       $query = $this->conex->prepare($sql);
-      $query->bindParam(':Empleado_Responable', $this->Empleado_Responsable);
+      $query->bindParam(':Empleado_Responable', $this->Empleado_Responable);
       $query->bindParam(':Tipo_MTTO', $this->Tipo_MTTO);
       $query->bindParam(':Estado_MTTO', $this->Estado_MTTO);
       $query->bindParam(':ID_MTTO', $ID_MTTO);
@@ -132,6 +133,4 @@ function modificar($ID_MTTO)
 
 
 }
-?>
-
 ?>
