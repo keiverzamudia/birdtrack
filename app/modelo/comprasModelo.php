@@ -1,7 +1,7 @@
 <?php
 namespace App\modelo;
 // require_once 'app/conexion/conexion.php';
-use App\conexion\Conexion;
+        use App\conexion\Conexion;
 use PDO;
 use PDOException;
 

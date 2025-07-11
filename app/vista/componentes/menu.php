@@ -77,13 +77,7 @@
 <hr class="sidebar-divider">
 
             <!-- Nav Item - Centro de Mensajes Menu -->
-<li class="nav-item">
-    <a class="nav-link" href="#">
-        <i class="fa-solid fa-comments"></i>
-        <span>Contro de Mensajes</span></a>
-</li>
-                        <!-- Divider -->
-<hr class="sidebar-divider">
+
 
 
             <!-- Nav Item - Compras y Proveedores Menu -->

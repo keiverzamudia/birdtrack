@@ -230,10 +230,6 @@ if (isset($_SESSION['mensaje_error'])) {
   </div>
 </div>
 
-
-
-
-
 <!-- MODAL: Confirmar Eliminación -->
  <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -262,12 +258,7 @@ if (isset($_SESSION['mensaje_error'])) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
 <?php require_once 'componentes/footer.php'; ?>
-
-
-
-
 <script>
- 
   $(document).ready(()=>{
     $(".btnEliminar").each((index, element)=>{
       $(element).on('click',(e)=>{
@@ -275,10 +266,7 @@ if (isset($_SESSION['mensaje_error'])) {
         $('#nombreEliminacion').text($(e.target).closest('tr').find('td:eq(1)').text()) //Dentro de esa fila, busca la segunda celda (<td>) (índice 1).
       })
     })
-
     });
-   
-
 $(document).on('click', '.btn-editar-compra', function () {
   $('#idCompraEdit').val($(this).data('id'));
   $('#codProveedorEdit').val($(this).data('cod'));
@@ -288,8 +276,6 @@ $(document).on('click', '.btn-editar-compra', function () {
   $('#costoEdit').val($(this).data('costo'));
   $('#fechaCompraEdit').val($(this).data('fecha'));
 });
-  
-
   
 function confirmarEditar() {
     return confirm("¿Estás seguro de que deseas EDITAR este elemento?");
@@ -308,8 +294,4 @@ function confirmarEditar() {
     return confirm("¿Estás seguro de Editar la Compra?");
 
   }
-
-
-  
-
 </script>

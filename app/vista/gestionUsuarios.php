@@ -156,8 +156,7 @@ if (isset($_SESSION['mensaje_error'])) {
         <form method="POST" onsubmit="return NuevoUsuario()">
          
           <div class="modal-body d-flex flex-column gap-4">
-            <input class="form-control" type="text" name="cedula" placeholder="cedula" required>
-            <input class="form-control" type="text" name="nombre" placeholder="Nombre" required>
+           
            <select class="form-control" name="departamento" id="depertamento">
               <option value=""selected hidden>seleccione un departamento</option>
                  <?php foreach($departamentos as $departamento){?>
@@ -172,6 +171,8 @@ if (isset($_SESSION['mensaje_error'])) {
                  <option value="<?php echo $cargo['id_cargo'] ?>"> <?php echo $cargo['Nombre_Cargo'] ?></option>
                  <?php } ?>
             </select>
+             <input class="form-control" type="text" name="cedula" placeholder="cedula" required>
+            <input class="form-control" type="text" name="nombre" placeholder="Nombre" required>
             <input class="form-control" type="email" name="correo" placeholder="correo" required>
           </div>
           <div class="modal-footer">
@@ -234,7 +235,7 @@ if (isset($_SESSION['mensaje_error'])) {
                           </svg>
         
                         </button>
-                        <button class="btn btn-danger" title="Eliminar" name="eliminar_cargo" type="submit" onclick="return confirm('Eliminar tipo de activo?') "
+                        <button class="btn btn-danger" title="Eliminar" name="eliminar_cargo" type="submit" onclick="return confirm('Eliminar cargo?') "
                           value="<?php echo $cargo['id_cargo'] ?>">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                             viewBox="0 0 16 16">
@@ -321,7 +322,7 @@ if (isset($_SESSION['mensaje_error'])) {
                           </svg>
         
                         </button>
-                        <button class="btn btn-danger" title="Eliminar" name="eliminar_departamento" type="submit"
+                        <button class="btn btn-danger" title="Eliminar" name="eliminar_departamento" type="submit" onclick="return confirm('Desea Modificar el departamento?') "
                           value="<?php echo $departamento['id_departamento'] ?>">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                             viewBox="0 0 16 16">

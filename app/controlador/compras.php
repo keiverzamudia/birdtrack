@@ -57,9 +57,10 @@ if (isset($_POST['editar_compra'])) {
   $obj_model->set_Fecha_Compra($_POST['Fecha_Compra']);
 
   if ($obj_model->modificar($_POST['id_compra'])) {
-    $_SESSION['mensaje_exito'] = "Compra Editada correctamente";
+    $_SESSION['mensaje_error'] = "Error al Editar la Compra";
   } else {
-      $_SESSION['mensaje_error'] = "Error al Editar la Compra";
+    $_SESSION['mensaje_exito'] = "Compra Editada correctamente";
+
 }
 
 }

@@ -22,8 +22,8 @@ require_once 'componentes/menu.php';
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Enviar un mensaje global</div>
-                        <a href="#" style="font-weight: bold; color: #5a5c69; font-size: 20px;">Enviar un Mensaje Global</a>
+                            Registra un Nuevo Activo </div>
+                        <a href="?url=gestionActivos" style="font-weight: bold; color: #5a5c69; font-size: 20px;"> Registra un Nuevo Activo</a>
                     </div>
                 </div>
             </div>
@@ -37,8 +37,8 @@ require_once 'componentes/menu.php';
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Enviar mensaje personal</div>
-                        <a href="#" style="font-weight: bold; color: #5a5c69; font-size: 20px;">Enviar un Mensaje Privado</a>
+                            Ver los Activos Asignados</div>
+                        <a href="?url=asignacionActivo" style="font-weight: bold; color: #5a5c69; font-size: 20px;">Ver los Activos Asignados</a>
                     </div>
                 </div>
             </div>
@@ -52,8 +52,8 @@ require_once 'componentes/menu.php';
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Asignar Activos</div>
-                        <a href="?url=gestionActivos" style="font-weight: bold; color: #5a5c69; font-size: 20px;">Asigna un Activo</a>
+                            Registrar un Nuevo Usuario</div>
+                        <a href="?url=gestionUsuarios" style="font-weight: bold; color: #5a5c69; font-size: 20px;">Registrar un Nuevo Usuario</a>
                     </div>
                 </div>
             </div>
@@ -85,14 +85,14 @@ require_once 'componentes/menu.php';
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Vista de mensajes Recibidos</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Utilidades del Sistema</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
                 <div class="row">
                     <!-- Mensajes Globales -->
                     <div class="col-md-6">
-                        <h6 class="font-weight-bold text-primary">Mensajes Globales</h6>
+                        <h6 class="font-weight-bold text-primary">Espacio del Disco NAS</h6>
                         <div class="list-group">
                             <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
@@ -138,7 +138,7 @@ require_once 'componentes/menu.php';
 
                     <!-- Centro de Mensajes -->
                     <div class="col-md-6">
-                        <h6 class="font-weight-bold text-primary">Centro de Mensajes</h6>
+                        <h6 class="font-weight-bold text-primary">Espacio Disponible del Disco</h6>
                         <div class="list-group">
                             <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">

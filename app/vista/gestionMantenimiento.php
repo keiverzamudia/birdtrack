@@ -111,7 +111,7 @@ require_once 'componentes/menu.php';
                     <td> <?= $mantenimiento['id_mantenimiento'] ?> </td>
                     <td> <?= $mantenimiento['nombre_activo'] ?> </td>
                     <td> <?= $mantenimiento['id_activo'] ?> </td>
-                    <td> <?= $mantenimiento['cedula_empleado'] ?> </td>
+                    <td> <?= $mantenimiento['nombre_empleado'] ?> </td>
                     <td> <?= $mantenimiento['tipo_mtto'] ?> </td>
                     <td> <?= $mantenimiento['Estado'] ?> </td>
                     <td> <?= $mantenimiento['Fecha'] ?> </td>
@@ -140,12 +140,12 @@ require_once 'componentes/menu.php';
                             d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
                         </svg>
                       </button>
-</form>
-                    </td>
-                  </tr>
-          </tbody>
+                </form>
+                </td>
+                </tr>
+              </tbody>
 
- <div class="modal fade" id="editar<?php $mantenimiento['id_mantenimiento'] ?>" data-bs-backdrop="static"
+              <div class="modal fade" id="editar<?= $mantenimiento['id_mantenimiento'] ?>" data-bs-backdrop="static"
                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -162,16 +162,16 @@ require_once 'componentes/menu.php';
                         <div class="mb-4">
 
                           <label for="InputEmpleado" class="form-label">Empleado Responsable</label>
-                          <select class="form-control" name='responsable' id="InputEmpleado"
-                            aria-describedby="empleadoHelp" value="<?php echo $usuarios['cedula_empleado']; ?>"
-                            required>
-                            <option selected disabled><?php echo $mantenimiento['cedula_empleado']?>
-                            <?php foreach ($usuarios as $empleado){
-                              echo "<option value='". $empleado['cedula_empleado']."'>"
-                              . $empleado['Nombre_Empleado']. "</option>";
-                              
-                            }?></option>
-                </select>
+                          <select class="form-control" name='responsable' id="InputEmpleado" aria-describedby="empleadoHelp"
+                            value="<?php echo $usuarios['cedula_empleado']; ?>" required>
+                            <option selected disabled><?php echo $mantenimiento['nombre_empleado'] ?>
+                              <?php foreach ($usuarios as $empleado) {
+                                echo "<option value='" . $empleado['cedula_empleado'] . "'>"
+                                  . $empleado['Nombre_Empleado'] . "</option>";
+
+                              } ?>
+                            </option>
+                          </select>
                           <div id="empleadolHelp" class="form-text">Ingrese el Nombre del Responable del
                             Activo</div>
                         </div>
@@ -201,15 +201,15 @@ require_once 'componentes/menu.php';
                   </div>
                 </div>
               </div>
-        <?php }
+            <?php }
               } else { ?>
-        <tr>
-          <td colspan="6">
-            <h2>No hay registro de Mantenimientos</h2>
-          </td>
-        </tr>
-      <?php } ?>
-      </form>
+            <tr>
+              <td colspan="6">
+                <h2>No hay registro de Mantenimientos</h2>
+              </td>
+            </tr>
+          <?php } ?>
+          </form>
         </table>
       </div>
     </div>

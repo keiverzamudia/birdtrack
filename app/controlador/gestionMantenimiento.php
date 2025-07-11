@@ -1,3 +1,4 @@
+
 <?php
 
 
@@ -13,6 +14,8 @@ $obj_Usuarios = new gestionUsuariosModel();
 
 $tipo_mantenimiento = $obj_TipoMantenimiento->consultar(); // Para el select
 $Activo = $obj_Activos->consultar();//la consulta de los activos en la tabla y en el select
+$mantenimientos = $obj_Mantenimiento->consultar();
+$usuarios = $obj_Usuarios->consultar();
 
 if (isset($_POST['enviar'])) {
   //print_r($_POST);
@@ -33,12 +36,13 @@ if (isset($_POST['enviar'])) {
 }
 
 if (isset($_POST['modificar'])) {
-  print_r($_POST);
+  //print_r($_POST);
 
+  $obj_Mantenimiento->set_Id_Activo($_POST['id']);
   $obj_Mantenimiento->set_Empleado_Responable($_POST['responsable']);
   $obj_Mantenimiento->set_tipo_MTTO($_POST['tipo']);
   $obj_Mantenimiento->set_Estado_MTTO($_POST['estado']);
-  $obj_Mantenimiento->set_Id_Activo($_POST['id']);
+
 
   if ($obj_Mantenimiento->modificar($_POST['modificar'])) {
     $mensaje = "Solicitud actualizada correctamente";
@@ -69,9 +73,4 @@ if (isset($_POST['seleccion'])) {
   $modificar_Mantenimiento = $obj_Mantenimiento->buscar();
 
 }
-
-
-$mantenimientos = $obj_Mantenimiento->consultar();
-  $usuarios = $obj_Usuarios->consultar();
-
 require_once 'componentes/llamado_vistas.php';

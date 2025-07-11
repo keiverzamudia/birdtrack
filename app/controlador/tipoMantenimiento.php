@@ -34,6 +34,7 @@ if (isset($_POST['editar'])) {
     // print_r($_POST);
     $obj_tipoMantenimiento->set_ID_TIPO_MTTO($_POST['editar']);
     $obj_tipoMantenimiento->set_nombre_tipo_mtto($_POST["nombre_mtto"]);
+    
     $obj_tipoMantenimiento->set_descripcion($_POST["descripcion"]);
 
 
@@ -51,6 +52,7 @@ if (isset($_POST['seleccion'])) {
     $tipo_mantenimiento = $obj_tipoMantenimiento->consultar();
 }
 $tipo_mantenimiento = $obj_tipoMantenimiento->consultar();
+
 
 require_once 'componentes/llamado_vistas.php';
 ?>

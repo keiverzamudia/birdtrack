@@ -30,6 +30,7 @@ require_once 'componentes/menu.php';
     </button>
 </div>
 
+
         <!--MODEL REGISTRO PROVEEDOR-->
 
 
@@ -78,7 +79,6 @@ require_once 'componentes/menu.php';
                 <th>Codigo de proveedor</th>
                 <th>Nombre</th>
                 <th>Direccion</th>
-                <th>Detalle de compra</th>
                 <th>Numero Telefono</th>
                 <th>Correo electronico </th>
                 <th>Acciones</th>
@@ -91,7 +91,6 @@ require_once 'componentes/menu.php';
                         <td> <?php echo $proveedor['cod_proveedor'] ?> </td>
                         <td> <?php echo $proveedor['Nombre_Proveedor'] ?> </td>
                         <td> <?php echo $proveedor['Direccion'] ?> </td>
-                        <td> <?php echo $proveedor['Direccion'] ?> </td>
                         <td> <?php echo $proveedor['Numero_telefono'] ?> </td>
                         <td> <?php echo $proveedor['Correo_elect'] ?> </td>
                         <td>
@@ -99,13 +98,13 @@ require_once 'componentes/menu.php';
 
 
                             
-         <button class="btn btn-success" title="editar_proveedor" type="button" name="seleccion"
-                       data-bs-toggle="modal" ni data-bs-target="#editar"  class="btn btn-warning btn-editar"
-                        data-cod="<?= $prov['cod_proveedor'] ?>"
-                        data-nombre="<?= $prov['Nombre_Proveedor'] ?>"
-                        data-direccion="<?= $prov['Direccion'] ?>"
-                        data-telefono="<?= $prov['Numero_telefono'] ?>"
-                        data-correo="<?= $prov['Correo_elect'] ?>"     onsubmit="return confirmarEditar()">
+         <button type="button" class="btn btn-success btn-editar-proveedor"
+                    data-bs-toggle="modal" data-bs-target="#editar"
+                    data-cod="<?= $proveedor['cod_proveedor'] ?>"
+                    data-nombre="<?= $proveedor['Nombre_Proveedor'] ?>"
+                    data-direccion="<?= $proveedor['Direccion'] ?>"
+                    data-telefono="<?= $proveedor['Numero_telefono'] ?>"
+                    data-correo="<?= $proveedor['Correo_elect'] ?>"    onsubmit="return confirmarEditar()">
 
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -192,7 +191,7 @@ require_once 'componentes/menu.php';
                     </div>
                 </div> <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success" name="editar_proveedor" onsubmit="confirmarEditar()">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-success" name="editar_proveedor" onsubmit="confirmarGuardar()">Guardar Cambios</button>
 
                 </div>
             </form> 
@@ -252,11 +251,22 @@ require_once 'componentes/footer.php';
     })
 
     });
+
+
+$(document).on('click', '.btn-editar-proveedor', function () {
+  $('#codProveedorEdit').val($(this).data('cod'));
+  $('#nombreProveedor').val($(this).data('nombre'));
+  $('#direccionProveedor').val($(this).data('direccion'));
+  $('#telefonoProveedor').val($(this).data('telefono'));
+  $('#correoProveedor').val($(this).data('correo'));
+});
+
+    
     </script>
     
     
 <script>
-  
+
   function confirmarEditar() {
     return confirm("¿Estás seguro de que deseas EDITAR este proveedor?");
   }
@@ -266,4 +276,3 @@ require_once 'componentes/footer.php';
   }
 
 </script>
-
