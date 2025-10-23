@@ -1,13 +1,18 @@
 <?php
 namespace App\modelo;
 use App\conexion\conexion;
+use App\interfaces\laInterface;
 use PDO;
 use PDOException;
 
 
-class gestionProveedoresModel extends conexion
-{
 
+class gestionProveedoresModel extends conexion {
+
+  // Implementación del método consultar requerido por laInterface
+  public function consultar() {
+    return $this->consultarProveedor();
+  }
 
   private $cod_proveedor;
   private $Nombre_Proveedor;
@@ -36,7 +41,7 @@ class gestionProveedoresModel extends conexion
     $this->Correo_elect = $valor;
   }
 
-  function consultar()
+  function consultarProveedor()
   {
     try {
       $sql = "SELECT * FROM proveedor WHERE status = 1";
@@ -78,19 +83,21 @@ class gestionProveedoresModel extends conexion
     }
   }
 
-  function modificar()
+
+
+  function modificar($cod_proveedor)
   {
     try {
       $sql = "UPDATE proveedor
-              SET  Nombre_Proveedor = :Nombre_Proveedor,
-                Direccion = :Direccion, 
-          Numero_telefono = :Numero_telefono, 
-             Correo_elect = :Correo_elect
+        SET  Nombre_Proveedor = :Nombre_Proveedor,
+                    Direccion = :Direccion, 
+              Numero_telefono = :Numero_telefono, 
+                Correo_elect = :Correo_elect
             
-              WHERE cod_proveedor = ':cod_proveedor'";
+              WHERE cod_proveedor = :cod_proveedor";
 
       $query = $this->conex->prepare($sql);
-
+      
       $query->bindParam(':Nombre_Proveedor', $this->Nombre_Proveedor);
       $query->bindParam(':Direccion', $this->Direccion);
       $query->bindParam(':Numero_telefono', $this->Numero_telefono);
@@ -102,6 +109,7 @@ class gestionProveedoresModel extends conexion
       return false;
     }
   }
+
 
 
   function buscar()
@@ -118,14 +126,7 @@ class gestionProveedoresModel extends conexion
   }
 
 
-
-
 }
-
-
-
-
-
 
 
 ?>

@@ -1,11 +1,12 @@
 <?php
 namespace App\Modelo;
 use App\conexion\conexion;
+use App\interfaces\laInterface;
 use PDO;
 use PDOException;
 
 
-class tipoMantenimientoModel extends conexion
+class tipoMantenimientoModel extends conexion 
 {
 
     private $ID_TIPO_MTTO;
@@ -34,7 +35,7 @@ class tipoMantenimientoModel extends conexion
         try {
 
             $sql = "INSERT INTO tipo_mantenimiento( Nombre, Descripcion)
-VALUES (:Nombre, :Descripcion)";
+            VALUES (:Nombre, :Descripcion)";
             $query = $this->conex->prepare($sql);
             $query->bindParam(':Nombre', $this->NOMBRE_TIPO_MTTO);
             $query->bindParam(':Descripcion', $this->DESCRIPCION);
@@ -47,6 +48,9 @@ VALUES (:Nombre, :Descripcion)";
         }
 
     }
+
+
+
     public function consultar()
     {
 
@@ -61,6 +65,8 @@ VALUES (:Nombre, :Descripcion)";
     }
 
 
+
+
     function eliminar()
     {
         try {
@@ -73,7 +79,10 @@ VALUES (:Nombre, :Descripcion)";
             return false;
         }
     }
-    public function modificar()
+
+
+    
+    public function modificar($id)
     {
         try {
             $sql = "UPDATE tipo_mantenimiento SET

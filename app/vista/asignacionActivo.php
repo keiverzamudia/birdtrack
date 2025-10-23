@@ -69,7 +69,7 @@ require_once 'componentes/menu.php';
                           <h1 class="modal-title fs-5" id="editModalLabel<?php echo $asignacion['id_asignacion'] ?>">Editar Activo Asignado N°-<?php echo $asignacion['id_asignacion'] ?></h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form method="POST">
+                        <form method="POST" class="formEditarAsignacion">
                           <div class="modal-body d-flex flex-column gap-4">
                             <select class="form-select mb-3" name="id_activo" id="id_activo_edit<?php echo $asignacion['id_asignacion'] ?>" aria-label="Default select example">
                               <option disabled>Seleccione el Activo</option>
@@ -126,7 +126,7 @@ require_once 'componentes/menu.php';
           <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Asignacion de Activos</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form method="POST">
+        <form method="POST" id="formCrearAsignacion">
           <div class="modal-body d-flex flex-column gap-4">
             <select class="form-select mb-3" name="id_activo" id="id_activo_create" aria-label="Default select example">
               <option selected disabled>Seleccione el Activo</option>
@@ -156,6 +156,8 @@ require_once 'componentes/menu.php';
     </div>
   </div>
 
+
+  
   <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -185,13 +187,7 @@ require_once 'componentes/menu.php';
   require_once 'componentes/footer.php';
   ?>
 
-  <script>
-    $(document).ready(() => {
-      $(".btnEliminar").each((index, element) => {
-        $(element).on('click', (e) => {
-          $('#btnEliminarSolicitud').val($(e.target).closest('tr').find('td:eq(0)').text()) //encuentra la fila de la tabla donde se hizo clic.
-          $('#nombreEliminacion').text($(e.target).closest('tr').find('td:eq(0)').text()) //Dentro de esa fila, busca la primera celda (<td>) (índice 0) para el número de asignación.
-        })
-      })
-    });
-  </script>
+  <!-- Incluir jQuery si no está incluido -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Incluir el archivo JavaScript para AJAX -->
+  <script src="Assets/js/asignacionActivo.js"></script>

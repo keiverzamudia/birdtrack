@@ -8,7 +8,7 @@ class FrontController{
         if (isset($_GET['url'])) {
             $this->url = $_GET['url'];
         }else{
-            $this->url = 'inicio';
+            $this->url = 'login';
         }
 
         $this->loadController();

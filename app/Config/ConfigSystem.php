@@ -1,6 +1,6 @@
 <?php
 
-define("_URL_","http://localhost/BirdTrack/");
+define("_URL_","http://localhost/BirdTrack_Login/");
 
 define("_HOST_","localhost");
 define("_DB_","bridtrack");

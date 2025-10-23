@@ -1,8 +1,7 @@
 <?php
-
 namespace App\modelo;
-
 use \App\conexion\conexion;
+use \App\interfaces\laInterface;
 use PDO;
 use PDOException;
 
@@ -12,11 +11,12 @@ class gestionUsuariosModel extends conexion {
   private $ID_Activo;
 
   private $cedula;
-  private $nombre;  
+  private $nombre; 
   private $departamento;
   private $cargo;
   private $correo;
   private $clave;
+  private $foto;
 
 
   function set_cedula($valor){
@@ -37,21 +37,46 @@ class gestionUsuariosModel extends conexion {
   function set_clave($valor){
     $this->clave = $valor;
   }
+  function set_foto($valor){
+    $this->foto = $valor;
+  }
   function __construct(){
     parent::__construct();
   }
 
   
+  function login() {
+    try {
+      $sql = "SELECT * FROM empleado WHERE correo_electronico = :correo AND clave = :clave";
+
+      $query = $this->conex->prepare($sql);
+      $query->bindParam(':correo', $this->correo);
+      $query->bindParam(':clave', $this->clave);
+      $query->execute();
+
+
+   if ($query->rowCount() > 0) {
+        return $query->fetch(PDO::FETCH_ASSOC);
+      } else {
+        return null;
+      }
+    } catch (\PDOException $e) {
+      return false;
+    }
+  }
+
+  
   function registrar(){
    try {
-      $sql = "INSERT INTO empleado (cedula_empleado, Nombre_Empleado, id_departamento, id_cargo, correo_electronico,Fecha_creacion ,Status) 
-              VALUES (:cedula, :nombre, :departamento, :cargo, :correo, NOW(), '1')";
+      $sql = "INSERT INTO empleado (cedula_empleado, Nombre_Empleado, id_departamento, id_cargo, correo_electronico,Fecha_creacion,perfil ,Status) 
+              VALUES (:cedula, :nombre, :departamento, :cargo, :correo, NOW(), :foto, '1')";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':cedula', $this->cedula);
       $query->bindParam(':nombre', $this->nombre);
       $query->bindParam(':departamento', $this->departamento);
       $query->bindParam(':cargo', $this->cargo);
       $query->bindParam(':correo', $this->correo);
+      $query->bindParam(':foto', $this->foto);
       return $query->execute();
    } catch (PDOException $e) {
     return false;
@@ -111,7 +136,7 @@ class gestionUsuariosModel extends conexion {
   function eliminar(){
     try {
 
-      $sql = "UPDATE empleado SET status = 0 WHERE cedula_empleado = :cedula";
+      $sql = "UPDATE empleado SET Status = 0 WHERE cedula_empleado = :cedula";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':cedula', $this->cedula);
       $query->execute();
@@ -124,7 +149,8 @@ class gestionUsuariosModel extends conexion {
     
 }
 
-class CargoModel extends conexion {
+
+class CargoModel extends conexion  {
 
   private $id_cargo;
   private $nombre_cargo;
@@ -151,7 +177,7 @@ class CargoModel extends conexion {
 
   function registrarcargo(){
     try {
-      $sql = "INSERT INTO cargo(id_cargo, Nombre_Cargo) VALUES (null, :nombre )";
+      $sql = "INSERT INTO cargo(id_cargo, Nombre_Cargo) VALUES  (null, :nombre )";
       $query = $this->conex->prepare($sql);
       $query->bindParam(':nombre', $this->nombre_cargo);
       return $query->execute();
@@ -253,12 +279,6 @@ class DepartamentoModel extends conexion {
   }
 }
 }
-
-
-
-
-
-
 
 
 ?>

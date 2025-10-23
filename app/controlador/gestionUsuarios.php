@@ -1,5 +1,8 @@
 <?php
+require_once 'componentes/sesion.php';
 //namespace App\controlador\Model;
+
+
 
 use App\modelo\CargoModel;
 use App\modelo\gestionUsuariosModel;
@@ -10,12 +13,21 @@ use App\modelo\DepartamentoModel;
  $obj_departamento = new DepartamentoModel();
 
 if(isset($_POST['enviar'])){
- 
+
+  if(!is_dir('Assets/img/perfiles')){
+    mkdir('Assets/img/perfiles', 0777, true);
+  }
+
+  $ruta_temporal = $_FILES['foto']['tmp_name'];
+  $destino = 'Assets/img/perfiles/' . $_FILES['foto']['name'];
+  move_uploaded_file($ruta_temporal, $destino);
+
   $obj_model->set_cedula($_POST['cedula']);
   $obj_model->set_nombre($_POST['nombre']);
   $obj_model->set_departamento($_POST['departamento']);
   $obj_model->set_cargo($_POST['cargo']);
   $obj_model->set_correo($_POST['correo']);
+  $obj_model->set_foto($_FILES['foto']['name']);
  
 
   if($obj_model->registrar()) {
@@ -118,9 +130,6 @@ if(isset($_POST['editar_departamento'])){
 $usuarios = $obj_model->consultar();
 $departamentos = $obj_departamento->consultardep();
 $cargos = $obj_cargo->consultarcargo();
-
-
-
 
 require_once 'componentes/llamado_vistas.php';
 ?>

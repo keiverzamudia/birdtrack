@@ -123,33 +123,34 @@ include_once 'componentes/menu.php';
 
 
                                         <!-- formulario de edicion a mantenimiento -->
-                                        <div class="modal-body">
-                                            <form method="post">
-                                                <div class="mb-4">
-                                                    <label for="nombre_mtto" class="form-label">Nombre del Mantenimiento</label>
-                                                    <input type="text" value="<?php echo $tipo['Nombre'] ?>"
-                                                        class="form-control form-control-sm mb-4" id="nombre_mtto"
-                                                        aria-describedby="nombre_mttoHelp" name="nombre_mtto">
-                                                    <div id="nombre_mttoHelp" class="form-text">Ingrese el Nombre del
-                                                        Mantenimiento</div>
-                                                </div>
-                                                <div class="form-floating mb-4">
-                                                    <textarea class="form-control form-control-sm mb-4" id="descripcion"
-                                                        name="descripcion" style="height: 100px"></textarea>
-                                                    <label for="floatingTextarea2"><?php echo $tipo['Descripcion'] ?></label>
-                                                </div>
+                                            <div class="modal-body">
+                                                <form method="post">
+                                                    <div class="mb-4">
+                                                        
+                                                        <label for="nombre_mtto" class="form-label">Nombre del Mantenimiento</label>
+                                                        <input type="text" value="<?php echo $tipo['Nombre'] ?>"
+                                                            class="form-control form-control-sm mb-4" id="nombre_mtto"
+                                                            aria-describedby="nombre_mttoHelp" name="nombre_mtto">
+                                                        <div id="nombre_mttoHelp" class="form-text">Ingrese el Nombre del
+                                                            Mantenimiento</div>
+                                                    </div>
+                                                    <div class="form-floating mb-4">
+                                                        <textarea class="form-control form-control-sm mb-4" id="descripcion"
+                                                            name="descripcion" style="height: 100px"></textarea>
+                                                        <label for="floatingTextarea2"><?php echo $tipo['Descripcion'] ?></label>
+                                                    </div>
 
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger"
-                                                        data-bs-dismiss="modal">Cancelar</button>
-                                                    <button type="submit" class="btn btn-success p-2" data-bs-toggle="modal"
-                                                        title="editar" name="editar"
-                                                        value="<?php echo $tipo['id_tipo_mantenimiento'] ?>">Editar</button>
-                                            </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-success p-2" data-bs-toggle="modal"
+                                                            title="editar" name="editar"
+                                                            value="<?php echo $tipo['id_tipo_mantenimiento'] ?>">Editar</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
             </div>
             </form>
         <?php }

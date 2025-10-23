@@ -30,20 +30,6 @@ require_once 'componentes/menu.php';
         </div>
     </div>
 
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Enviar mensaje personal</div>
-                        <a href="#" style="font-weight: bold; color: #5a5c69; font-size: 20px;">Enviar un Mensaje Privado</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
@@ -136,41 +122,9 @@ require_once 'componentes/menu.php';
                         </div>
                     </div>
 
-                    <!-- Centro de Mensajes -->
-                    <div class="col-md-6">
-                        <h6 class="font-weight-bold text-primary">Centro de Mensajes</h6>
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <div class="mr-3">
-                                        <img class="rounded-circle" src="assets/img/cardenales.png" alt="..." style="width: 40px; height: 40px;">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1">Hi there! I am wondering if you can help me with a problem I've been having.</h6>
-                                        <small class="text-muted">Emily Fowler · 58m</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <div class="mr-3">
-                                        <img class="rounded-circle" src="assets/img/cardenales.png" alt="..." style="width: 40px; height: 40px;">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1">I have the photos that you ordered last month, how would you like them sent to you?</h6>
-                                        <small class="text-muted">Jae Chun · 1d</small>
-                                    </div>
-                                </div>
-                        </div>
-                        </a class="flex-grow-1">
+                  
+                    
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Pie Chart -->
     <div class="col-xl-4 col-lg-5">

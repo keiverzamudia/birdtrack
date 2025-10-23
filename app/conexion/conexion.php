@@ -2,7 +2,6 @@
 namespace App\conexion;
 
 require_once "app/Config/ConfigSystem.php";
-
 use PDO;
 use PDOException;
 

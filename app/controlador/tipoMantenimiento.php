@@ -1,4 +1,5 @@
 <?php
+require_once 'componentes/sesion.php';
 use App\Modelo\tipoMantenimientoModel;
 
 $obj_tipoMantenimiento = new tipoMantenimientoModel();

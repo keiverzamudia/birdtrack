@@ -3,6 +3,7 @@
 namespace App\modelo;
 
 use \App\conexion\conexion;
+use App\interfaces\laInterface;
 use PDO;
 use PDOException;
 

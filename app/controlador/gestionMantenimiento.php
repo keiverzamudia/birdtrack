@@ -1,4 +1,5 @@
 <?php
+require_once 'componentes/sesion.php';
 
 
 use App\Modelo\GestionMantenimientoModel;
@@ -71,7 +72,7 @@ if (isset($_POST['seleccion'])) {
 }
 
 
-$mantenimientos = $obj_Mantenimiento->consultar();
-  $usuarios = $obj_Usuarios->consultar();
+// $mantenimientos = $obj_Mantenimiento->consultar();
+//   $usuarios = $obj_Usuarios->consultar();
 
 require_once 'componentes/llamado_vistas.php';

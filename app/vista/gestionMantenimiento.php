@@ -165,6 +165,7 @@ require_once 'componentes/menu.php';
                           <select class="form-control" name='responsable' id="InputEmpleado"
                             aria-describedby="empleadoHelp" value="<?php echo $usuarios['cedula_empleado']; ?>"
                             required>
+                            
                             <option selected disabled><?php echo $mantenimiento['cedula_empleado']?>
                             <?php foreach ($usuarios as $empleado){
                               echo "<option value='". $empleado['cedula_empleado']."'>"
@@ -217,7 +218,7 @@ require_once 'componentes/menu.php';
 
 
   <!-- Nuevo Modal de eliminacion 'ALERTA' -->
-  <div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="id_eliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
@@ -232,7 +233,7 @@ require_once 'componentes/menu.php';
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <form method="POST">
-            <button id="btnEliminarMantenimiento" name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
+            <button id="btnEliminar" name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
           </form>
         </div>
       </div>
@@ -256,7 +257,7 @@ require_once 'componentes/menu.php';
     $(document).ready(() => {
       $(".btnEliminar").each((index, element) => {
         $(element).on('click', (e) => {
-          $('#btnEliminarMantenimiento').val($(e.target).closest('tr').find('td:eq(0)').text())
+          $('#btnEliminar').val($(e.target).closest('tr').find('td:eq(0)').text())
           $('#nombreEliminacion').text($(e.target).closest('tr').find('td:eq(0)').text())
         })
       })

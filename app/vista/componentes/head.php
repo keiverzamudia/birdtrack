@@ -1,6 +1,8 @@
 <?php
 include_once __DIR__ . '/../../Config/ConfigSystem.php';
 include_once __DIR__ . '/../../Config/InitComponent.php';
+require_once 'app/controlador/componentes/sesion.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,9 +20,11 @@ include_once __DIR__ . '/../../Config/InitComponent.php';
     <!-- Page level Iconos FontAwesome -->
 
 <script src="https://kit.fontawesome.com/44f0339233.js" crossorigin="anonymous"></script>
-    <!-- Custom styles for this template
+    <!-- Custom styles for this template-->
+
+  
      
-    <link href="Assets/css/sb-admin-2.min.css" rel="stylesheet">-->
+    <link href="Assets/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">

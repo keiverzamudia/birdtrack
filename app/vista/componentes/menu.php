@@ -1,5 +1,5 @@
-
 <!--Inicio Sidebar -->
+  
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
@@ -9,7 +9,6 @@
     </div>
     <div class="sidebar-brand-text mx-3">BirdTrack</div>
 </a>
-
 <!-- Barra Divisora -->
 <hr class="sidebar-divider my-0">
 
@@ -61,7 +60,7 @@
 
 <!-- Nav Item - Reclamos Menu -->
 <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="?url=reclamos">
         <i class="fa-solid fa-person-circle-exclamation"></i>
         <span>Reclamos</span></a>
 </li>
@@ -85,12 +84,21 @@
                         <!-- Divider -->
 <hr class="sidebar-divider">
 
-
-            <!-- Nav Item - Compras y Proveedores Menu -->
+<!-- Nav Item - Compras y Proveedores Menu -->
 <li class="nav-item">
     <a class="nav-link" href="?url=compras">
         <i class="fa-solid fa-cart-shopping"></i>
         <span>Compras y Proveedores</span></a>
+</li>
+
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+<!-- Nav Item - Perfil de Usuario -->
+<li class="nav-item">
+    <a class="nav-link" href="?url=perfilAdm">
+        <i class="fas fa-user-circle"></i>
+        <span>Mi Perfil</span></a>
 </li>
 
 <!-- Divider -->
@@ -112,7 +120,7 @@
   <!-- Main Content -->
   <div id="content">
 
-    <!-- Topbar -->
+   <!-- Topbar -->
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
       <!-- Sidebar Toggle (Topbar) -->
@@ -123,15 +131,16 @@
       <!-- Topbar Navbar -->
       <ul class="navbar-nav ml-auto">
 
-        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+        <!-- Nav Item - Search Dropdown (Visible Only XS) 
         <li class="nav-item dropdown no-arrow d-sm-none">
           <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-search fa-fw"></i>
           </a>
-          <!-- Dropdown - Messages -->
+          <!-- Dropdown - Messages 
           <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-            aria-labelledby="searchDropdown">
+
+          aria-labelledby="searchDropdown">
             <form class="form-inline mr-auto w-100 navbar-search">
               <div class="input-group">
                 <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
@@ -145,147 +154,143 @@
             </form>
           </div>
         </li>
-
+        -->
         <!-- Nav Item - Alerts -->
-        <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-bell fa-fw"></i>
-            <!-- Counter - Alerts -->
-            <span class="badge badge-danger badge-counter">6+</span>
+            <span class="badge badge-danger badge-counter" id="unreadCount">0</span>
           </a>
-          <!-- Dropdown - Alerts Mensajes Globales -->
-          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-            aria-labelledby="alertsDropdown">
+          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="notificationDropdown">
             <h6 class="dropdown-header">
-              Mensajes Globlales
+              Centro de Alertas
             </h6>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="mr-3">
-                <div class="icon-circle bg-primary">
-                  <i class="fas fa-file-alt text-white"></i>
-                </div>
-              </div>
-              <div>
-                <div class="small text-gray-500">December 12, 2019</div>
-                <span class="font-weight-bold">Recuerden Formatear las Memorias</span>
-              </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="mr-3">
-                <div class="icon-circle bg-success">
-                  <i class="fas fa-donate text-white"></i>
-                </div>
-              </div>
-              <div>
-                <div class="small text-gray-500">December 7, 2019</div>
-                Recuerden Cargar las Baterias de las Camaras
-              </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="mr-3">
-                <div class="icon-circle bg-warning">
-                  <i class="fas fa-exclamation-triangle text-white"></i>
-                </div>
-              </div>
-              <div>
-                <div class="small text-gray-500">December 2, 2019</div>
-                Recuerden Cargar la Baterias de los Intercom
-              </div>
-            </a>
-            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-          </div>
-        </li>
-
-        <!-- Nav Item - Messages Mensajes Personales -->
-        <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-envelope fa-fw"></i>
-            <!-- Counter - Messages -->
-            <span class="badge badge-danger badge-counter">7</span>
-          </a>
-          <!-- Dropdown - Messages -->
-          <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-            aria-labelledby="messagesDropdown">
-            <h6 class="dropdown-header">
-              Centro de Mensajes
-            </h6>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="dropdown-list-image mr-3">
-                <img class="rounded-circle" src="Assets/img/cardenales.png" alt="...">
-                <div class="status-indicator bg-success"></div>
-              </div>
-              <div class="font-weight-bold">
-                <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been
-                  having.</div>
-                <div class="small text-gray-500">Emily Fowler · 58m</div>
-              </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="dropdown-list-image mr-3">
-                <img class="rounded-circle" src="Assets/img/cardenales.png" alt="...">
-                <div class="status-indicator"></div>
-              </div>
-              <div>
-                <div class="text-truncate">I have the photos that you ordered last month, how would you like them
-                  sent to you?</div>
-                <div class="small text-gray-500">Jae Chun · 1d</div>
-              </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="dropdown-list-image mr-3">
-                <img class="rounded-circle" src="Assets/img/cardenales.png" alt="...">
-                <div class="status-indicator bg-warning"></div>
-              </div>
-              <div>
-                <div class="text-truncate">Last month's report looks great, I am very happy with the progress so
-                  far, keep up the good work!</div>
-                <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-              </div>
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <div class="dropdown-list-image mr-3">
-                <img class="rounded-circle" src="Assets/img/cardenales.png" alt="...">
-                <div class="status-indicator bg-success"></div>
-              </div>
-              <div>
-                <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people
-                  say this to all dogs, even if they aren't good...</div>
-                <div class="small text-gray-500">Chicken the Dog · 2w</div>
-              </div>
-            </a>
-            <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+            <ul id="notificationList">
+              <li><a class="dropdown-item text-center">No new notifications</a></li>
+            </ul>
           </div>
         </li>
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
-        <li class="nav-item dropdown no-arrow">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Julio Rodriguez</span>
-            <img class="img-profile rounded-circle" src="Assets/img/cardenales.png">
-          </a>
-          <!-- Dropdown - User Information -->
-          <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">
-              <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Perfil
-            </a>
-            <a class="dropdown-item" href="#">
-              <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Configuraciones
-            </a>
-            <a class="dropdown-item" href="#">
-              <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity Log
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Salir
-            </a>
-          </div>
-        </li>
+      <li class="nav-item dropdown no-arrow">
+    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        
+        <div class="mr-2 d-none d-lg-inline text-gray-600 small text-right">
+            <span class="font-weight-bold">
+                <?php echo $_SESSION["usuario"]["Nombre_Empleado"] ?>
+            </span>
+            <br>
+            <span class="text-danger">
+                <?php echo strtoupper($_SESSION["usuario"]["id_cargo"]) ?>
+            </span>
+        </div>
+        
+        <img class="img-profile rounded-circle" src="Assets/img/cardenales.png" alt="Perfil">
+    </a>
+    
+    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+        <a class="dropdown-item" href="?url=perfilAdm">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Perfil
+        </a>
+        <a class="dropdown-item" href="#">
+            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Configuraciones
+        </a>
+        <a class="dropdown-item" href="#">
+            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity Log
+        </a>
+        <div class="dropdown-divider"></div>
+        
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Cerrar Sesión
+        </a>
+    </div>
+</li>    
 
       </ul>
+<form method="POST" action="?url=login" class="d-inline">
+  <button type="submit" name="logout" class="btn-logout-pulse">
+    <i class="fas fa-sign-out-alt mr-2"></i>
+    <span>Salir</span>
+    <span class="pulse-dot"></span>
+  </button>
+</form>
 
-    </nav>
+    </nav>
+  </form>
+
+  <script>
+					var conn = new WebSocket('ws://localhost:8080');
+
+					conn.onopen = function(){
+						console.log('WebSocket Connected!');
+					};
+
+					conn.onmessage = function(event){
+						var data = JSON.parse(event.data);
+						if(data.type === 'notification'){
+							updateNotificationDropdown(data.notifications);
+						}
+					};
+
+					function updateNotificationDropdown(notifications){
+						var notificationList = document.getElementById('notificationList');
+						var unreadBadge = document.getElementById('unreadCount');
+
+						notificationList.innerHTML = '';
+
+						if(notifications.length === 0){
+							notificationList.innerHTML = `<li><a class="dropdown-item text-center">No new notifications</a></li>`;
+							unreadBadge.style.display = 'none';
+							return;
+						}
+
+						let count = 0;
+
+						notifications.forEach(function(notification){
+
+							let li = document.createElement('li');
+							let a = document.createElement('a');
+
+							a.className = 'dropdown-item d-flex align-items-center';
+
+							a.href = '#';
+
+							a.innerHTML = `
+								<div class="dropdown-list-image mr-3">
+									<img class="rounded-circle" src="Assets/img/cardenales.png" alt="...">
+									<div class="status-indicator bg-success"></div>
+								</div>
+								<div>
+									<div class="text-truncate">${notification.Descripcion}</div>
+									<div class="small text-gray-500">${notification.Fecha_reclamo}</div>
+									<span class="font-weight-bold">${notification.Nombre_Empleado || notification.cedula_empleado}</span>
+								</div>
+							`;
+
+							if(notification.comment_status == 0){
+								console.log('test');
+								a.style.fontWeight = 'bold';
+								count++;
+							}
+
+							// Mark as read on click
+							a.onclick = function(){
+								markAsRead(notification.id_reclamo);
+							};
+
+							li.appendChild(a);
+							notificationList.appendChild(li);
+						});
+
+						unreadBadge.textContent = count;
+						unreadBadge.style.display = count > 0 ? "inline" : "none";
+					}
+
+					function markAsRead(reclamoId){
+						conn.send(JSON.stringify({ type : "mark_as_read", id_reclamo : reclamoId }));
+					}
+
+				</script>

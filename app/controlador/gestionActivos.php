@@ -1,4 +1,5 @@
 <?php
+require_once 'componentes/sesion.php';
 
 use App\modelo\gestionActivosModel;
 use App\modelo\TipoActivoModel;

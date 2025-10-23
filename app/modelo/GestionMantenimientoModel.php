@@ -2,10 +2,11 @@
 
 namespace App\Modelo;
 use App\conexion\conexion;
+use App\interfaces\laInterface;
 use PDO;
 use PDOException;
 
-class GestionMantenimientoModel extends conexion
+class GestionMantenimientoModel extends conexion 
 {
   private $ID_MTTO;
   private $Nombre_Activo;
@@ -134,4 +135,3 @@ function modificar($ID_MTTO)
 }
 ?>
 
-?>

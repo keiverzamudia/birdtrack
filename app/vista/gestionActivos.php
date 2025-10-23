@@ -217,7 +217,7 @@ require_once 'componentes/menu.php';
                     <tr>
                       <td> <?php echo $tipo['id_tipo_activo'] ?> </td>
                       <td> <?php echo $tipo['Nombre'] ?> </td>
-                      <td> <?php echo $tipo['Descripcion_tipo'] ?> </td>
+                      <td> <?php echo $tipo['Descripcion'] ?> </td>
                       <td>
                         <button type="button" class="btn btn-success btnEditarTipoActivo" title="Editar" type="button"
                           value="<?php echo $tipo['id_tipo_activo'] ?>">
