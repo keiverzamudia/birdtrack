@@ -1,0 +1,13 @@
+{
+    "name": "gestion/proyecto",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "cboden/ratchet": "^0.4.4"
+    }
+}
