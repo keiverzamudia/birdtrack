@@ -1,4 +1,5 @@
 <?php
+
 namespace App\modelo;
 // require_once 'app/conexion/conexion.php';
 use App\conexion\Conexion;
@@ -7,11 +8,11 @@ use PDO;
 use PDOException;
 
 
-class comprasModelo extends conexion 
+class comprasModelo extends conexion implements laInterface
 {
   private $id_compra;
-  private $cod_proveedor ;
-  private $cedula_empleado ;
+  private $cod_proveedor;
+  private $cedula_empleado;
   private $Detalle_Compra;
   private $Cantidad;
   private $Costo;
@@ -30,7 +31,7 @@ class comprasModelo extends conexion
     $this->cedula_empleado = $valor;
   }
   function set_Detalle_Compra($valor)
-  { 
+  {
     $this->Detalle_Compra = $valor;
   }
   function set_Costo($valor)
@@ -47,11 +48,30 @@ class comprasModelo extends conexion
   }
 
 
-
-
-
-function registrar()
+  public function validarDatos()
   {
+
+    return !empty($this->cod_proveedor) &&
+      !empty($this->cedula_empleado) &&
+      !empty($this->Detalle_Compra) &&
+      !empty($this->Cantidad) &&
+      !empty($this->Costo) &&
+      !empty($this->Fecha_Compra);
+  }
+  
+
+  public function confirmarRegistro()
+  {
+    return $this->registrar();
+  }
+
+  
+  private function registrar()
+  {
+    if (!$this->validarDatos()) {
+      return false;
+    }
+
     try {
       $sql = "INSERT INTO compra(cod_proveedor, cedula_empleado, Detalle_Compra, Cantidad, Costo,Fecha_Compra,status)
      VALUES( :cod_proveedor, :cedula_empleado, :Detalle_Compra,:Cantidad,:Costo,:Fecha_Compra,1)";
@@ -71,43 +91,16 @@ function registrar()
     }
   }
 
-
-
-  
-function consultar(){
-    try {                                //Agg el WHERE para Eliminacion logica
-      $sql = "SELECT compra.*, empleado.Nombre_Empleado AS Empleado, proveedor.Nombre_proveedor as Proveedor 
-      FROM compra
-      JOIN empleado ON compra.cedula_empleado = empleado.cedula_empleado
-      JOIN proveedor ON compra.cod_proveedor = proveedor.cod_proveedor
-      WHERE compra.status = 1";
-      $query = $this->conex->prepare($sql);
-      $query->execute();
-      return $query->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-      return null;
-    }
+  public function confirmarModificacion()
+  {
+    return $this->modificar();
   }
 
-
-  
-function buscar()
+   private function modificar()
   {
-    try {
-      $sql = "SELECT * FROM compra WHERE id_compra = :id_compra";
-      $query = $this->conex->prepare($sql);
-      $query->bindParam(':id_compra', $this->id_compra);
-      $query->execute();
-      return $query->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-      return null;
+   if (!$this->validarDatos()) {
+      return false;
     }
-  }
-
-
-
-function modificar($id_compra)
-  {
     try {
       $sql = "UPDATE compra
               SET  
@@ -122,9 +115,9 @@ function modificar($id_compra)
 
 
       $query = $this->conex->prepare($sql);
-      
-  
-      $query->bindParam(':id_compra', $id_compra);
+
+
+      $query->bindParam(':id_compra', $this->id_compra);
       $query->bindParam(':cod_proveedor', $this->cod_proveedor);
       $query->bindParam(':cedula_empleado', $this->cedula_empleado);
       $query->bindParam(':Detalle_Compra', $this->Detalle_Compra);
@@ -132,15 +125,13 @@ function modificar($id_compra)
       $query->bindParam(':Costo', $this->Costo);
       $query->bindParam(':Fecha_Compra', $this->Fecha_Compra);
 
-      $query->execute();
-
-
+      return $query->execute();
     } catch (PDOException $e) {
       error_log("Error SQL al editar compra: " . $e->getMessage());
-        return false;
+      return false;
+    }
   }
-  }
-  
+
 
 
   function eliminar()
@@ -157,37 +148,68 @@ function modificar($id_compra)
   }
 
 
-  function encargado(){
-  try {
-    $sql = "SELECT empleado.cedula_empleado, empleado.Nombre_Empleado AS Nombre
+
+  function consultar()
+  {
+    try {                                //Agg el WHERE para Eliminacion logica
+      $sql = "SELECT compra.*, empleado.Nombre_Empleado AS Empleado, proveedor.Nombre_proveedor as Proveedor 
+      FROM compra
+      JOIN empleado ON compra.cedula_empleado = empleado.cedula_empleado
+      JOIN proveedor ON compra.cod_proveedor = proveedor.cod_proveedor
+      WHERE compra.status = 1";
+      $query = $this->conex->prepare($sql);
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      return null;
+    }
+  }
+
+
+
+  function buscar()
+  {
+    try {
+      $sql = "SELECT * FROM compra WHERE id_compra = :id_compra";
+      $query = $this->conex->prepare($sql);
+      $query->bindParam(':id_compra', $this->id_compra);
+      $query->execute();
+      return $query->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      return null;
+    }
+  }
+
+
+
+
+  function encargado()
+  {
+    try {
+      $sql = "SELECT empleado.cedula_empleado, empleado.Nombre_Empleado AS Nombre
         FROM empleado
         WHERE empleado.id_cargo = 1;";
-    $query = $this->conex->prepare($sql);
-    $query->execute();
-    return $query->fetchAll(PDO::FETCH_ASSOC);
-  } catch (PDOException $e) {
-    return null;
+      $query = $this->conex->prepare($sql);
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      return null;
+    }
   }
-}
 
 
 
-function proveedor(){
-  try {
-    $sql = "SELECT proveedor.cod_proveedor, proveedor.Nombre_Proveedor AS Nombre
+  function proveedor()
+  {
+    try {
+      $sql = "SELECT proveedor.cod_proveedor, proveedor.Nombre_Proveedor AS Nombre
             FROM proveedor
             WHERE proveedor.Status = 1;";
-    $query = $this->conex->prepare($sql);
-    $query->execute();
-    return $query->fetchAll(PDO::FETCH_ASSOC);
-  } catch (PDOException $e) {
-    return null;
+      $query = $this->conex->prepare($sql);
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      return null;
+    }
   }
 }
-
-
-}
-
-
-
-

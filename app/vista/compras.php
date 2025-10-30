@@ -33,85 +33,30 @@ require_once 'componentes/menu.php';
   </button>
 
   <br><br>
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table table-hover table-striped text-center table-bordered">
-        <thead class="table-primary">
-          <tr>
-            <th>ID de Compra</th>
-            <th>Proveedor</th>
-            <th>Empleado</th>
-            <th>Detalle de Compra</th>
-            <th>Cantidad</th>
-            <th>Costo</th>
-            <th>Fecha de Compra</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <form method="POST">
-            <?php if (isset($compras)) {
-              foreach ($compras as $compra) { ?>
-                <tr>
-                  <td><?= $compra['id_compra'] ?></td>
-                  <td><?= $compra['Proveedor'] ?></td>
-                  <td><?= $compra['Empleado'] ?></td>
-                  <td><?= $compra['Detalle_Compra'] ?></td>
-                  <td><?= $compra['Cantidad'] ?></td>
-                  <td><?= $compra['Costo'] ?></td>
-                  <td><?= $compra['Fecha_Compra'] ?></td>
-                  <td>
+        <!--TABLA DE COMPRAS -->
 
-
-                    <button type="button" class="btn btn-success btn-editar-compra"  onsubmit="confirmarEditar()"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editarCompraModal"
-                                    data-id="<?= $compra['id_compra'] ?>"
-                                    data-cod="<?= $compra['cod_proveedor'] ?>"
-                                    data-empleado="<?= $compra['cedula_empleado'] ?>"
-                                    data-detalle="<?= $compra['Detalle_Compra'] ?>"
-                                    data-cantidad="<?= $compra['Cantidad'] ?>"
-                                    data-costo="<?= $compra['Costo'] ?>"
-                                    data-fecha="<?= $compra['Fecha_Compra'] ?>">
-                      <!-- ícono editar -->
-                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                               <path
-                   d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                              <path fill-rule="evenodd"
-                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                            </svg>
-                    </button>
-
-
-                    <button class="btn btn-danger btnEliminar" title="Eliminar" type="button" value="<?= $compra['id_compra'] ?>" data-bs-toggle="modal" data-bs-target="#eliminar">
-                      <!-- ícono borrar -->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-trash" viewBox="0 0 16 16">
-                      <path
-                      d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                      <path
-                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                    </button>
-
-
-                  </td>
-                </tr>
-              <?php }
-            } else { ?>
-              <tr>
-                <td colspan="8">
-                  <h2>No hay registros de compras aún :</h2>
-                </td>
-              </tr>
-            <?php } ?>
-          </form>
-        </tbody>
-      </table>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table  id="tablaCompra" class="table table-hover table-striped text-center table-bordered">
+          <thead class="table-primary">
+            <tr>
+              <th>ID de Compra</th>
+              <th>Proveedor</th>
+              <th>Empleado</th>
+              <th>Detalle de Compra</th>
+              <th>Cantidad</th>
+              <th>Costo</th>
+              <th>Fecha de Compra</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+          
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 
 
 
@@ -121,7 +66,7 @@ require_once 'componentes/menu.php';
 <div class="modal fade" id="realizar_compra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="POST">
+      <form method="POST" id="formRegistrarCompra">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Ingresar una nueva compra</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -164,8 +109,7 @@ require_once 'componentes/menu.php';
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-primary" name="enviar_compra" onsubmit="confirmarGuardar()">Enviar Compra</button>
-            
+          <button type="button" class="btn btn-primary btn-enviar" id="btnEnviar">Enviar Compra</button>
         </div>
       </form>
     </div>
@@ -257,8 +201,11 @@ require_once 'componentes/menu.php';
     </div>
   </div>
 
+
+  <script src="Assets/js/tablaCompra.js"></script> 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>            
 
 <?php require_once 'componentes/footer.php'; ?>
 
@@ -267,28 +214,6 @@ require_once 'componentes/menu.php';
 
 
 <script>
- 
-  $(document).ready(()=>{
-    $(".btnEliminar").each((index, element)=>{
-      $(element).on('click',(e)=>{
-        $('#btnEliminar').val($(e.target).closest('tr').find('td:eq(0)').text()) //encuentra la fila de la tabla donde se hizo clic.
-        $('#nombreEliminacion').text($(e.target).closest('tr').find('td:eq(1)').text()) //Dentro de esa fila, busca la segunda celda (<td>) (índice 1).
-      })
-    })
-
-    });
-   
-
-$(document).on('click', '.btn-editar-compra', function () {
-  $('#idCompraEdit').val($(this).data('id'));
-  $('#codProveedorEdit').val($(this).data('cod'));
-  $('#cedulaEmpleadoEdit').val($(this).data('empleado'));
-  $('#detalleCompraEdit').val($(this).data('detalle'));
-  $('#cantidadEdit').val($(this).data('cantidad'));
-  $('#costoEdit').val($(this).data('costo'));
-  $('#fechaCompraEdit').val($(this).data('fecha'));
-});
-  
 
   
 function confirmarEditar() {

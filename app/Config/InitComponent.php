@@ -1,30 +1,33 @@
 <?php
 if (!defined('_URL_')) {
-    die('Error: _URL_ constant is not defined. Please load ConfigSystem.php first.');
+    die('Error: URL constant is not defined. Please load ConfigSystem.php first.');
 }
 
-$varHeader = '<!-- Custom fonts for this template-->
-<link href="'._URL_.'assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+// HEADER: CSS y fonts (rutas correctas, uso de Assets y link rel)
+$varHeader = '<!-- Custom fonts for this template -->' . PHP_EOL
+    . '<link href="' . _URL_ . 'Assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">' . PHP_EOL
+    . '<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">' . PHP_EOL
+    // DataTables CSS (bootstrap integration)
+    . '<link href="' . _URL_ . 'Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">' . PHP_EOL
+    // Template CSS
+    . '<link href="' . _URL_ . 'Assets/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">' . PHP_EOL;
 
-<!-- Custom styles for this template-->
-<link href="'._URL_.'assets/css/sb-admin-2.min.css" rel="stylesheet">';
+// JS: jQuery primero, luego Bootstrap, plugins y scripts del template
+$varJs = '<!-- jQuery (debe ir primero) -->' . PHP_EOL
+    . '<script src="' . _URL_ . 'Assets/vendor/jquery/jquery.min.js"></script>' . PHP_EOL
+    // Bootstrap bundle (incluye Popper)
+    . '<script src="' . _URL_ . 'Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>' . PHP_EOL
+    // jQuery Easing (plugin usado por el template)
+    . '<script src="' . _URL_ . 'Assets/vendor/jquery-easing/jquery.easing.min.js"></script>' . PHP_EOL
+    // DataTables (jQuery plugin) y su integración con Bootstrap 4
+    . '<script src="' . _URL_ . 'Assets/vendor/datatables/jquery.dataTables.min.js"></script>' . PHP_EOL
+    . '<script src="' . _URL_ . 'Assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>' . PHP_EOL
+    // Core script del template
+    . '<script src="' . _URL_ . 'Assets/js/sb-admin-2.min.js"></script>' . PHP_EOL
+    // Chart.js (si se usa)
+    . '<script src="' . _URL_ . 'Assets/vendor/chart.js/Chart.min.js"></script>' . PHP_EOL
+    // Demos / page-level scripts (opcionales)
+    . '<script src="' . _URL_ . 'Assets/js/demo/chart-area-demo.js"></script>' . PHP_EOL
+    . '<script src="' . _URL_ . 'Assets/js/demo/chart-pie-demo.js"></script>' . PHP_EOL;
 
-$varJs = '<!-- Bootstrap core JavaScript-->
-<script src="'._URL_.'assets/vendor/jquery/jquery.min.js"></script>
-<script src="'._URL_.'assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="'._URL_.'assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="'._URL_.'assets/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="'._URL_.'assets/vendor/chart.js/Chart.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="'._URL_.'assets/js/demo/chart-area-demo.js"></script>
-<script src="'._URL_.'assets/js/demo/chart-pie-demo.js"></script>';
 ?>

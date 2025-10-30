@@ -16,20 +16,20 @@ require_once 'app/controlador/componentes/sesion.php';
     <meta name="author" content="">
 
     <title>BirdTrack</title>
-<?php echo $varHeader ?>
+    <?php echo $varHeader ?>
     <!-- Page level Iconos FontAwesome -->
 
-<script src="https://kit.fontawesome.com/44f0339233.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/44f0339233.js" crossorigin="anonymous"></script>
     <!-- Custom styles for this template-->
 
-  
-     
+    <?php echo $varJs ?>
+
     <link href="Assets/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
 
     <!-- Page Wrapper -->
-  <div id="wrapper" class="d-flex">
+    <div id="wrapper" class="d-flex">
 
    

@@ -17,9 +17,9 @@
 #### **3. Funcionalidades WebSocket:**
 
 **Envío de Reclamos:**
-- Los reclamos se envían via WebSocket en tiempo real
-- Se guardan directamente en la base de datos
-- Notificación inmediata a todos los usuarios conectados
+  - Los reclamos se envían via WebSocket en tiempo real
+  - Se guardan directamente en la base de datos
+  - Notificación inmediata a todos los usuarios conectados
 
 **Notificaciones en Tiempo Real:**
 - Alertas automáticas cuando llegan nuevos reclamos

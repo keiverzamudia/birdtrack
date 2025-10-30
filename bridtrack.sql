@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2025 a las 01:22:41
+-- Tiempo de generación: 26-10-2025 a las 01:38:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bridtrack`
 --
-CREATE DATABASE IF NOT EXISTS `bridtrack` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `bridtrack`;
 
 -- --------------------------------------------------------
 
@@ -88,6 +86,13 @@ CREATE TABLE `asignacion` (
   `Status` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `asignacion`
+--
+
+INSERT INTO `asignacion` (`id_asignacion`, `id_activo`, `cedula_empleado`, `Descripcion_Asignacion`, `Fecha_asignacion`, `Status`) VALUES
+(0, 1, 7432637, 'ACTIVO  ', '2025-10-25', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -137,6 +142,30 @@ INSERT INTO `comments` (`comment_id`, `comment_subject`, `comment_text`, `commen
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `compra`
+--
+
+CREATE TABLE `compra` (
+  `id_compra` int(11) NOT NULL,
+  `cod_proveedor` int(11) DEFAULT NULL,
+  `cedula_empleado` int(11) DEFAULT NULL,
+  `Detalle_Compra` text DEFAULT NULL,
+  `Cantidad` int(11) DEFAULT NULL,
+  `Costo` decimal(10,2) DEFAULT NULL,
+  `Fecha_Compra` date DEFAULT NULL,
+  `Status` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `compra`
+--
+
+INSERT INTO `compra` (`id_compra`, `cod_proveedor`, `cedula_empleado`, `Detalle_Compra`, `Cantidad`, `Costo`, `Fecha_Compra`, `Status`) VALUES
+(1, 1, 7432637, 'HOLAAA', 1, 1.00, '1111-11-11', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `departamento`
 --
 
@@ -155,7 +184,7 @@ INSERT INTO `departamento` (`id_departamento`, `Nombre_Departamento`, `Descripci
 (1, '  ITV ', '  International TV', 1),
 (2, 'Palco de Operaciones Cardenales', 'Palco De Operaciones Cardenales, Encargado de la proyección y sonido del estadio ', 1),
 (3, 'Mercadeo Cardenales', 'Mercadeo Trabaja con Toda la logistica y promocion del equipo', 1),
-(4, 'pepe', 'xcCS', 1);
+(4, 'Marketing', 'MTK', 1);
 
 -- --------------------------------------------------------
 
@@ -184,7 +213,8 @@ INSERT INTO `empleado` (`cedula_empleado`, `id_departamento`, `Nombre_Empleado`,
 (7432637, 1, 'Julio Rodriguez', 'jcdomo69@gmail.com', '', '2025-06-23', 1, '', 1),
 (25469224, 2, 'Keiver Zamudia', 'keiberzamudia14@gmail.com', '', '2025-06-23', 1, '', 1),
 (25894881, 1, 'Yolianna Angulo', 'yolianna14@gmail.com', '', '2025-06-26', 2, '', 1),
-(26480334, 1, 'daniel', 'mariaj334@gmail.com', '', '2025-10-07', 1, '', 1),
+(26357326, NULL, 'Genesis Acosta', 'gene@gmail.com', '', '2025-10-25', 1, '', 1),
+(26480334, 1, 'daniel', 'mariaj334@gmail.com', '', '2025-10-07', 1, '', 0),
 (31388643, 2, 'Edgardo Torrealba', 'edgardo@gmail.com', '87654321', '2025-10-20', 2, 'empleado', 1);
 
 -- --------------------------------------------------------
@@ -207,6 +237,7 @@ CREATE TABLE `proveedor` (
 --
 
 INSERT INTO `proveedor` (`cod_proveedor`, `Nombre_Proveedor`, `Direccion`, `Numero_telefono`, `Correo_elect`, `Status`) VALUES
+(0, 'Target ', ' 3401 N Miami Ave Suite 100, Miami, FL 33127, Estados Unidos', '17864370164', 'Press@target.com', 0),
 (1, 'Amazon', '410 Terry Ave. N., Seattle, WA 98109-5210', '', 'cs-reply@amazon.com', 1),
 (2, 'Ebay', '2025 Hamilton Avenue, San José, California 95125', '866-540-3229', 'customerhelp@ebay.com', 1);
 
@@ -230,7 +261,8 @@ CREATE TABLE `reclamo_activo` (
 --
 
 INSERT INTO `reclamo_activo` (`id_reclamo`, `cedula_empleado`, `id_activo`, `Descripcion`, `Fecha_reclamo`, `comment_status`) VALUES
-(1, 123456, 1, 'Aqui funciona todo', '2025-10-23', 1);
+(1, 123456, 1, 'Aqui funciona todo', '2025-10-23', 1),
+(2, 123456, 3, 'Segunda peticion buena', '2025-10-25', 0);
 
 -- --------------------------------------------------------
 
@@ -384,6 +416,14 @@ ALTER TABLE `comments`
   ADD PRIMARY KEY (`comment_id`);
 
 --
+-- Indices de la tabla `compra`
+--
+ALTER TABLE `compra`
+  ADD PRIMARY KEY (`id_compra`),
+  ADD KEY `proveedor_cod_prooveedor_compra` (`cod_proveedor`),
+  ADD KEY `cedula_empleado` (`cedula_empleado`);
+
+--
 -- Indices de la tabla `departamento`
 --
 ALTER TABLE `departamento`
@@ -422,10 +462,27 @@ ALTER TABLE `comments`
   MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT de la tabla `compra`
+--
+ALTER TABLE `compra`
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `reclamo_activo`
 --
 ALTER TABLE `reclamo_activo`
-  MODIFY `id_reclamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_reclamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `compra`
+--
+ALTER TABLE `compra`
+  ADD CONSTRAINT `cedula_empleado` FOREIGN KEY (`cedula_empleado`) REFERENCES `empleado` (`cedula_empleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `proveedor_cod_prooveedor_compra` FOREIGN KEY (`cod_proveedor`) REFERENCES `proveedor` (`cod_proveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

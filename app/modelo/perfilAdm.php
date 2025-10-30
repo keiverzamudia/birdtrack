@@ -66,7 +66,7 @@ class perfilAdm extends conexion {
             } else {
                 return null;
             }
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             return false;
         }
     }
@@ -91,7 +91,7 @@ class perfilAdm extends conexion {
             $query->bindParam(':id_usuario', $this->id_usuario);
 
             return $query->execute();
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             return false;
         }
     }
@@ -105,7 +105,7 @@ class perfilAdm extends conexion {
             $query->bindParam(':id_usuario', $this->id_usuario);
 
             return $query->execute();
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             return false;
         }
     }
@@ -127,7 +127,7 @@ class perfilAdm extends conexion {
 
             $result = $query->fetch(PDO::FETCH_ASSOC);
             return $result['count'] > 0;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             return false;
         }
     }
@@ -149,7 +149,7 @@ class perfilAdm extends conexion {
 
             $result = $query->fetch(PDO::FETCH_ASSOC);
             return $result['count'] > 0;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             return false;
         }
     }

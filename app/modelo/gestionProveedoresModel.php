@@ -7,12 +7,8 @@ use PDOException;
 
 
 
-class gestionProveedoresModel extends conexion {
+class gestionProveedoresModel extends conexion implements laInterface{
 
-  // Implementación del método consultar requerido por laInterface
-  public function consultar() {
-    return $this->consultarProveedor();
-  }
 
   private $cod_proveedor;
   private $Nombre_Proveedor;
@@ -41,8 +37,23 @@ class gestionProveedoresModel extends conexion {
     $this->Correo_elect = $valor;
   }
 
-  function consultarProveedor()
+
+public function validarDatos()
+{
+  return !empty($this->Nombre_Proveedor) &&
+         !empty($this->Direccion) &&
+         !empty($this->Numero_telefono) &&
+         !empty($this->Correo_elect);
+}
+  
+
+public function consultar() {
+    return $this->consultarProveedor();
+  }
+
+private function consultarProveedor()
   {
+    
     try {
       $sql = "SELECT * FROM proveedor WHERE status = 1";
       $query = $this->conex->prepare($sql);
@@ -53,8 +64,17 @@ class gestionProveedoresModel extends conexion {
     }
   }
 
-  function registrar()
+public function confirmarRegistro(){
+
+  return $this->registrar();  
+}
+
+ private function registrar()
   {
+    if (!$this->validarDatos()) {
+      return false;
+    }
+
     try {
       $sql = "INSERT INTO proveedor ( Nombre_Proveedor, Direccion, Numero_telefono, Correo_elect,status)
      VALUES(:Nombre_Proveedor, :Direccion, :Numero_telefono, :Correo_elect, 1)";
@@ -66,11 +86,15 @@ class gestionProveedoresModel extends conexion {
       $query->bindParam(':Correo_elect', $this->Correo_elect);
 
       return $query->execute();
+      
     } catch (PDOException $e) {
+      error_log("Error en registrar(): " . $e->getMessage());
       return false;
     }
   }
-  function eliminar()
+
+
+ public function eliminar()
   {
     try {
       // Eliminación lógica: solo cambia el status a 0
@@ -85,8 +109,16 @@ class gestionProveedoresModel extends conexion {
 
 
 
-  function modificar($cod_proveedor)
+
+public function confirmarModificacion(){
+  return $this->modificar();
+}
+
+ private function modificar()
   {
+    if (!$this->validarDatos()) {
+      return false;
+    }
     try {
       $sql = "UPDATE proveedor
         SET  Nombre_Proveedor = :Nombre_Proveedor,
@@ -103,7 +135,8 @@ class gestionProveedoresModel extends conexion {
       $query->bindParam(':Numero_telefono', $this->Numero_telefono);
       $query->bindParam(':Correo_elect', $this->Correo_elect);
       $query->bindParam(':cod_proveedor', $this->cod_proveedor);
-      $query->execute();
+  // Execute and return the boolean result so callers can check success/failu re
+      return $query->execute();
 
     } catch (PDOException $e) {
       return false;
